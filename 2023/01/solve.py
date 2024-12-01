@@ -42,6 +42,7 @@ def solve_p2(lst):
         res += m
         continue
       res += dct[m]
+    print(res)
     yield int(res)
       
 p1_solution = sum(solve_p1(words))
