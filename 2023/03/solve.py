@@ -1,0 +1,7 @@
+import pathlib
+
+INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
+
+def read():
+  yield from input_file.read_text().splitlines()
+
