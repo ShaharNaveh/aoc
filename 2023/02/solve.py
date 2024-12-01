@@ -25,7 +25,7 @@ def parse_game_line(line: str):
   return game
 
 def is_game_possible(game) -> bool:
-  cubes_dict = game.values()
+  cubes_dict = next(game.values())
   for color, cubes in cubes_dict.items():
     if max(cubes) > CUBE_LIMIT[color]:
       return False
