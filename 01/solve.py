@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import pathlib
 
-def get_distances(it1, it2):
-  for d1, d2 in zip(sorted(it1), sorted(it2)):
+def calc_distance(lst1, lst2):
+  for d1, d2 in zip(sorted(lst1), sorted(lst2)):
       yield abs(d1 - d2)
     
 DATA_FILE = pathlib.Path(__file__).parent / "data.txt"
@@ -22,5 +22,15 @@ for line in lines:
 l_lst = list(map(int, l_lst))
 r_lst = list(map(int, r_lst))
 
-p1_res = sum(get_distances(l_lst, r_lst))
+p1_res = sum(calc_distance(l_lst, r_lst))
 print(f"Part 1 result:\n{p1_res}")
+
+def calc_similarity(lst1, lst2):
+  j_lst = lst1 + lst2 
+  uniq = set(j_lst)
+  for num in uniq:
+    count = j_lst(num)
+    yield num ** (count - 1)
+
+p2_res = sum(calc_similarly(l_lst, r_lst))
+print(f"Part 2 result:\n{p2_res}")
