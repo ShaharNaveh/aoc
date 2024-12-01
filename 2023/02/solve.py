@@ -34,7 +34,7 @@ def is_game_possible(game) -> bool:
 
 def solve_p1(games):
   for game in filter(is_game_possible, games):
-    yield game["id"]
+    yield next(iter(game.keys()))
   
   
 games = list(map(parse_game_line, lines))
