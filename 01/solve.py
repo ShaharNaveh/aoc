@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import pathlib
 
+def get_distances(it1, it2):
+  for d1, d2 in zip(it1, it2):
+      yield abs(d1 - d2)
+    
 DATA_FILE = pathlib.Path(__file__).parent / "data.txt"
 
 with DATA_FILE.open() as fd:
@@ -15,10 +19,8 @@ for line in lines:
   lst1.append(item1)
   lst2.append(item2)
 
-lst1 = map(int, lst1)
-lst2 = map(int, lst2)
+it1 = sorted(map(int, lst1))
+it2 = sorted(map(int, lst2))
 
-for a in sorted(lst1):
-  print(a)
-  print(type(a))
-  break
+res = sum(get_distances(it1, it2))
+print(res)
