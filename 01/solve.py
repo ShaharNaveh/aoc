@@ -19,8 +19,8 @@ for line in lines:
   l_lst.append(l_item)
   r_lst.append(r_item)
 
-l_it = map(int, l_lst)
-r_it = map(int, r_lst)
+l_lst = list(map(int, l_lst))
+r_lst = list(map(int, r_lst))
 
-p1_res = sum(get_distances(sorted(it1), sorted(it2)))
+p1_res = sum(get_distances(l_lst, r_lst))
 print(f"Part 1 result:\n{p1_res}")
