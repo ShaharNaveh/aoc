@@ -16,6 +16,7 @@ for line in lines:
   lst2.append(item2)
 
 lst1 = map(int, lst1)
+lst2 = map(int, lst2)
 
 for a in sorted(lst1):
   print(a)
