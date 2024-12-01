@@ -44,9 +44,10 @@ def max_cubes_color(game):
     
 def solve_p2(games):
   for game in games:
-    yield "a"
+    r, g, b = max_cubes_color(game)
+    yield r ** g ** b
     
 games = list(map(parse_game_line, lines))
 
-p1_solution = sum(solve_p1(games))
-print(p1_solution)
+print(sum(solve_p1(games)))
+print(sum(solve_p2(games)))
