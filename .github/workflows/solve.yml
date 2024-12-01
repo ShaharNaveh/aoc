@@ -7,6 +7,7 @@ jobs:
   tmp:
     permissions:
       contents: write
+      
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
       - name: reset
-        run: git reset --hard 098edf88b7c208332bc6130115333059382c5bfe
+        run: git checkout 098edf88b7c208332bc6130115333059382c5bfe 01/
         
       - name: a
         run: |
