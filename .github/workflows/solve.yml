@@ -1,0 +1,21 @@
+name: Solve
+
+on:
+  workflow_dispatch:
+
+jobs:
+  solve:
+    runs-on: ubuntu-latest
+    env:
+      DAY: '01'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            ${{ env.DAY }}/
+
+      - name: Solve
+        run: python ./${{ env.DAY }}/solve.py
+    
+    
