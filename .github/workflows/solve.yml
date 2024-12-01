@@ -4,12 +4,37 @@ on:
   workflow_dispatch:
 
 jobs:
+  tmp:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: a
+        run: |
+          mkdir 2024/
+          mv 01/ 2024/
+
+
+      - name: Configure git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+         
+      - name: push
+        run: |
+          git commit -am "move to folder"
+          git push origin main
+
   solve:
+    needs:
+      - tmp
     runs-on: ubuntu-latest
     env:
       DAY: '01'
 
     steps:
+    
       - uses: actions/checkout@v4
         with:
           sparse-checkout: |
