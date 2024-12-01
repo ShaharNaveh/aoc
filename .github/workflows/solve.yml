@@ -4,53 +4,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  tmp:
-    permissions:
-      contents: write
-      
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Configure git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-      - name: reset
-        run: git checkout 098edf88b7c208332bc6130115333059382c5bfe 01/
-        
-      - name: a
-        run: |
-          ls -Alh
-          mkdir 2024/
-          mv 01/ 2024/
-          ls -Alh
-          ls -Alh 2024/
-          
-      - name: push
-        run: |
-          git add .
-          git commit -m "move to folder"
-          git push origin main --force
-
   solve:
-    needs:
-      - tmp
     runs-on: ubuntu-latest
     env:
+      YEAR: '2024'
       DAY: '01'
-
-    steps:
-    
-      - uses: actions/checkout@v4
+    steps:   
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            ${{ env.DAY }}/
+            ${{ env.YEAR}}/${{ env.DAY }}/
 
       - name: Solve
-        run: python ./${{ env.DAY }}/solve.py
+        run: python ./${{env.YEAR }}/${{ env.DAY }}/solve.py
     
     
