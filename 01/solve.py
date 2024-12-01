@@ -13,6 +13,6 @@ for line in lines:
   line = line.strip()
   
   print(line)
-  print(line.split(" " * 2))
+  print(line.split(" " * 3))
   print(line.split("\t"))
   break
