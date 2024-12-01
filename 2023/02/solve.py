@@ -8,6 +8,12 @@ with DATA_FILE.open() as fd:
   
 lines = map(str.strip, data)
 
+CUBE_LIMIT = {
+  "red": 12,
+  "green": 13,
+  "blue": 14,
+}
+
 def parse_game_line(line: str):
   game_id = int(re.findall("Game (\d+)", line)[0])
   game = {game_id: {}}
@@ -20,5 +26,17 @@ def parse_game_line(line: str):
 
 def is_game_possible(game) -> bool:
   cubes_dict = game.values()
+  for color, cubes in cubes_dict.items():
+    if max(cubes) > CUBE_LIMIT[color]:
+      return False
+  return True
+
+def solve_p1(games):
+  for game in filter(is_game_possible, games):
+    yield game["id"]
   
-games = map(parse_game_line, lines)
+  
+games = list(map(parse_game_line, lines))
+
+p1_solution = sum(solve_p1(games))
+print(p1_solution)
