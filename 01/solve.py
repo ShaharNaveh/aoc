@@ -28,7 +28,7 @@ print(f"Part 1 result:\n{p1_res}")
 def calc_similarity(lst1, lst2):
   for num in lst1:
     count = lst2.count(num)
-    yield num ** count
+    yield num * count
 
 p2_res = sum(calc_similarity(l_lst, r_lst))
 print(f"Part 2 result:\n{p2_res}")
