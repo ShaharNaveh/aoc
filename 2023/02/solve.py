@@ -6,7 +6,7 @@ DATA_FILE = pathlib.Path(__file__).parent / "data.txt"
 with DATA_FILE.open() as fd:
   lines = fd.readlines()
   
-lines = map(str.strip, data)
+lines = map(str.strip, lines)
 
 CUBE_LIMIT = {
   "red": 12,
