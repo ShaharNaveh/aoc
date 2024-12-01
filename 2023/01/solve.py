@@ -13,7 +13,7 @@ def solve_p1(lst):
   for word in lst:
     found = re.findall(r, word)
     res = found[0] + found[-1]
-    yield into(res)
+    yield int(res)
 
 p1_solution = sum(solve_p1(words))
 print(p1_solution)
