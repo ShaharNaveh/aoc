@@ -29,7 +29,7 @@ def calc_similarity(lst1, lst2):
   j_lst = lst1 + lst2 
   uniq = set(j_lst)
   for num in uniq:
-    count = j_lst(num)
+    count = j_lst.count(num)
     yield num ** (count - 1)
 
 p2_res = sum(calc_similarly(l_lst, r_lst))
