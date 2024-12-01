@@ -45,7 +45,7 @@ def max_cubes_color(game):
 def solve_p2(games):
   for game in games:
     r, g, b = max_cubes_color(game)
-    yield r ** g ** b
+    yield r * g * b
     
 games = list(map(parse_game_line, lines))
 
