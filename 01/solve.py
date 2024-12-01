@@ -11,8 +11,13 @@ lst2 = []
 
 for line in lines:
   line = line.strip()
-  
-  print(line)
-  print(line.split(" " * 3))
-  print(line.split("\t"))
+  item1, item2 = line.split(" " * 3)
+  lst1.append(item1)
+  lst2.append(item2)
+
+lst1 = map(int, lst1)
+
+for a in sorted(lst1):
+  print(a)
+  print(type(a))
   break
