@@ -26,11 +26,9 @@ p1_res = sum(calc_distance(l_lst, r_lst))
 print(f"Part 1 result:\n{p1_res}")
 
 def calc_similarity(lst1, lst2):
-  j_lst = lst1 + lst2 
-  uniq = set(j_lst)
-  for num in uniq:
-    count = j_lst.count(num)
-    yield num ** (count - 1)
+  for num in lst1:
+    count = lst2.count(num)
+    yield num ** count
 
 p2_res = sum(calc_similarity(l_lst, r_lst))
 print(f"Part 2 result:\n{p2_res}")
