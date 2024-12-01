@@ -29,7 +29,7 @@ def solve_p2(lst):
     "nine": "9"
   }
   joined="|".join(dct)
-  expr = fr"(\d|{joined})"
+  expr = fr"(?=(\d|{joined}))"
   r = re.compile(expr)
 
   for word in lst:
