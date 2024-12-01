@@ -35,8 +35,17 @@ def is_game_possible(game) -> bool:
 def solve_p1(games):
   for game in filter(is_game_possible, games):
     yield next(iter(game.keys()))
-  
-  
+    
+def max_cubes_color(game):
+  cubes_dict = next(iter(game.values()))
+  for cubes in cubes_dict.values():
+    yield max(cubes)
+
+    
+def solve_p2(games):
+  for game in games:
+    yield "a"
+    
 games = list(map(parse_game_line, lines))
 
 p1_solution = sum(solve_p1(games))
