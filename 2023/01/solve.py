@@ -36,13 +36,11 @@ def solve_p2(lst):
     found = re.findall(r, word)
   #  print(word)
     #print(found)
-    if len(found) == 1:
-      yield int(found[0])
-      continue
       
     res = ""
     for m in (found[0], found[-1]):
       if m.isdigit():
+        print(m)
         res += m
         continue
       res += dct[m]
