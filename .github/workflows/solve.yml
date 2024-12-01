@@ -2,21 +2,39 @@ name: Solve
 
 on:
   workflow_dispatch:
-
+    inputs:
+      day:
+        description: 'Day'
+        required: true
+        default: '01'
+        type: choice
+        options:
+          - '03'
+          - '02'
+          - '01'
+      year:
+        description: 'Year'
+        required: true
+        default: '2024'
+        type: choice
+        options:
+          - '2024'
+          - '2023'
 jobs:
   solve:
     runs-on: ubuntu-latest
-    env:
-      YEAR: '2024'
-      DAY: '01'
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./${{ inputs.year }}/${{ inputs.day }}
     steps:   
       - name: Checkout
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            ${{ env.YEAR}}/${{ env.DAY }}/
+            ${{ inputs.year }}/${{ inputs.day }}/
 
       - name: Solve
-        run: python ./${{env.YEAR }}/${{ env.DAY }}/solve.py
+        run: python ./solve.py
     
     
