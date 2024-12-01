@@ -2,7 +2,7 @@
 import pathlib
 
 def get_distances(it1, it2):
-  for d1, d2 in zip(it1, it2):
+  for d1, d2 in zip(sorted(it1), sorted(it2)):
       yield abs(d1 - d2)
     
 DATA_FILE = pathlib.Path(__file__).parent / "data.txt"
@@ -10,17 +10,17 @@ DATA_FILE = pathlib.Path(__file__).parent / "data.txt"
 with DATA_FILE.open() as fd:
   lines = fd.readlines()
 
-lst1 = []
-lst2 = []
+l_lst = []
+r_lst = []
 
 for line in lines:
   line = line.strip()
-  item1, item2 = line.split(" " * 3)
-  lst1.append(item1)
-  lst2.append(item2)
+  l_item, r_item = line.split(" " * 3)
+  l_lst.append(l_item)
+  r_lst.append(r_item)
 
-it1 = sorted(map(int, lst1))
-it2 = sorted(map(int, lst2))
+l_it = map(int, l_lst)
+r_it = map(int, r_lst)
 
-res = sum(get_distances(it1, it2))
-print(res)
+p1_res = sum(get_distances(sorted(it1), sorted(it2)))
+print(f"Part 1 result:\n{p1_res}")
