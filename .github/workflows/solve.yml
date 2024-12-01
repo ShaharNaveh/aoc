@@ -26,6 +26,8 @@ jobs:
           ls -Alh
           mkdir 2024/
           mv 01/ 2024/
+          ls -Alh
+          ls -Alh 2024/
           
       - name: push
         run: |
