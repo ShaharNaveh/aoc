@@ -17,7 +17,7 @@ def solve_p1(lst):
 
 def solve_p2(lst):
   dct = {
-    "zero": "0",
+#    "zero": "0",
     "one": "1",
     "two": "2",
     "three": "3",
