@@ -34,7 +34,10 @@ def solve_p2(lst):
 
   for word in lst:
     found = re.findall(r, word)
-    first, *_, last = found
+    if len(found) > 1:
+      first, *_, last = found
+    else:
+      first = last = found[0]
     res = dct.get(first, first) + dct.get(last, last)
     yield int(res)
       
