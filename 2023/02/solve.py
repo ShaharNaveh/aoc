@@ -20,6 +20,7 @@ def parse_game_line(line: str):
   
   for color in ("red", "green", "blue"):
     cubes = re.findall(fr"(\d+) {color}", line)
+    cubes = list(map(int, cubes))
     game[game_id][color] = cubes
     
   return game
