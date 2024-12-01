@@ -32,5 +32,5 @@ def calc_similarity(lst1, lst2):
     count = j_lst.count(num)
     yield num ** (count - 1)
 
-p2_res = sum(calc_similarly(l_lst, r_lst))
+p2_res = sum(calc_similarity(l_lst, r_lst))
 print(f"Part 2 result:\n{p2_res}")
