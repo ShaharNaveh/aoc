@@ -34,15 +34,19 @@ def solve_p2(lst):
 
   for word in lst:
     found = re.findall(r, word)
-    print(word)
-    print(found)
+  #  print(word)
+    #print(found)
+    if len(found) == 1:
+      yield int(found[0])
+      continue
+      
     res = ""
     for m in (found[0], found[-1]):
       if m.isdigit():
         res += m
         continue
       res += dct[m]
-    print(res)
+   # print(res)
     yield int(res)
       
 p1_solution = sum(solve_p1(words))
