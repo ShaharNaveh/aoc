@@ -6,23 +6,27 @@ on:
       day:
         description: 'Day'
         required: true
-        default: '02'
+        default: '05'
         type: choice
         options:
-          - '06'
-          - '05'
-          - '04'
-          - '03'
-          - '02'
           - '01'
+          - '02'
+          - '03'
+          - '04'
+          - '05'
+          - '06'
+          - '07'
+          - '08'
+          - '09'
+          - '10'
       year:
         description: 'Year'
         required: true
-        default: '2024'
+        default: '2023'
         type: choice
         options:
-          - '2024'
           - '2023'
+          - '2024'
 jobs:
   solve:
     runs-on: ubuntu-latest
