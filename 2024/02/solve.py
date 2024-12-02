@@ -20,5 +20,5 @@ def is_safe(level):
       return False
   return True
 
-
+print(sum(map(is_safe, levels)))
     
