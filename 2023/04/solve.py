@@ -34,13 +34,8 @@ def calc_won_points(card):
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
-  
-cards = list(map(parse_line, data))
 
-print(sum(solve_p1(cards)))
-
-'''
-inp = """
+test_inp = """
 Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
 Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
@@ -49,7 +44,13 @@ Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 """.strip().splitlines()
 
-tmp = list(map(parse_line, inp))
+test_cards = list(map(parse_line, test_inp))
 
-print(sum(solve_p1(tmp)))
-'''
+test_res = sum(solve_p1(test_cards))
+print(f"{test_res=}")
+
+cards = list(map(parse_line, data))
+
+print(sum(solve_p1(cards)))
+
+
