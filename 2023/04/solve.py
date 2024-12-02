@@ -40,7 +40,7 @@ def won_cards(card, *, cards):
 def solve_p2(cards):
   cards = {k: v for dct in cards for k, v in dct.items()}           
   for card_id in cards:
-    yield from won_cards(card, cards=cards)
+    yield from won_cards(cards[card_id], cards=cards)
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
