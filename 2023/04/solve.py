@@ -23,6 +23,12 @@ def calc_won_points(card):
   count = len(overlap)   
   mul = min(count, 2)
   res = count * mul
+
+  print(winning)
+  print(have)
+  print(count)
+  print(mul)
+  print(res)
   
   return res
   
@@ -31,7 +37,7 @@ def solve_p1(cards):
   
 cards = list(map(parse_line, data))
 
-print(sum(solve_p1(cards)))
+#print(sum(solve_p1(cards)))
 
 inp = """
 Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
