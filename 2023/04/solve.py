@@ -1,7 +1,4 @@
 import pathlib
-import sys
-
-sys.setrecursionlimit(100_000_000)
 
 INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
@@ -41,10 +38,13 @@ def won_cards(card, *, cards):
     yield from won_cards(card={card_id: cards[card_id]}, cards=cards)
   
 def solve_p2(cards):
-  cards = {k: v for dct in cards for k, v in dct.items()}           
-  for card_id, values in cards.items():
-    card = {card_id: dict(values)}
-    yield from won_cards(card, cards=cards)
+  # yield len(cards)
+  counter = [1] * len(cards)
+  for i, card in enumerate(cards):
+    count = matches_count(card)
+    for num in range(count):
+      counter[i + num + 1] = counter[i]
+  return sum(counter)
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
@@ -66,6 +66,6 @@ test_cards = list(map(parse_line, test_inp))
 cards = list(map(parse_line, data))
 
 print(sum(solve_p1(cards)))
-print(sum(solve_p2(cards)))
+print(solve_p2(cards))
 
 
