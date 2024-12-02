@@ -26,6 +26,8 @@ soil-to-fertilizer map:
 
 import re
 
-reg = re.compile(r"^(.+?)\n+((?:\d+)+)", re.MULTILINE)
-for m in reg.finditer(test_inp):
-  print(m)
+pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<numbers>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
+
+for m in pattern.finditer(test_inp):
+  print(m.groups())
+  print("#" * 10)
