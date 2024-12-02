@@ -1,3 +1,4 @@
+import operator
 import pathlib
 
 inp_file = pathlib.Path(__file__).parent / "input.txt"
@@ -19,6 +20,15 @@ def is_safe(level):
     if diff > 3:
       return False
   return True
-
+  
+def p2(levels):
+  for level in levels:
+    for idx in range(len(level)):
+      lvl = level[:idx] + level[idx+1:]
+      if is_safe(lvl):
+        yield 1
+        break
+    
 print(sum(map(is_safe, levels)))
     
+print(sum(p2(levels)))
