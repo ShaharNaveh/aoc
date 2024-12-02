@@ -1,4 +1,7 @@
 import pathlib
+import sys
+
+sys.setrecursionlimit(10_000)
 
 INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
