@@ -44,7 +44,7 @@ def p2():
     for c_idx, char in enumerate(row):
       if char != "*":
         continue
-      digits_pos = set() # stores the pos of digits 
+      cords = set()
       # No we have a symbol
       for cur_row in (r_idx - 1, r_idx, r_idx + 1):
         for cur_col in (c_idx - 1, c_idx, c_idx + 1):
@@ -61,10 +61,14 @@ def p2():
           while cur_col > 0 and grid[cur_row][cur_col - 1].isdigit():
             cur_col -= 1
 
-          digits_pos.add((cur_row, cur_col))
+          cords.add((cur_row, cur_col))
+
+
+      if len(cords) != 2:
+        continue
  
-  lst = []
-    for crow, ccol in digits_pos:
+    lst = []
+    for crow, ccol in cords:
       s = ""
       while col < len(grid[crow]) and grid[crow][ccol].isdigit():
         s += grid[crow][ccol]
