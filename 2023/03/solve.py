@@ -1,9 +1,9 @@
 import pathlib
 
+def read(path: pathlib.Path):
+  yield from path.read_text().splitlines()
+  
 INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
-def read():
-  yield from input_file.read_text().splitlines()
-
-schematic = [cell for cells in read() for cell in cells.split('')]
+schematic = [cell for cells in read(INPUT_PATH) for cell in cells.split('')]
 print(schematic)
