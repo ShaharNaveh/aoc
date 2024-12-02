@@ -29,6 +29,12 @@ def matches_count(card):
   overlap = winning & have
   count = len(overlap)
   return count
+
+def solve_p2(cards):
+ cards = {k: v for dct in cards for k, v in dct.items()}           
+ for card_id, values in cards.items():
+    yield 1
+    yield from won_cards(card, cards=cards)
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
@@ -48,6 +54,7 @@ test_cards = list(map(parse_line, test_inp))
 #print(f"{test_res=}")
 
 cards = list(map(parse_line, data))
+
 print(sum(solve_p1(cards)))
 
 
