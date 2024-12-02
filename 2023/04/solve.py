@@ -26,10 +26,7 @@ def calc_won_points(card):
   elif count in (1, 2):
     return count
   
-  res = 1
-  for _ in range(count + 1):
-    res *= 2
-  return res
+  return 2 ** (count - 1)
     
   
 def solve_p1(cards):
