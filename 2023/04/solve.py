@@ -9,7 +9,7 @@ def parse_line(line):
   card_id = int(title.strip().split(" ")[-1])
 
   winning, have = numbers.strip().split("|")
-  parse_numbers = lambda n: [int(x) for x in n.strip().split(" ") if x.strip() != ""]
+  parse_numbers = lambda n: {int(x) for x in n.strip().split(" ") if x.strip() != ""}
   winning = parse_numbers(winning)
   have = parse_numbers(have)
   entry = {card_id: {"winning": winning, "have": have}}
@@ -18,11 +18,9 @@ def parse_line(line):
 def calc_won_points(card):
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
-  assert len(winning) == len(set(winning))
-  assert len(have) == len(set(have))
   count = 0
-  for num in have:
-    if num in winning:
+  for num in winning:
+    if num in have:
       count += 1
       
   mul = min(count, 2)
