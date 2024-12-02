@@ -5,8 +5,8 @@ INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 data = INPUT_FILE.read_text().splitlines()
 
 def parse_line(line):
-  title, numbers = line.split(":")
-  card_id = int(title.split(" ")[1])
+  title, numbers = line.strip().split(":")
+  card_id = int(title.strip().split(" ")[1])
 
   winning, have = numbers.strip().split("|")
   parse_numbers = lambda n: [int(x) for x in n.strip().split(" ") if x.strip() != ""]
