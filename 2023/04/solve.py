@@ -39,7 +39,8 @@ def won_cards(card, *, cards):
   
 def solve_p2(cards):
   cards = {k: v for dct in cards for k, v in dct.items()}           
-  for card_id in cards:
+  for card_id, values in cards:
+    card = {card_id: dict(values)}
     yield from won_cards(cards[card_id], cards=cards)
   
 def solve_p1(cards):
