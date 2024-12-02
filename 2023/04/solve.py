@@ -16,11 +16,9 @@ def parse_line(line):
   return entry
 
 def calc_won_points(card):
-  count = matches_count(card)
-  
+  count = matches_count(card)  
   if count == 0:
-    return 0
-  
+    return 0 
   return 2 ** (count - 1)
 
 def matches_count(card):
@@ -29,10 +27,19 @@ def matches_count(card):
   overlap = winning & have
   count = len(overlap)
   return count
+  
+def won_cards(card, *, cards):
+  yield 1
+  count = matches_count(card)
+  if count == 0:
+    return
 
+  for card_id in range(count, count+1):
+    won_cards(cards[card_id], cards=cards)
+  
 def solve_p2(cards):
   cards = {k: v for dct in cards for k, v in dct.items()}           
-  for card_id, values in cards.items():
+  for card_id in cards:
     yield from won_cards(card, cards=cards)
   
 def solve_p1(cards):
@@ -55,5 +62,6 @@ test_cards = list(map(parse_line, test_inp))
 cards = list(map(parse_line, data))
 
 print(sum(solve_p1(cards)))
+print(sum(solve_p2(cards)))
 
 
