@@ -2,7 +2,7 @@ import pathlib
 
 INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
-grid = INOUT_FILE.read_text().splitlines()
+grid = INPUT_FILE.read_text().splitlines()
 
 symbol_pos = set()
 
