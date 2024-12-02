@@ -6,9 +6,10 @@ on:
       day:
         description: 'Day'
         required: true
-        default: '04'
+        default: '02'
         type: choice
         options:
+          - '06'
           - '05'
           - '04'
           - '03'
@@ -17,7 +18,7 @@ on:
       year:
         description: 'Year'
         required: true
-        default: '2023'
+        default: '2024'
         type: choice
         options:
           - '2024'
