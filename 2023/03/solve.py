@@ -32,7 +32,7 @@ def p1():
   lst = []
   for row, col in digits_pos:
     s = ""
-    while ccol < len(grid[row]) and grid[row][col].isdigit():
+    while col < len(grid[row]) and grid[row][col].isdigit():
       s += grid[row][col]
       col += 1
     lst.append(int(s))
