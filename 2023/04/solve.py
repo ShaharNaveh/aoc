@@ -26,14 +26,7 @@ def calc_won_points(card):
   if count > 2:
     mul = 2
   
-  res = count * mul
-
-  print(winning)
-  print(have)
-  print(count)
-  print(mul)
-  print(res)
-  
+  res = count * mul  
   return res
   
 def solve_p1(cards):
@@ -41,8 +34,9 @@ def solve_p1(cards):
   
 cards = list(map(parse_line, data))
 
-#print(sum(solve_p1(cards)))
+print(sum(solve_p1(cards)))
 
+'''
 inp = """
 Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
@@ -55,3 +49,4 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 tmp = list(map(parse_line, inp))
 
 print(sum(solve_p1(tmp)))
+'''
