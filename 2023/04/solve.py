@@ -27,7 +27,7 @@ def calc_won_points(card):
     return count
   
   res = 1
-  for _ in range(count):
+  for _ in range(count + 1):
     res *= 2
   return res
     
