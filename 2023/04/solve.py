@@ -21,7 +21,11 @@ def calc_won_points(card):
   
   overlap = winning & have
   count = len(overlap)
-  mul = max(1, min(count, 2))
+  mul = 1
+  
+  if count > 2:
+    mul = 2
+  
   res = count * mul
 
   print(winning)
