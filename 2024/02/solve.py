@@ -6,7 +6,7 @@ data = inp_file.read_text().splitlines()
 
 levels = [list(map(int, line.split(" "))) for line in data]
 
-def p1(level):
+def is_safe(level):
   slevel = sorted(level)
   if not ((level == slevel) or (level == sorted(level, reverse=True))):
     return False
@@ -20,5 +20,5 @@ def p1(level):
       return False
   return True
 
-print(sum(map(p1, levels)))
+print(sum(map(is_safe, levels)))
     
