@@ -23,7 +23,7 @@ def neighbors(x, y, *, size):
       if not (0 <= y2 <= y_bound):
         continue
 
-      yield (x, y)
+      yield (x2, y2)
 
       
     
