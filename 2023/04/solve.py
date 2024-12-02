@@ -18,19 +18,10 @@ def parse_line(line):
 def calc_won_points(card):
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
-  if len(winning) != len(set(winning)):
-    raise ValueError("winning")
-  if len(have) != len(set(have)):
-    raise ValueError("have")
-  #overlap = winning & have
-  #count = len(overlap)
-  count = 0
-  for num in winning:
-    if num in have:
-      count += 1
-      
-  mul = 1
-  
+  overlap = set(winning) & set(have)
+  print(overlap)
+  count = len(overlap)      
+  mul = 1  
   if count > 2:
     mul = 2
   
