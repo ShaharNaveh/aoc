@@ -70,7 +70,7 @@ def p2():
       lst = []
       for crow, ccol in cords:
         s = ""
-        while col < len(grid[crow]) and grid[crow][ccol].isdigit():
+        while ccol < len(grid[crow]) and grid[crow][ccol].isdigit():
           s += grid[crow][ccol]
           ccol += 1
         lst.append(int(s))
