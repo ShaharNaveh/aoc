@@ -18,6 +18,8 @@ def parse_line(line):
 def calc_won_points(card):
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
+  assert len(winning) == len(set(winning))
+  assert len(have) == len(set(have))
   count = 0
   for num in have:
     if num in winning:
@@ -25,12 +27,6 @@ def calc_won_points(card):
       
   mul = min(count, 2)
   res = count * mul 
-  print(have)
-  print(winning)
-  print(mul)
-  print(res)
-  print("\n" * 3)
-  print("#" * 10)
   return res
   
 def solve_p1(cards):
