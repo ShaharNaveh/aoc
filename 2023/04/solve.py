@@ -9,7 +9,7 @@ def parse_line(line):
   card_id = int(title.strip().split(" ")[-1])
 
   winning, have = numbers.strip().split("|")
-  parse_numbers = lambda n: [int(x) for x in n.strip().split(" ") if x.strip() != ""]
+  parse_numbers = lambda n: {int(x) for x in n.strip().split(" ") if x.strip() != ""}
   winning = parse_numbers(winning)
   have = parse_numbers(have)
   entry = {card_id: {"winning": winning, "have": have}}
@@ -18,13 +18,11 @@ def parse_line(line):
 def calc_won_points(card):
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
-  overlap = set(winning) & set(have)
+  overlap = winning & have
   count = len(overlap)
   
   if count == 0:
     return 0
-  elif count in (1, 2):
-    return count
   
   return 2 ** (count - 1)
     
