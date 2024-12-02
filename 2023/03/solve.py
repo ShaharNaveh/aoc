@@ -29,23 +29,22 @@ def p1():
 
           digits_pos.add((cur_row, cur_col))
  
-    lst = []
-    for crow, ccol in digits_pos:
-      s = ""
-      while ccol < len(grid[crow]) and grid[crow][ccol].isdigit():
-        s += grid[crow][ccol]
-        ccol += 1
-      lst.append(int(s))
+  lst = []
+  for row, col in digits_pos:
+    s = ""
+    while ccol < len(grid[row]) and grid[row][col].isdigit():
+      s += grid[row][col]
+      col += 1
+    lst.append(int(s))
 
   print(sum(lst))
 
 def p2():
-  digits_pos = set() # stores the pos of digits next to symbols
-
   for r_idx, row in enumerate(grid):
     for c_idx, char in enumerate(row):
       if char != "*":
         continue
+      digits_pos = set() # stores the pos of digits 
       # No we have a symbol
       for cur_row in (r_idx - 1, r_idx, r_idx + 1):
         for cur_col in (c_idx - 1, c_idx, c_idx + 1):
@@ -65,12 +64,12 @@ def p2():
           digits_pos.add((cur_row, cur_col))
  
   lst = []
-  for row, col in digits_pos:
-    s = ""
-    while col < len(grid[row]) and grid[row][col].isdigit():
-      s += grid[row][col]
-      col += 1
-    lst.append(int(s))
+    for crow, ccol in digits_pos:
+      s = ""
+      while col < len(grid[crow]) and grid[crow][ccol].isdigit():
+        s += grid[crow][ccol]
+        ccol += 1
+      lst.append(int(s))
 
   print(sum(lst))
 
