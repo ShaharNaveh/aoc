@@ -24,7 +24,14 @@ def calc_won_points(card):
       count += 1
       
   mul = min(count, 2)
-  return count * mul              
+  res = count * mul 
+  print(have)
+  print(winning)
+  print(mul)
+  print(res)
+  print("\n" * 3)
+  print("#" * 10)
+  return res
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
