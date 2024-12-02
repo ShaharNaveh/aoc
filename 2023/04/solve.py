@@ -30,5 +30,6 @@ def solve_p1(cards):
   yield from map(calc_won_points, cards)
   
 cards = list(map(parse_line, data))
+print(cards)
 
 print(sum(solve_p1(cards)))
