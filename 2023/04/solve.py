@@ -19,14 +19,18 @@ def calc_won_points(card):
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
   overlap = set(winning) & set(have)
-  print(overlap)
-  count = len(overlap)      
-  mul = 1  
-  if count > 2:
-    mul = 2
+  count = len(overlap)
   
-  res = count * mul  
+  if count == 0:
+    return 0
+  elif count in (1, 2):
+    return count
+  
+  res = 1
+  for _ in range(count):
+    res *= 2
   return res
+    
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
