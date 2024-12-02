@@ -29,13 +29,13 @@ def p1():
 
           digits_pos.add((cur_row, cur_col))
  
-  lst = []
-  for row, col in digits_pos:
-    s = ""
-    while col < len(grid[row]) and grid[row][col].isdigit():
-      s += grid[row][col]
-      col += 1
-    lst.append(int(s))
+    lst = []
+    for crow, ccol in digits_pos:
+      s = ""
+      while ccol < len(grid[crow]) and grid[crow][ccol].isdigit():
+        s += grid[crow][ccol]
+        ccol += 1
+      lst.append(int(s))
 
   print(sum(lst))
 
