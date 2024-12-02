@@ -5,5 +5,5 @@ def read(path: pathlib.Path):
   
 INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
-schematic = [cell for cells in read(INPUT_FILE) for cell in cells.split('')]
+schematic = [cell for cells in read(INPUT_FILE) for cell in cells.split()]
 print(schematic)
