@@ -14,5 +14,8 @@ for r_idx, row in enumerate(grid):
         # Check if we OOB
         if cur_row < 0 or cur_row >= len(grid):
           continue
+
+        if cur_col < 0 or cur_col >= len(grid[cur_row]):
+          continue
         
     
