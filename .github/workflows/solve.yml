@@ -6,9 +6,11 @@ on:
       day:
         description: 'Day'
         required: true
-        default: '03'
+        default: '04'
         type: choice
         options:
+          - '05'
+          - '04'
           - '03'
           - '02'
           - '01'
