@@ -28,22 +28,13 @@ def matches_count(card):
   count = len(overlap)
   return count
   
-def won_cards(card, *, cards):
-  yield 1
-  count = matches_count(card)
-  if count == 0:
-    return
-
-  for card_id in range(count, count+1):
-    yield from won_cards(card={card_id: cards[card_id]}, cards=cards)
-  
 def solve_p2(cards):
   # yield len(cards)
   counter = [1] * len(cards)
   for i, card in enumerate(cards):
     count = matches_count(card)
     for num in range(count):
-      counter[i + num + 1] = counter[i]
+      counter[i + num + 1] += counter[i]
   return sum(counter)
   
 def solve_p1(cards):
