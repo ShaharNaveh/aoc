@@ -13,7 +13,7 @@ def parse_line(line):
   winning = parse_numbers(winning)
   have = parse_numbers(have)
   entry = {card_id: {"winning": winning, "have": have}}
-  yield entry
+  return entry
 
 def calc_won_points(card):
   values = next(iter(card.values()))
@@ -30,6 +30,5 @@ def solve_p1(cards):
   yield from map(calc_won_points, cards)
   
 cards = list(map(parse_line, data))
-print(cards)
 
 print(sum(solve_p1(cards)))
