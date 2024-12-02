@@ -1,4 +1,5 @@
 import pathlib
+import re
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
@@ -6,11 +7,15 @@ raw = input_file.read_text()
 def parse_raw(raw):
   lines = raw.splitlines()
   seed_line = lines.pop(0)
-  for line in lines:
-    line = line.strip()
-    if not line:
-      continue
-    
+  data = "\n".join(lines)
+  pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
+
+  for matched in pattern.finditer(data):
+    section = matched.group("section")
+    data = matched.group("data")
+    print(section)
+  
+parse_raw(raw)  
 
 
 test_inp = """
@@ -23,11 +28,3 @@ soil-to-fertilizer map:
 3961802244 3774724750 90737174
 3164426550 3931513861 70563571
 147221566 1279409424 704464""".strip()
-
-import re
-
-pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<numbers>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
-
-for m in pattern.finditer(test_inp):
-  print(m.groups())
-  print("#" * 10)
