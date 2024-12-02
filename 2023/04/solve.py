@@ -16,16 +16,19 @@ def parse_line(line):
   return entry
 
 def calc_won_points(card):
-  values = next(iter(card.values()))
-  winning, have = values["winning"], values["have"]
-  overlap = winning & have
-  count = len(overlap)
+  count = matches_count(card)
   
   if count == 0:
     return 0
   
   return 2 ** (count - 1)
-    
+
+def matches_count(card):
+  values = next(iter(card.values()))
+  winning, have = values["winning"], values["have"]
+  overlap = winning & have
+  count = len(overlap)
+  return count
   
 def solve_p1(cards):
   yield from map(calc_won_points, cards)
