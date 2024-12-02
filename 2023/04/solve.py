@@ -35,7 +35,7 @@ def won_cards(card, *, cards):
     return
 
   for card_id in range(count, count+1):
-    won_cards(cards[card_id], cards=cards)
+   yield from won_cards(cards[card_id], cards=cards)
   
 def solve_p2(cards):
   cards = {k: v for dct in cards for k, v in dct.items()}           
