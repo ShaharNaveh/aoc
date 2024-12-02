@@ -74,6 +74,7 @@ def p2():
           s += grid[crow][ccol]
           ccol += 1
         lst.append(int(s))
+      print(lst)
 
   print(sum(lst))
 
