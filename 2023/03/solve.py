@@ -4,7 +4,7 @@ INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
 grid = INPUT_FILE.read_text().splitlines()
 
-symbol_pos = set()
+digits_pos = set() # stores the pos of digits next to symbols
 
 for r_idx, row in enumerate(grid):
   for c_idx, char in enumerate(row):
@@ -26,7 +26,14 @@ for r_idx, row in enumerate(grid):
         while cur_col > 0 and grid[cur_row][cur_col - 1].isdigit():
           cur_col -= 1
 
-        symbol_pos.add((cur_row, cur_col))
+        digits_pos.add((cur_row, cur_col))
  
-    
-print(symbol_pos)
+p1_lst = []
+for row, col in digits_pos:
+  s = ""
+  while col < len(grid[row]) and grid[row][col].isdigit():
+    s += grid[row][col]
+    col += 1
+  p1_lst.append(int(s))
+
+print(sum(p1_lst))
