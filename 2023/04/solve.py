@@ -31,9 +31,8 @@ def matches_count(card):
   return count
 
 def solve_p2(cards):
- cards = {k: v for dct in cards for k, v in dct.items()}           
- for card_id, values in cards.items():
-    yield 1
+  cards = {k: v for dct in cards for k, v in dct.items()}           
+  for card_id, values in cards.items():
     yield from won_cards(card, cards=cards)
   
 def solve_p1(cards):
