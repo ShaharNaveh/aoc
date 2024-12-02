@@ -11,3 +11,21 @@ def parse_raw(raw):
     if not line:
       continue
     
+
+
+test_inp = """
+
+seed-to-soil map:
+2988689842 4194451945 100515351
+2936009234 3353543976 52680608
+
+soil-to-fertilizer map:
+3961802244 3774724750 90737174
+3164426550 3931513861 70563571
+147221566 1279409424 704464""".strip()
+
+import re
+
+reg = re.compile(r"^(.+?)\n+((?:\d+)+)", re.MULTILINE)
+for m in reg.finditer(test_inp):
+  print(m)
