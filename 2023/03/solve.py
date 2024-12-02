@@ -67,16 +67,16 @@ def p2():
       if len(cords) != 2:
         continue
  
-      lst = []
+      buf = []
       for crow, ccol in cords:
         s = ""
         while ccol < len(grid[crow]) and grid[crow][ccol].isdigit():
           s += grid[crow][ccol]
           ccol += 1
-        lst.append(int(s))
-      print(lst)
+        buf.append(int(s))
+      yield buf[0] * buf[1]
 
-  print(sum(lst))
+
 
 p1()
-p2()
+print(sum(p2()))
