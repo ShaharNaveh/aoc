@@ -41,11 +41,10 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 
 test_cards = list(map(parse_line, test_inp))
 
-test_res = sum(solve_p1(test_cards))
-print(f"{test_res=}")
+#test_res = sum(solve_p1(test_cards))
+#print(f"{test_res=}")
 
 cards = list(map(parse_line, data))
-
 print(sum(solve_p1(cards)))
 
 
