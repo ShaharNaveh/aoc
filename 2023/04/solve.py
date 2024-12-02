@@ -16,14 +16,18 @@ def parse_line(line):
   yield entry
 
 def calc_won_points(card):
-  matches = 0
   values = next(iter(card.values()))
   winning, have = values["winning"], values["have"]
-  
-                
+  count = 0
+  for num in have:
+    if num in winning:
+      count += 1
+      
+  mul = min(count, 2)
+  return count * mul              
   
 def solve_p1(cards):
-  for card in cards:
-    pass
-    
+  yield from map(calc_won_points, cards)
+  
 cards = list(map(parse_line, data))
+print(sum(solve_p1(cards))
