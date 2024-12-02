@@ -8,7 +8,7 @@ levels = [list(map(int, line.split(" "))) for line in data]
 
 def is_safe(level):
   slevel = sorted(level)
-  if not ((level == slevel) or (level == sorted(level, reversed=True))):
+  if not ((level == slevel) or (level == sorted(level, reverse=True))):
     return False
     
   for n1, n2 in zip(slevel, slevel[1:]):
