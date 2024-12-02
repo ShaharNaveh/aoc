@@ -1,6 +1,7 @@
 name: Solve
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       day:
