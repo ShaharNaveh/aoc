@@ -34,13 +34,15 @@ def parse_raw(raw: str):
   return result
 
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
-  records = filter(lambda r: (src == r["src"]) and (dest == r["dest"]), mappings)
-  for record in records:
-    range_len = record["range_len"]
-    src_range = record["src_range"]
-    dest_range = record["dest_range"]
-    if (val >= src_range) and (val < dest_range + range_len):
-      return val + range_len
+  records = list(filter(lambda r: (src == r["src"]) and (dest == r["dest"]), mappings))
+  if records:
+    for record in records:
+      range_len = record["range_len"]
+      src_range = record["src_range"]
+      dest_range = record["dest_range"]
+      if (val >= src_range) and (val < dest_range + range_len):
+        return val + range_len
+    return val
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
@@ -85,4 +87,9 @@ humidity-to-location map:
 """
 
 almanac = parse_raw(test_inp)
-print(almanac)
+seeds, mappings = almanac["seeds"], almanac["mappings"]
+res = find_in_almanac(src="seed", val=79, dest="soil", mappings=mappings)
+print(res)
+res = find_in_almanac(src="seed", val=13, dest="soil", mappings=mappings)
+print(res)
+
