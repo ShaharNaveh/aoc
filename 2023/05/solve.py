@@ -10,6 +10,16 @@ class Record(TypedDict):
   dest_range: int
   range_len: int
   
+def batched(iterable, n, *, strict=False):
+  # batched('ABCDEFG', 3) → ABC DEF G
+  if n < 1:
+      raise ValueError('n must be at least one'
+  iterator = iter(iterable)
+  while batch := tuple(itertools.islice(iterator, n)):
+    if strict and len(batch) != n:
+      raise ValueError('batched(): incomplete batch')
+    yield batch
+      
 def parse_almanac_line(line: str, *, src: str, dest: str) -> Record:
   data = line.split(" ")
   dest_range, src_range, range_len = map(int, data)
@@ -24,7 +34,7 @@ def parse_raw(raw: str, *, p2: bool = False):
   seeds = map(int, seeds_data)
   
   if p2:
-    seeds = set(itertools.batched(seeds))
+    seeds = set(batched(seeds))
   
   result = {"seeds": set(seeds), "mappings": []}
 
