@@ -10,4 +10,4 @@ def p1(path):
     print(m)
   
 
-p1()
+p1(input_file)
