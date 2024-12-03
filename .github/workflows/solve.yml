@@ -1,13 +1,13 @@
 name: Solve
-run-name: Solve-${{ inputs.year }}
+run-name: Solve-${{ inputs.year }}-${{ inputs.day }}
 
 on:
   workflow_dispatch:
     inputs:
       day:
-        description: 'Day'
+        description: Day
         required: true
-        default: '03'
+        default: '01'
         type: choice
         options:
           - '01'
