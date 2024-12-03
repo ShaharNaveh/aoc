@@ -24,6 +24,7 @@ def p2(path):
       continue
       
     if not do:
+      print("SKIPPING")
       continue
 
     n1, n2 = map(int, m.lstrip("mul(").rstrip(")").split(","))
