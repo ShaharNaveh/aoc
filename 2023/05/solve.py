@@ -50,7 +50,7 @@ def calc_val_in_record(val: int, record: Record, reverse=False):
   dest_range = record["dest_range"]
   range_len = record["range_len"]
   if reverse:
-    return val - 
+    return val + src_range - dest_range
   return val - src_range + dest_range
   
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record], reverse: bool = False):
@@ -76,15 +76,11 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record], re
     next_src = records[0]["dest"]
     
   return find_in_almanac(src=next_src, dest=dest, val=next_val, mappings=mappings, reverse=reverse)
-
-def seed_of_loc(src="location", dest="seed", val, *, mappings):
-  records = [{record for record in mappings if True]
-  
-
   
 def p2(seeds: set[tuple[int, int]], mappings: list[Record]):
-  nm = [{**record, **{"src": record["dest"], "dest": record["src"]}} for record in mappings]
-  find_in_almanac(src="location", dest="seed"
+#  nm = [{**record, **{"src": record["dest"], "dest": record["src"]}} for record in mappings]
+  res = find_in_almanac(src="location", dest="seed", val=60, mappings=mappings, reverse=True)
+  print(res)
   
   
 #input_file = pathlib.Path(__file__).parent / "input.txt"
@@ -97,4 +93,4 @@ seeds, mappings = almanac["seeds"], almanac["mappings"]
 
 almanac = parse_raw(raw, p2=True)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
-res = 
+res = p2(seeds, mappings)
