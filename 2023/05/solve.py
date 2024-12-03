@@ -34,7 +34,7 @@ def parse_raw(raw: str, *, p2: bool = False):
   seeds = map(int, seeds_data)
   
   if p2:
-    seeds = set(batched(seeds))
+    seeds = set(batched(seeds, 2))
   
   result = {"seeds": set(seeds), "mappings": []}
 
