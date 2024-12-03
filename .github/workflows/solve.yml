@@ -67,6 +67,7 @@ jobs:
         with:
           sparse-checkout: |
             ${{ inputs.year }}/${{ inputs.day }}/
+          persist-credentials: false
 
       - name: Solve
         run: python ./solve.py
