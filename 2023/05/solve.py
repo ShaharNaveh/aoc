@@ -62,7 +62,7 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
   else:
     next_val = val
   
-  next_dest = record["dest"]
+  next_dest = records[0]["dest"]
   return find_in_almanac(src=dest, dest=next_dest, val=next_val, mappings=mappings)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
