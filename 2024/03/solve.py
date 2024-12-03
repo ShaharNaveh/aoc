@@ -8,7 +8,7 @@ def p1(path):
   pattern = re.compile(r"mul\(\d{1,3},\d{1,3}\)", re.MULTILINE)
   res = 0
   for m in re.findall(pattern, text):
-    n1, n2 = m.lstrip("mul(").rstrip(")").split(",")
+    n1, n2 = map(int, m.lstrip("mul(").rstrip(")").split(","))
     res += n1 * n2
   print(res)
 
