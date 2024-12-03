@@ -42,9 +42,9 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
   return False
 
 def calc_val_in_record(val: int, record: Record):
-  #src_range = record["src_range"]
- # dest_range = record["dest_range"]
-  return val + record["range_len"]
+  src_range = record["src_range"]
+  dest_range = record["dest_range"]
+  return val - dest_range + src_range
   
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
   records = [record for record in mappings if src == record["src"]] 
@@ -56,7 +56,7 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
         return calc_val_in_record(val, dest_record)
     return val
 
-  for record in records.copy():
+  for record in records:
     if is_val_in_record(val=val, record=record):
       next_val = calc_val_in_record(val, record)
       break
