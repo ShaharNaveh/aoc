@@ -1,16 +1,18 @@
 import pathlib
-from typing import NamedTuple
+from typing import TypedDict
 import re
 
-class Entry(NamedTuple):
+class Record(TypedDict):
+  src: str
+  dest: str
   src_range: int
   dest_range: int
   range_len: int
   
-def parse_almanac_line(line: str):
+def parse_almanac_line(line: str, *, src: str, dest: str) -> Record:
   data = line.split(" ")
   dest_range, src_range, range_len = map(int, data)
-  res = Entry(src_range=src_range, dest_range=dest_range, range_len=range_len)
+  res = Record(src_range=src_range, dest_range=dest_range, range_len=range_len, src=src, dest=dest)
   return res
 
 def parse_raw(raw: str):
@@ -27,11 +29,15 @@ def parse_raw(raw: str):
     data = matched.group("data")
     src, dest = section.rstrip(" map").split("-to-")
     for line in data.splitlines():
-      mapping = {"src": src, "dest": dest, "range": parse_almanac_line(line)}
+      mapping = {"src": src, "dest": dest, "range": parse_almanac_line(line, src=src, dest=dest)}
       result["mappings"].append(mapping)
   return result
 
-
+def find_in_almanac(src: str, src_val: int, dest: str, *, mappings: dict):
+  records = filter(lambda r: (src == r["src"]) and (dest == r["dest"]), mappings)
+  for record in records:
+    if math:
+      return "some val"
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
