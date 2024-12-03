@@ -11,5 +11,24 @@ def p1(path):
     n1, n2 = map(int, m.lstrip("mul(").rstrip(")").split(","))
     res += n1 * n2
   print(res)
+  
+def p2(path):
+  text = path.read_text()
+  pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))", re.MULTILINE)
+  res = 0
+  do = True
+  for m in re.findall(pattern, text):
+    print(m)
+    if m.startswith("do"):
+      do = "don't" in m
+      continue
+      
+    if not do:
+      continue
 
-p1(input_file)
+    n1, n2 = map(int, m.lstrip("mul(").rstrip(")").split(","))
+    res += n1 * n2
+  print(res)
+
+#p1(input_file)
+p2(input_file)
