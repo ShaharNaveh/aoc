@@ -113,6 +113,6 @@ seeds, mappings = almanac["seeds"], almanac["mappings"]
 print(f"{mappings=}")
 res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
 print(res)
-res = find_in_almanac(src="seed", val=13, dest="location", mappings=mappings)
+res = find_in_almanac(src="seed", val=14, dest="location", mappings=mappings)
 print(res)
 
