@@ -51,6 +51,10 @@ on:
           - '2022'
           - '2023'
           - '2024'
+
+permissions:
+  contents: read
+  
 jobs:
   solve:
     runs-on: ubuntu-latest
