@@ -1,10 +1,17 @@
 import pathlib
+from typing import NamedTuple
 import re
 
+class Entry(NamedTuple):
+  src_range: int
+  dest_range: int
+  range_len: int
+  
 def parse_almanac_line(line: str):
   data = line.split(" ")
-  lst = list(map(int, data))
-  return range(lst[1], lst[0] + lst[2])
+  dest_range, src_range, range_len = map(int, data)
+  res = Entry(src_range=src_range, dest_range=dest_range, range_len=range_len)
+  return res
 
 def parse_raw(raw: str):
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
