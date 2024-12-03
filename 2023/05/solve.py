@@ -46,7 +46,7 @@ def calc_val_in_record(val: int, record: Record):
   src_range = record["src_range"]
   dest_range = record["dest_range"]
   range_len = record["range_len"]
-  return val - dest_range + src_range
+  return val - dest_range + src_range + (range_len * 2)
 #  return src_range - dest_range + val
  # return val - src_range + dest_range + range_len
   
