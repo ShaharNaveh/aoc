@@ -41,7 +41,7 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
       src_range = record["src_range"]
       dest_range = record["dest_range"]
       if (val >= src_range) and (val < dest_range + range_len):
-        return val + range_len
+        return val + (src_range - dest_range)
     return val
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
