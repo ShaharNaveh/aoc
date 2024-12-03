@@ -33,11 +33,14 @@ def parse_raw(raw: str):
       result["mappings"].append(mapping)
   return result
 
-def find_in_almanac(src: str, src_val: int, dest: str, *, mappings: dict):
+def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
   records = filter(lambda r: (src == r["src"]) and (dest == r["dest"]), mappings)
   for record in records:
-    if math:
-      return "some val"
+    range_len = record["range_len"]
+    src_range = record["src_range"]
+    dest_range = record["dest_range"]
+    if (val >= src_range) and (val < dest_range + range_len):
+      return val + range_len
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
