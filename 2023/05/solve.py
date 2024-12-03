@@ -8,7 +8,7 @@ input_file = pathlib.Path(__file__).parent / "test_input.txt"
 def p1(path):
   puzzle = path.read_text().strip()
   seeds, *blocks = puzzle.split("\n" * 2)
-  seeds = list(map(int, seeds.split()))
+  seeds = list(map(int, seeds.split(":")[1].split()))
   for block in blocks:
     ranges = []
     for line in block.splitlines()[1:]:
