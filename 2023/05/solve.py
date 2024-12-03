@@ -33,16 +33,35 @@ def parse_raw(raw: str):
       result["mappings"].append(mapping)
   return result
 
+def is_val_in_record(*, val: int, record: Record) -> bool:
+  range_len = record["range_len"]
+  src_range = record["src_range"]
+  dest_range = record["dest_range"]
+  if (val >= src_range) and (val < dest_range + range_len):
+    return True
+ return False
+
+def calc_val_in_record(val: int, record: Record):
+  src_range = record["src_range"]
+  dest_range = record["dest_range"]
+  return val + (dest_range - src_range)
+  
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
-  records = list(filter(lambda r: (src == r["src"]) and (dest == r["dest"]), mappings))
-  if records:
-    for record in records:
-      range_len = record["range_len"]
-      src_range = record["src_range"]
-      dest_range = record["dest_range"]
-      if (val >= src_range) and (val < dest_range + range_len):
-        return val + (dest_range - src_range)
+  records = list(filter(lambda r: src == r["src"], mappings))
+  dest_records = list(filter(lambda r: dest == r["dest"], records))
+  if dest_records:
+    for dest_record in dest_records:
+      if is_val_in_record(val=val, record=dest_record):
+        return calc_val_in_record(val, dest_record)
     return val
+
+  search_val = val
+  next_dest = next(iter({r["dest"] for r in records}))
+  find_in_almanac(src=dest, dest=next_dest, val="", mappings=mappings)
+  for record in records:
+    
+    
+
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
