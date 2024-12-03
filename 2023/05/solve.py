@@ -13,10 +13,8 @@ def parse_raw(raw):
   for matched in pattern.finditer(data):
     section = matched.group("section")
     data = matched.group("data")
-    frm, to = section.rstrip(" map").split("-to-")
-    print(frm)
-    print(to)
-    print(data)
+    source_name, dest_name = section.rstrip(" map").split("-to-")
+    
   
 parse_raw(raw)  
 
