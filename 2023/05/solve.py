@@ -1,3 +1,4 @@
+import itertools
 import pathlib
 from typing import TypedDict
 import re
@@ -15,14 +16,17 @@ def parse_almanac_line(line: str, *, src: str, dest: str) -> Record:
   res = Record(src_range=src_range, dest_range=dest_range, range_len=range_len, src=src, dest=dest)
   return res
 
-def parse_raw(raw: str):
+def parse_raw(raw: str, *, p2: bool = False):
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
   
   seed_line, _, raw_almanac = raw.strip().partition("\n")
   seeds_data = seed_line.split(":")[1].strip().split(" ")
-  seeds = set(map(int, seeds_data))
+  seeds = map(int, seeds_data)
   
-  result = {"seeds": seeds, "mappings": []}
+  if p2:
+    seeds = set(itertools.batched(seeds))
+  
+  result = {"seeds": set(seeds), "mappings": []}
 
   for matched in pattern.finditer(raw_almanac):
     section = matched.group("section")
@@ -67,12 +71,24 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
   next_src = records[0]["dest"]
   return find_in_almanac(src=next_src, dest=dest, val=next_val, mappings=mappings)
 
+def seed_of_loc(src="location", dest="seed", val, *, mappings):
+  records = [{record for record in mappings if True]
+  
+
+  
+def p2(seeds: set[tuple[int, int]], mappings: list[Record]):
+  nm = [{**record, **{"src": record["dest"], "dest": record["src"]}} for record in mappings]
+  
+  
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
  
 almanac = parse_raw(raw)  
 seeds, mappings = almanac["seeds"], almanac["mappings"]
-print(min((find_in_almanac(src="seed", val=seed, dest="location", mappings=mappings) for seed in seeds)))
+#print(min((find_in_almanac(src="seed", val=seed, dest="location", mappings=mappings) for seed in seeds)))
+
+almanac = parse_raw(raw, p2=True)
+seeds, mappings = almanac["seeds"], almanac["mappings"]
 
 test_inp = """
 seeds: 79 14 55 13
@@ -109,13 +125,8 @@ humidity-to-location map:
 60 56 37
 56 93 4
 """
-'''
+
 almanac = parse_raw(test_inp)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
 print(f"{mappings=}")
 res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
-print(res)
-res = find_in_almanac(src="seed", val=14, dest="location", mappings=mappings)
-print(res)
-'''
-
