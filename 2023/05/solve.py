@@ -55,12 +55,17 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
         return calc_val_in_record(val, dest_record)
     return val
 
-  search_val = val
-  next_dest = next(iter({r["dest"] for r in records}))
-  find_in_almanac(src=dest, dest=next_dest, val="", mappings=mappings)
   for record in records:
+    if is_val_in_record(val=next_val, record=record):
+      next_val = calc_val_in_record(val, record)
+      break
+  else:
+    next_val = val
+  
     
-    
+  next_dest = record["dest"]
+  return find_in_almanac(src=dest, dest=next_dest, val=next_val, mappings=mappings)
+  
 
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
@@ -107,8 +112,8 @@ humidity-to-location map:
 
 almanac = parse_raw(test_inp)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
-res = find_in_almanac(src="seed", val=79, dest="soil", mappings=mappings)
+res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
 print(res)
-res = find_in_almanac(src="seed", val=13, dest="soil", mappings=mappings)
+res = find_in_almanac(src="seed", val=13, dest="location", mappings=mappings)
 print(res)
 
