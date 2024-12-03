@@ -59,7 +59,7 @@ def p2(path):
         buf.append((start, end))
         
     seeds = buf
-  print(min(seeds))
+  print(min(seeds)[0])
 
 p1(input_file)
 p2(input_file)
