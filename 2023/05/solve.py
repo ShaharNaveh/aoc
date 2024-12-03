@@ -44,7 +44,7 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
 def calc_val_in_record(val: int, record: Record):
   src_range = record["src_range"]
   dest_range = record["dest_range"]
-  return val + max(src_range, dest_range) - min(src_range, dest_range)
+  return val + min(src_range, dest_range) - max(src_range, dest_range)
   
     
   range_len = record["range_len"]
