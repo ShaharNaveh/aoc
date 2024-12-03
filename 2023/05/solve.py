@@ -5,10 +5,10 @@ input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
 
 def parse_raw(raw: str):
-  seed_line, _, almanac = raw.partition("\n")
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
+  seed_line, _, raw_almanac = raw.partition("\n")
 
-  for matched in pattern.finditer(almanac):
+  for matched in pattern.finditer(raw_almanac):
     section = matched.group("section")
     data = matched.group("data")
     source_name, dest_name = section.rstrip(" map").split("-to-")
