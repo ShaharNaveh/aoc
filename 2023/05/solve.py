@@ -39,7 +39,7 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
   dest_range = record["dest_range"]
   if (val >= src_range) and (val < dest_range + range_len):
     return True
- return False
+  return False
 
 def calc_val_in_record(val: int, record: Record):
   src_range = record["src_range"]
