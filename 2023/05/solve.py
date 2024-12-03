@@ -47,13 +47,11 @@ def calc_val_in_record(val: int, record: Record):
   return val + (dest_range - src_range)
   
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
+  records = [record for record in mappings if src == record["src"]] 
+  dest_records = [record for record in records if dest == record["dest"]]
   print(f"{src=}")
   print(f"{dest=}")
-  #records = list(filter(lambda r: src == r["src"], mappings)).copy()
-  records = [record for record in mappings if src == record["src"]]
   print(f"{records=}")
-  #dest_records = list(filter(lambda r: dest == r["dest"], records.copy())).copy()
-  dest_records = [record for record in records if dest == record["dest"]]
   print(f"{dest_records=}")
   if dest_records:
     for dest_record in dest_records:
@@ -68,9 +66,8 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
   else:
     next_val = val
   
-  next_dest = records[0]["dest"]
-  print(f"{next_dest=}")
-  return find_in_almanac(src=dest, dest=next_dest, val=next_val, mappings=mappings)
+  next_src = records[0]["dest"]
+  return find_in_almanac(src=next_src, dest=dest, val=next_val, mappings=mappings)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
