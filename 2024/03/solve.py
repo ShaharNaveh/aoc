@@ -18,13 +18,11 @@ def p2(path):
   res = 0
   do = True
   for m in re.findall(pattern, text):
-    print(m)
     if m.startswith("do"):
-      do = "don't" in m
+      do = "don't" not in m
       continue
       
     if not do:
-      print("SKIPPING")
       continue
 
     n1, n2 = map(int, m.lstrip("mul(").rstrip(")").split(","))
