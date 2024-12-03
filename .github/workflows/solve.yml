@@ -1,4 +1,5 @@
 name: Solve
+run-name: Solve-${{ inputs.year }}
 
 on:
   workflow_dispatch:
