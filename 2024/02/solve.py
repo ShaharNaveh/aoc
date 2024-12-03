@@ -1,4 +1,3 @@
-import operator
 import pathlib
 
 inp_file = pathlib.Path(__file__).parent / "input.txt"
