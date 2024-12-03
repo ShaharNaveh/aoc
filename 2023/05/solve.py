@@ -1,24 +1,32 @@
 import pathlib
 import re
 
-input_file = pathlib.Path(__file__).parent / "input.txt"
-raw = input_file.read_text()
+def parse_almanac_line(line: str):
+  data = line.split(" ")
+  lst = list(map(int, data))
+  return range(lst[1], lst[0] + lst[2])
 
 def parse_raw(raw: str):
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
   seed_line, _, raw_almanac = raw.partition("\n")
+  seeds_data = seed_line.split(":")[1].strip()
+  seeds = set(map(int, seeds_data))
+  result = {"seeds": seeds, "mappings": []}
 
   for matched in pattern.finditer(raw_almanac):
     section = matched.group("section")
     data = matched.group("data")
-    source_name, dest_name = section.rstrip(" map").split("-to-")
-    print(f"{source_name=}")
-    print(f"{dest_name=}")
-    print(f"{data=}")
-    print("\n" * 2)
-    print("#" * 10)
-  
-  
+    src, dest = section.rstrip(" map").split("-to-")
+    for line in data.splitlines():
+      mapping = {"src": src, "dest": dest, "range": parse_almanac_line(line)}
+      result["mappings"].append(mapping)
+  return result
+
+
+
+input_file = pathlib.Path(__file__).parent / "input.txt"
+raw = input_file.read_text()
+ 
 #parse_raw(raw)  
 
 
@@ -58,4 +66,5 @@ humidity-to-location map:
 56 93 4
 """
 
-parse_raw(test_inp)
+almanac = parse_raw(test_inp)
+print(almanac)
