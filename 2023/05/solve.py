@@ -48,6 +48,7 @@ def calc_val_in_record(val: int, record: Record):
   
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
   records = list(filter(lambda r: src == r["src"], mappings))
+  print(f"{records=}")
   dest_records = list(filter(lambda r: dest == r["dest"], records))
   if dest_records:
     for dest_record in dest_records:
@@ -109,6 +110,7 @@ humidity-to-location map:
 
 almanac = parse_raw(test_inp)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
+print(f"{mappings=}")
 res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
 print(res)
 res = find_in_almanac(src="seed", val=13, dest="location", mappings=mappings)
