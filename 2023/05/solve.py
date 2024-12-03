@@ -29,7 +29,7 @@ def parse_raw(raw: str):
     data = matched.group("data")
     src, dest = section.rstrip(" map").split("-to-")
     for line in data.splitlines():
-      mapping = {"src": src, "dest": dest, "range": parse_almanac_line(line, src=src, dest=dest)}
+      mapping = parse_almanac_line(line, src=src, dest=dest)
       result["mappings"].append(mapping)
   return result
 
