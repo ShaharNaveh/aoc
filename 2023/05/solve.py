@@ -38,6 +38,7 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
   src_range = record["src_range"]
   dest_range = record["dest_range"]
   if (val >= src_range) and (val < dest_range + range_len):
+    print(f"{val=} in {record=}")
     return True
   return False
 
