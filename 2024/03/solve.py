@@ -29,5 +29,5 @@ def p2(path):
     res += n1 * n2
   print(res)
 
-#p1(input_file)
+p1(input_file)
 p2(input_file)
