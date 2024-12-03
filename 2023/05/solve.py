@@ -45,31 +45,37 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
     return True
   return False
 
-def calc_val_in_record(val: int, record: Record):
+def calc_val_in_record(val: int, record: Record, reverse=False):
   src_range = record["src_range"]
   dest_range = record["dest_range"]
   range_len = record["range_len"]
+  if reverse:
+    return val - 
   return val - src_range + dest_range
   
-def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
+def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record], reverse: bool = False):
   records = [record for record in mappings if src == record["src"]] 
   dest_records = [record for record in records if dest == record["dest"]]
   #print(f"{src=} {dest=} {val=}")
   if dest_records:
     for dest_record in dest_records:
       if is_val_in_record(val=val, record=dest_record):
-        return calc_val_in_record(val, dest_record)
+        return calc_val_in_record(val, dest_record, reverse=reverse)
     return val
 
   for record in records:
     if is_val_in_record(val=val, record=record):
-      next_val = calc_val_in_record(val, record)
+      next_val = calc_val_in_record(val, record, reverse=reverse)
       break
   else:
     next_val = val
-  
-  next_src = records[0]["dest"]
-  return find_in_almanac(src=next_src, dest=dest, val=next_val, mappings=mappings)
+
+  if reverse:
+    next_src = next(iter({record["src"] for record in mappings if src == record["dest"]}))
+  else:
+    next_src = records[0]["dest"]
+    
+  return find_in_almanac(src=next_src, dest=dest, val=next_val, mappings=mappings, reverse=reverse)
 
 def seed_of_loc(src="location", dest="seed", val, *, mappings):
   records = [{record for record in mappings if True]
@@ -78,9 +84,11 @@ def seed_of_loc(src="location", dest="seed", val, *, mappings):
   
 def p2(seeds: set[tuple[int, int]], mappings: list[Record]):
   nm = [{**record, **{"src": record["dest"], "dest": record["src"]}} for record in mappings]
+  find_in_almanac(src="location", dest="seed"
   
   
-input_file = pathlib.Path(__file__).parent / "input.txt"
+#input_file = pathlib.Path(__file__).parent / "input.txt"
+input_file = pathlib.Path(__file__).parent / "test_input.txt"
 raw = input_file.read_text()
  
 almanac = parse_raw(raw)  
@@ -89,44 +97,4 @@ seeds, mappings = almanac["seeds"], almanac["mappings"]
 
 almanac = parse_raw(raw, p2=True)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
-
-test_inp = """
-seeds: 79 14 55 13
-
-seed-to-soil map:
-50 98 2
-52 50 48
-
-soil-to-fertilizer map:
-0 15 37
-37 52 2
-39 0 15
-
-fertilizer-to-water map:
-49 53 8
-0 11 42
-42 0 7
-57 7 4
-
-water-to-light map:
-88 18 7
-18 25 70
-
-light-to-temperature map:
-45 77 23
-81 45 19
-68 64 13
-
-temperature-to-humidity map:
-0 69 1
-1 0 69
-
-humidity-to-location map:
-60 56 37
-56 93 4
-"""
-
-almanac = parse_raw(test_inp)
-seeds, mappings = almanac["seeds"], almanac["mappings"]
-print(f"{mappings=}")
-res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
+res = 
