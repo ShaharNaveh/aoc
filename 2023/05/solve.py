@@ -56,17 +56,14 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: dict):
     return val
 
   for record in records:
-    if is_val_in_record(val=next_val, record=record):
+    if is_val_in_record(val=val, record=record):
       next_val = calc_val_in_record(val, record)
       break
   else:
     next_val = val
   
-    
   next_dest = record["dest"]
   return find_in_almanac(src=dest, dest=next_dest, val=next_val, mappings=mappings)
-  
-
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
