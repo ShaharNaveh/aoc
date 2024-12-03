@@ -47,9 +47,12 @@ def calc_val_in_record(val: int, record: Record):
   return val + (dest_range - src_range)
   
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
-  records = list(filter(lambda r: src == r["src"], mappings)).copy()
+  #records = list(filter(lambda r: src == r["src"], mappings)).copy()
+  records = [record for record in mappings if src == record["src"]]
   print(f"{records=}")
-  dest_records = list(filter(lambda r: dest == r["dest"], records.copy())).copy()
+  #dest_records = list(filter(lambda r: dest == r["dest"], records.copy())).copy()
+  dest_records = [record for record in records if dest == record["dest"]]
+  print(f"{dest_records=}")
   if dest_records:
     for dest_record in dest_records:
       if is_val_in_record(val=val, record=dest_record):
