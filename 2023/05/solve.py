@@ -8,7 +8,8 @@ def parse_almanac_line(line: str):
 
 def parse_raw(raw: str):
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
-  seed_line, _, raw_almanac = raw.partition("\n")
+  seed_line, _, raw_almanac = raw.strip().partition("\n")
+  print(seed_line)
   seeds_data = seed_line.split(":")[1].strip()
   seeds = set(map(int, seeds_data))
   result = {"seeds": seeds, "mappings": []}
