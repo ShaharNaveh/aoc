@@ -37,7 +37,7 @@ def is_val_in_record(*, val: int, record: Record) -> bool:
   range_len = record["range_len"]
   src_range = record["src_range"]
   if (val >= src_range) and (val < src_range + range_len):
-    print(f"{val=} in {record=}")
+    #print(f"{val=} in {record=}")
     return True
   return False
 
@@ -50,7 +50,7 @@ def calc_val_in_record(val: int, record: Record):
 def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
   records = [record for record in mappings if src == record["src"]] 
   dest_records = [record for record in records if dest == record["dest"]]
-  print(f"{src=} {dest=} {val=}")
+  #print(f"{src=} {dest=} {val=}")
   if dest_records:
     for dest_record in dest_records:
       if is_val_in_record(val=val, record=dest_record):
@@ -70,8 +70,9 @@ def find_in_almanac(src: str, val: int, dest: str, *, mappings: list[Record]):
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
  
-#parse_raw(raw)  
-
+almanac = parse_raw(raw)  
+seeds, mappings = almanac["seeds"], almanac["mappings"]
+print(min((find_in_almanac(src="seed", val=seed, dest="location", mappings=mappings) for seed in seeds)))
 
 test_inp = """
 seeds: 79 14 55 13
@@ -108,7 +109,7 @@ humidity-to-location map:
 60 56 37
 56 93 4
 """
-
+'''
 almanac = parse_raw(test_inp)
 seeds, mappings = almanac["seeds"], almanac["mappings"]
 print(f"{mappings=}")
@@ -116,4 +117,5 @@ res = find_in_almanac(src="seed", val=79, dest="location", mappings=mappings)
 print(res)
 res = find_in_almanac(src="seed", val=14, dest="location", mappings=mappings)
 print(res)
+'''
 
