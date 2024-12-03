@@ -1,9 +1,7 @@
-import itertools
 import pathlib
-from typing import TypedDict
-import re
 
-input_file = pathlib.Path(__file__).parent / "test_input.txt"
+input_file = pathlib.Path(__file__).parent / "input.txt"
+#input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 def p1(path):
   puzzle = path.read_text().strip()
