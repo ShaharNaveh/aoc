@@ -4,19 +4,22 @@ import re
 input_file = pathlib.Path(__file__).parent / "input.txt"
 raw = input_file.read_text()
 
-def parse_raw(raw):
-  lines = raw.splitlines()
-  seed_line = lines.pop(0)
-  data = "\n".join(lines)
+def parse_raw(raw: str):
+  seed_line, _, almanac = raw.partition("\n")
   pattern = re.compile(r"(?P<section>[a-z-]+ map):\n(?P<data>(?:\d+ \d+ \d+\n?)+)", re.MULTILINE)
 
-  for matched in pattern.finditer(data):
+  for matched in pattern.finditer(almanac):
     section = matched.group("section")
     data = matched.group("data")
     source_name, dest_name = section.rstrip(" map").split("-to-")
-    
+    print(f"{source_name=}")
+    print(f"{dest_name=}")
+    print(f"{data=}")
+    print("\n" * 2)
+    print("#" * 10)
   
-parse_raw(raw)  
+  
+#parse_raw(raw)  
 
 
 test_inp = """
@@ -54,3 +57,5 @@ humidity-to-location map:
 60 56 37
 56 93 4
 """
+
+parse_raw(test_inp)
