@@ -6,9 +6,10 @@ input_file = pathlib.Path(__file__).parent / "test_input.txt"
 def p1(path):
   inp = path.read_text().strip().lower()
   grid = [line.split() for line in inp.splitlines()]
-  print(grid)
   for col_idx, col in enumerate(grid):
+    print(f"{col=}")
     for row_idx, char in enumerate(col):
+      print(f"{char=}")
       if char == "x":
         print((col_idx, row_idx))
       
