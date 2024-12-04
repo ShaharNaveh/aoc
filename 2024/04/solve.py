@@ -25,13 +25,12 @@ def is_xmas_in_direction(
       return False
       
     if 0 > min(x, y):
-      print(cord)
       return False
       
     if char_map[idx] != grid[y][x]:
-      
       return False
       
+  print(x_cord)
   return True
   
 def p1(path):
