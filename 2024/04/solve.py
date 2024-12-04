@@ -15,8 +15,22 @@ def is_xmas_in_direction(
   bounds: Cord,
   char_map: dict[int, str],
 ) -> bool:
-  
-  pass
+  x_bound, y_bound = bounds
+  cord = x_cord
+  for idx in range(len(char_map)):
+    cord = Cord(*tuple(map(sum,zip(cord,direction))))
+    x, y = cord
+    
+    if (x >= x_bound) or (y >= y_bound):
+      return False
+      
+    if 0 > min(x, y):
+      return False
+      
+    if char_map[idx] != grid[y][x]:
+      return False
+      
+  return True
   
 def p1(path):
   inp = path.read_text().strip().lower()
