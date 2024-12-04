@@ -5,7 +5,7 @@ from typing import NamedTuple
 class Cord(NamedTuple):
   x: int
   y: int
-print(dir(Cord))
+
 class Direction(Cord ,enum.Enum):
   North = (-1, 0)
   South = (1, 0)
@@ -17,7 +17,7 @@ class Direction(Cord ,enum.Enum):
   SouthEast = (1, 1)
 
 for d in Direction:
-  print(d)
+  print(dir(d))
 exit()
   
 def is_xmas_in_direction(
