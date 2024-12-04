@@ -15,10 +15,6 @@ class Direction(Cord ,enum.Enum):
   NorthEast = (-1, 1)
   SouthWest = (1, -1)
   SouthEast = (1, 1)
-
-for d in Direction:
-  print(dir(d))
-exit()
   
 def is_xmas_in_direction(
   x_cord: Cord, 
