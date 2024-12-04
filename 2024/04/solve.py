@@ -5,8 +5,6 @@ class Cord(NamedTuple):
   x: int
   y: int
 
-input_file = pathlib.Path(__file__).parent / "input.txt"
-input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 def is_xmas_in_direction(
   x_cord: Cord, 
@@ -30,7 +28,6 @@ def is_xmas_in_direction(
     if char_map[idx] != grid[x][y]:
       return False
       
-  print(f"start={tuple(x_cord)}\tend={tuple(cord)}\tdir={tuple(direction)}")
   return True
   
 def p1(path):
@@ -52,7 +49,7 @@ def p1(path):
       (0, -1), # West
       (0, 1), # East
       (-1, -1), # Northwest
-      (-1, 1), # Northeast C
+      (-1, 1), # Northeast
       (1, -1), # Southwest
       (1, 1), # Southeast
   }
@@ -72,5 +69,7 @@ def p1(path):
       )
   print(res)
       
+input_file = pathlib.Path(__file__).parent / "input.txt"
+#input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
