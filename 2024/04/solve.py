@@ -8,6 +8,7 @@ class Cord(NamedTuple):
 input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
+is_xmas_in_direction
 def p1(path):
   inp = path.read_text().strip().lower()
   grid = [list(line) for line in inp.splitlines()]
@@ -22,13 +23,30 @@ def p1(path):
 
   bounds = Cord(x=len(grid[0]), y=len(grid))
   directions = {
-    (-1, 0), # West
-    (1, 0), # East
+    Cord(*direction) for direction in {
+      (-1, 0), # North
+      (1, 0), # South
+      (0, -1), # West
+      (0, 1), # East
+      (-1, -1), # Northwest
+      (-1, 1), # Northeast
+      (1, -1), # Southwest
+      (1, 1), # Southeast
+    }
   }
+  
   res = 0
   for start_cord in start_cords:
     for direction in directions:
-      pass
+      res += int(
+        is_xmas_in_direction(
+          x_cord=start_cord,
+          direction=direction,
+          grid=grid,
+          bounds=bounds,
+        )
+      )
+  print(res)
       
 
 p1(input_file)
