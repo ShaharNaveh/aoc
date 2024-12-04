@@ -27,7 +27,7 @@ def is_xmas_in_direction(
     if 0 > min(x, y):
       return False
       
-    if char_map[idx] != grid[y][x]:
+    if char_map[idx] != grid[x][y]:
       return False
       
   print(f"start={tuple(x_cord)}\tend={tuple(cord)}\tdir={tuple(direction)}")
@@ -38,11 +38,11 @@ def p1(path):
   grid = [list(line) for line in inp.splitlines()]
   
   start_cords = set()  
-  for col_idx, col in enumerate(grid):
-    for row_idx, char in enumerate(col):
+  for row_idx, row in enumerate(grid):
+    for col_idx, char in enumerate(col):
       if char != "x":
         continue
-      cord = Cord(x=col_idx, y=row_idx)
+      cord = Cord(x=row_idx, y=col_idx)
       start_cords.add(cord)
 
   bounds = Cord(x=len(grid[0]), y=len(grid))
