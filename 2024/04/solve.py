@@ -39,7 +39,7 @@ def p1(path):
   
   start_cords = set()  
   for row_idx, row in enumerate(grid):
-    for col_idx, char in enumerate(col):
+    for col_idx, char in enumerate(row):
       if char != "x":
         continue
       cord = Cord(x=row_idx, y=col_idx)
