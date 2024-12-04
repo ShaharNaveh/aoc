@@ -89,7 +89,7 @@ def p1(path):
   char_map = {idx: char for idx, char in enumerate(list("mas"))}
   res = 0
   for start_cord in start_cords:
-    for direction in directions:
+    for direction in Direction:
       res += int(
         is_xmas_in_direction(
           x_cord=start_cord,
@@ -117,8 +117,8 @@ def p2(path):
   chars = {"m", "s"}
   direction_pairs = [
    (
-     Direction.NorthWest,
-     Direction.SouthEast,
+     Direction.Northwest,
+     Direction.Southeast,
    ),
    (
      Direction.Northeast,
