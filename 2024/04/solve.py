@@ -5,8 +5,8 @@ from typing import NamedTuple
 class Cord(NamedTuple):
   x: int
   y: int
-
-class Direction(Cord._make,enum.Enum):
+print(dir(Cord))
+class Direction(Cord ,enum.Enum):
   North = (-1, 0)
   South = (1, 0)
   West = (0, -1)
