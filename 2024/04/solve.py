@@ -21,7 +21,7 @@ def is_xmas_in_direction(
     cord = Cord(*tuple(map(sum,zip(cord,direction))))
     x, y = cord
     
-    if (x >= x_bound) or (y >= y_bound):
+    if (x > x_bound) or (y > y_bound):
       return False
       
     if 0 > min(x, y):
