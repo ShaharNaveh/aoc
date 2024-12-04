@@ -30,7 +30,7 @@ def is_xmas_in_direction(
     if char_map[idx] != grid[y][x]:
       return False
       
-  print(f"start={tuple(x_cord)}\tend={tuple(cord)}")
+  print(f"start={tuple(x_cord)}\tend={tuple(cord)}\tdir={tuple(direction)}")
   return True
   
 def p1(path):
@@ -52,7 +52,7 @@ def p1(path):
       (0, -1), # West
       (0, 1), # East
       (-1, -1), # Northwest
-      (-1, 1), # Northeast
+      (-1, 1), # Northeast C
       (1, -1), # Southwest
       (1, 1), # Southeast
   }
