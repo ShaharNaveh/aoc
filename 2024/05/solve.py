@@ -13,9 +13,9 @@ def parse_rules(rule_block: str) -> dict[int, set[int]]:
   return dict(result)
   
 def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
-  for idx, num in enumerate(update):
-    befores = rules[num]
-    afters = set(update[idx + 1:])
+  for idx, num in enumerate(update, start=1):
+    befores = rules.get(num, set())
+    afters = set(update[idx:])
     if befores & afters:
       return False
   return True
