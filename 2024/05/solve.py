@@ -29,7 +29,7 @@ def parse_rules(rule_block: str) -> list[int]:
 def is_update_ok(update: list[int], key: callable) -> bool:
   return update == fix_update(update, key=key)
 
-def fix_update(update: list[int], key: callalbe) -> list[int]:
+def fix_update(update: list[int], key: callable) -> list[int]:
   return sorted(update, key=key)
   
 def middle_page(update: list[int]) -> int:
