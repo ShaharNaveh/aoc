@@ -16,7 +16,7 @@ def parse_rules(rule_block: str) -> list[int]:
     
     if is_before_in and is_after_in:
       if before_idx > after_idx:
-        result = result[:after_idx] + result[after_idx + 1:before_idx + 1] + result[before_idx:]
+        result = result[:after_idx] + result[after_idx + 1:before_idx + 1] + result[after_idx:after_idx + 1] + result[before_idx + 1:]
     elif is_before_in and not is_after_in:
       result.insert(before_idx + 1, after)
     elif is_after_in and not is_before_in:
