@@ -80,7 +80,7 @@ def p2(path):
   print(res)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
-input_file = pathlib.Path(__file__).parent / "test_input.txt"
+#input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
 p2(input_file)
