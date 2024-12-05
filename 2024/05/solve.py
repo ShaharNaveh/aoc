@@ -1,6 +1,8 @@
 import pathlib
 
-def build_rules(rules: set[complex]) -> list[int]:
+def parse_rules(rule_block: str) -> list[int]:
+  rules = map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines())
+  
   result = []
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
@@ -19,7 +21,9 @@ def build_rules(rules: set[complex]) -> list[int]:
     else:
       result.insert(0, after)
       result.insert(0, before)
+
     print(result)
+
   return result
   
 def is_in_order(update: list[int], rules: set[complex]) -> bool:
@@ -43,7 +47,7 @@ def p1(path):
   inp = path.read_text().strip()
   rule_block, update_block = inp.split("\n" * 2)
   
-  rules = set(map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines()))
+  rules = parse_rules(rule_block)
   updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
   
   good_updates = filter(lambda update: is_in_order(update, rules), updates)
@@ -66,4 +70,4 @@ input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
-p2(input_file)
+#p2(input_file)
