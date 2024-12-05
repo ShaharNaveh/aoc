@@ -21,8 +21,9 @@ def parse_rules(rule_block: str) -> list[int]:
     else:
       result.insert(0, after)
       result.insert(0, before)
-
-    #print(result)
+      
+    print(f"{before=}\t{after=}")
+    print(result)
 
   return result
   
