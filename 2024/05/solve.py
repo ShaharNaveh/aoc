@@ -1,38 +1,26 @@
+import collections
 import pathlib
 
-def parse_rules(rule_block: str) -> list[int]:
+def parse_rules(rule_block: str) -> dict[int, set[int]]:
   rules = map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines())
   
-  result = []
+  result = collections.defaultdict(set)
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
-    is_before_in = before in result
-    is_after_in = after in result
+    result[after] |= {before}
+  print(dict(result))
 
-    if is_before_in:
-      before_idx = result.index(before)
-    if is_after_in:
-      after_idx = result.index(after)
-    
-    if is_before_in and is_after_in:
-      if before_idx > after_idx:
-        result = result[:after_idx] + result[after_idx + 1:before_idx + 1] + result[after_idx:after_idx + 1] + result[before_idx + 1:]
-    elif is_before_in and not is_after_in:
-      result.insert(before_idx + 1, after)
-    elif is_after_in and not is_before_in:
-      result.insert(after_idx, before)
-    else:
-      result.insert(0, after)
-      result.insert(0, before)
-      
-    print(f"{before=}\t{after=}")
-    print(result)
-
-  return result
+  return dict(result)
   
-def is_update_ok(update: list[int], key: callable) -> bool:
-  return update == fix_update(update, key=key)
-
+def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
+  for idx, num in enumerate(update):
+    befores = rules[num]
+    afters = set(update[idx + 1:])
+    if befores & afters:
+      return False
+  return True
+    
+    
 def fix_update(update: list[int], key: callable) -> list[int]:
   return sorted(update, key=key)
   
@@ -47,7 +35,7 @@ def p1(path):
   rules = parse_rules(rule_block)
   updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
   
-  good_updates = filter(lambda update: is_update_ok(update, rules.index), updates)
+  good_updates = filter(lambda update: is_update_ok(update, rules), updates)
   res = sum(map(middle_page, good_updates))
   print(res)
 
@@ -67,4 +55,4 @@ input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
-p2(input_file)
+#p2(input_file)
