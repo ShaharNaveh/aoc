@@ -1,14 +1,23 @@
 import pathlib
+import functools
 
+def is_in_order(update: list[int], rules: set) -> bool:
+  return False
 
+def middle_page(update: list[int]) -> int:
+  return 1
+  
 def p1(path):
   inp = path.read_text().strip()
   rule_block, update_block = inp.split("\n" * 2)
   
   rules = set(map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines()))
-  print(rules)
   updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
-  print(updates)
+  func = functools.partial(is_in_order, rules=rules)
+  res = sum(map(middle_page, filter(func, updates)))
+  print(res)
+
+  
 
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
