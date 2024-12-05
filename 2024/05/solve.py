@@ -5,7 +5,8 @@ def is_in_order(update: list[int], rules: set) -> bool:
   return False
 
 def middle_page(update: list[int]) -> int:
-  return 1
+  idx = (len(update) - 1) / 2
+  return update[idx]
   
 def p1(path):
   inp = path.read_text().strip()
