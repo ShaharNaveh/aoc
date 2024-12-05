@@ -3,7 +3,7 @@ import functools
 
 def is_in_order(update: list[int], rules: set) -> bool:
   for rule in rules:
-    before, after = rule.real, rule.imag
+    before, after = int(rule.real), int(rule.imag)
     if not all(x in update for x in (before, after)):
       continue
     if update.index(before) > update.index(after):
