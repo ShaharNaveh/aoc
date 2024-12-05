@@ -3,7 +3,7 @@ import pathlib
 def build_rules(rules: set[complex]) -> list[int]:
   result = []
   for rule in rules:
-    before, after = int(rule.real), (rule.imag)
+    before, after = int(rule.real), int(rule.imag)
   
 def is_in_order(update: list[int], rules: set[complex]) -> bool:
   for rule in rules:
