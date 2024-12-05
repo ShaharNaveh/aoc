@@ -1,5 +1,8 @@
 import pathlib
 
+def build_rules(rules: set[complex]) -> list[int]:
+  pass
+  
 def is_in_order(update: list[int], rules: set[complex]) -> bool:
   for rule in rules:
     before, after = rule.real, rule.imag
