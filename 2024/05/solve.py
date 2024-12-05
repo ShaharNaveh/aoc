@@ -2,22 +2,6 @@ import pathlib
 
 def parse_rules(rule_block: str) -> list[int]:
   rules = map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines())
-  from collections import defaultdict as dd
-  
-  result = dd(int)
-  for rule in rules:
-    before, after = int(rule.real), int(rule.imag)
-    result[before] += 1
-    result[after] += 1
-  print(result)
-  for k, v in result.items():
-    if v == 1:
-      print(k)
-  exit()
-    
-   
-def parse_rules_t(rule_block: str) -> list[int]:
-  rules = map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines())
   
   result = []
   for rule in rules:
@@ -80,7 +64,7 @@ def p2(path):
   print(res)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
-#input_file = pathlib.Path(__file__).parent / "test_input.txt"
+input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
 p2(input_file)
