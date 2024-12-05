@@ -14,10 +14,12 @@ def build_rules(rules: set[complex]) -> list[int]:
       before_idx = result.index(before)
       result.insert(before_idx + 1, after)
     elif is_after_in and not is_before_in:
-      pass
+      after_idx = result.index(after)
+      result.insert(after_idx, after)
     else:
       result.insert(0, after)
       result.insert(0, before)
+    print(result)
   return result
   
 def is_in_order(update: list[int], rules: set[complex]) -> bool:
