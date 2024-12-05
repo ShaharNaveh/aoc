@@ -3,7 +3,7 @@ import functools
 
 def is_in_order(update: list[int], rules: set) -> bool:
   for rule in rules:
-    before, after = int(rule.real), int(rule.imag)
+    before, after = rule.real, rule.imag
     if not all(x in update for x in (before, after)):
       continue
     if update.index(before) > update.index(after):
@@ -12,7 +12,7 @@ def is_in_order(update: list[int], rules: set) -> bool:
   return True
 
 def middle_page(update: list[int]) -> int:
-  idx = (len(update) - 1) / 2
+  idx = (len(update) - 1) // 2
   return update[idx]
   
 def p1(path):
