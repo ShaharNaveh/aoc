@@ -6,6 +6,8 @@ def is_in_order(update: list[int], rules: set) -> bool:
     before, after = rule.real, rule.imag
     if not all(x in update for x in (before, after)):
       continue
+    if update.index(before) > update.index(after):
+      return False
       
   return True
 
@@ -22,9 +24,6 @@ def p1(path):
   func = functools.partial(is_in_order, rules=rules)
   res = sum(map(middle_page, filter(func, updates)))
   print(res)
-
-  
-
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
