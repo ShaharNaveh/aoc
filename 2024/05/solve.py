@@ -1,6 +1,6 @@
 import pathlib
 
-def is_in_order(update: list[int], rules: set) -> bool:
+def is_in_order(update: list[int], rules: set[complex]) -> bool:
   for rule in rules:
     before, after = rule.real, rule.imag
     if not all(x in update for x in (before, after)):
@@ -10,7 +10,7 @@ def is_in_order(update: list[int], rules: set) -> bool:
       
   return True
 
-def fix_update(update: list[int], rules: set) -> list[int]:
+def fix_update(update: list[int], rules: set[complex]) -> list[int]:
   pass
   
 def middle_page(update: list[int]) -> int:
