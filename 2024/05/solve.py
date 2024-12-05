@@ -7,17 +7,8 @@ def p1(path):
   
   rules = set(map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines()))
   print(rules)
-  updates = set()
-  for line in update_block.splitlines():
-    updates |= {tuple(map(int, line.split(",")))}
-
-  for update in updates:
-    if not set(update).issubset(rules):
-      print(update)
-
-
-    
-
+  updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
+  print(updates)
 
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
