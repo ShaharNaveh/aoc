@@ -5,10 +5,8 @@ def p1(path):
   inp = path.read_text().strip()
   rule_block, update_block = inp.split("\n" * 2)
   
-  rules = set()
-  for line in rule_block.splitlines():
-    rules |= set(map(int, line.split("|")))
-    
+  rules = set(map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines()))
+  print(rules)
   updates = set()
   for line in update_block.splitlines():
     updates |= {tuple(map(int, line.split(",")))}
