@@ -36,7 +36,7 @@ on:
           - '24'
           - '25'
       year:
-        description: 'Year'
+        description: Year
         required: true
         default: '2024'
         type: choice
@@ -51,6 +51,11 @@ on:
           - '2022'
           - '2023'
           - '2024'
+      timeout:
+        description: Job timeout
+        required: false
+        type: number
+        default: 1   
 
 permissions:
   contents: read
@@ -58,6 +63,7 @@ permissions:
 jobs:
   solve:
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout }}
     defaults:
       run:
         shell: bash
