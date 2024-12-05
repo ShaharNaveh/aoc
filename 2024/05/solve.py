@@ -4,7 +4,18 @@ def build_rules(rules: set[complex]) -> list[int]:
   result = []
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
-    if not all(num in result for num in (before, after)):
+    is_before_in = before in result
+    is_after_in = after in result
+    
+    if is_before_in and is_after_in:
+      continue
+
+    if is_before_in and not is_after_in:
+      before_idx = result.index(before)
+      result.insert(before_idx + 1, after)
+    elif is_after_in and not is_before_in:
+      pass
+    else:
       result.insert(0, after)
       result.insert(0, before)
   return result
