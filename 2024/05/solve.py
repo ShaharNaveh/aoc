@@ -25,7 +25,7 @@ def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
 def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
   # Bubble sort because I'm not very smart
   res = update.copy()
-  while not is_update_ok(res):
+  while not is_update_ok(res, rules):
     for idx, num in enumerate(res):
       befores = rules.get(num)
       if not befores:
