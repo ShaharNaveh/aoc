@@ -22,9 +22,20 @@ def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
       return False
   return True   
     
-def fix_update(update: list[int], key: callable) -> list[int]:
-  return sorted(update, key=key)
-  
+def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
+  # Bubble sort because I'm not very smart
+  res = update.copy()
+  while not is_update_ok(res):
+    for idx, num in enumerate(res):
+      befores = rules.get(num)
+      if not befores:
+        continue
+      afters = set(update[idx + 1:])
+      if befores & afters:
+        res[idx], res[idx + 1] = res[idx+1], res[idx]
+        
+  return res
+     
 def middle_page(update: list[int]) -> int:
   idx = (len(update) - 1) // 2
   return update[idx]
