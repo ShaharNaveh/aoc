@@ -4,6 +4,10 @@ def build_rules(rules: set[complex]) -> list[int]:
   result = []
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
+    if not all(num in result for num in (before, after)):
+      result.insert(0, after)
+      result.insert(0, before)
+  return result
   
 def is_in_order(update: list[int], rules: set[complex]) -> bool:
   for rule in rules:
