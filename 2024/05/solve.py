@@ -8,18 +8,19 @@ def parse_rules(rule_block: str) -> dict[int, set[int]]:
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
     result[after] |= {before}
-  print(dict(result))
 
   return dict(result)
   
 def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
   for idx, num in enumerate(update, start=1):
-    befores = rules.get(num, set())
+    befores = rules.get(num)
+    if not befores:
+      continue
+      
     afters = set(update[idx:])
     if befores & afters:
       return False
-  return True
-    
+  return True   
     
 def fix_update(update: list[int], key: callable) -> list[int]:
   return sorted(update, key=key)
@@ -46,13 +47,13 @@ def p2(path):
   rules = parse_rules(rule_block)
   updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
   
-  bad_updates = filter(lambda update: not is_update_ok(update, rules.index), updates)
-  fixed_updates = map(lambda update: fix_update(update, rules.index), bad_updates)
+  bad_updates = filter(lambda update: not is_update_ok(update, rules), updates)
+  fixed_updates = map(lambda update: fix_update(update, rules), bad_updates)
   res = sum(map(middle_page, fixed_updates))          
   print(res)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
-p1(input_file)
-#p2(input_file)
+#p1(input_file)
+p2(input_file)
