@@ -10,9 +10,10 @@ def parse_rules(rule_block: str) -> list[int]:
     is_after_in = after in result
     
     if is_before_in and is_after_in:
-      continue
+     SWITXH RHEM
 
-    if is_before_in and not is_after_in:
+      pass
+    elif is_before_in and not is_after_in:
       before_idx = result.index(before)
       result.insert(before_idx + 1, after)
     elif is_after_in and not is_before_in:
