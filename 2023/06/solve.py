@@ -4,7 +4,7 @@ import pathlib
 def parse(path) -> set[complex]:
   puzzle = path.read_text().strip()
   #time_line, distance_line = puzzle.splitlines()
-  _, times, _ distances = puzzle.split(":")
+  _, times, _, distances = puzzle.split(":")
   times = map(int, times.split())
   distances = map(int, distances.split())
   races = {complex(time, distance) for time, distance in zip(times, distances)}
