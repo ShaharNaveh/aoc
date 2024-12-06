@@ -23,7 +23,6 @@ def is_update_correct(update: list[int], rules: dict[int, set[int]]) -> bool:
 def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
   func = lambda before, after: (before in rules.get(after, set())) - 1
   res = sorted(update, key=functools.cmp_to_key(func))
-  print(res)
   return res
 
 def middle_page(update: list[int]) -> int:
@@ -54,7 +53,7 @@ def p2(path):
   print(res)
 
 input_file = pathlib.Path(__file__).parent / "input.txt"
-input_file = pathlib.Path(__file__).parent / "test_input.txt"
+#input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
 p2(input_file)
