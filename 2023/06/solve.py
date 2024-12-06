@@ -21,6 +21,13 @@ def parse(path) -> set[complex]:
   races = {complex(time, distance) for time, distance in zip(times, distances)}
   return races
 
+def parse_p2(path) -> complex:
+  puzzle = path.read_text().strip()
+  time_line, distance_line = puzzle.splitlines()
+  time = int(time_line.split(":")[1].replace(" ", ""))
+  distance = int(distance_line.split(":")[1].replace(" ", ""))
+  return complex(time, distance)
+  
 def p1(path):
   races = parse(path)
   res = 1
@@ -28,7 +35,13 @@ def p1(path):
     res *= sum(1 for _ in possible_race_ways(race))
   print(res)
 
+def p2(path):
+  race = parse_p2(path)
+  res = sum(1 for _ in possible_race_ways(race))
+  print(res)
+  
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
-p1(puzzle_file)
+#p1(puzzle_file)
+p2(puzzle_file)
