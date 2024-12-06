@@ -76,7 +76,6 @@ def patrol(
   seen = set()
   last_steps = None
   while last_steps != 0:
-    print(f"Walking: {cord=}\t{direction=}\t{last_steps=}")
     walk = walk_until(cord, direction, cords, seen=seen)
     while True:
       try:
