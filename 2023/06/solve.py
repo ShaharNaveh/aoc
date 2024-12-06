@@ -26,7 +26,7 @@ def p1(path):
   races = parse(path)
   res = 1
   for race in races:
-    if int(race.real) != 15:
+    if int(race.real) != 200:
       continue
     res *= sum(1 for _ in possible_race_ways(race))
   print(res)
