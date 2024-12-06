@@ -60,6 +60,13 @@ def p2(path):
   cord, cords = puzzle["guard"], puzzle["cords"]
   seen, _ = walked_cords(cord, cords)
   locs = set(map(operator.itemgetter(0), seen))
+  print(
+    sum(
+      walked_cords(cord, cords | {pos: "#"})[1]
+      for pos in set(pos for pos, _ in seen)
+    )
+  )
+  '''
   res = sum(
     map(
       operator.itemgetter(1),
@@ -70,6 +77,7 @@ def p2(path):
     )
   )
   print(res)
+  '''
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 #puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
