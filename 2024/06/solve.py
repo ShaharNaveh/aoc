@@ -89,6 +89,10 @@ def patrol(
       try:
         step = next(walk)
         seen.add((step, direction))
+        next_step = step + direction.value
+        while not cords.get(next_step, False):
+          direction = Direction.rotate(direction)
+          next_step = step + direction.value
       except StopIteration as err:
         last_steps = err.value
         break
