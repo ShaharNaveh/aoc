@@ -1,12 +1,21 @@
 import pathlib
 
-def hand_strength(hand: str, card_strength: dict[str, int]) -> int:
+def hand_strength(hand: str, card_strength: dict[str, int], *, base: int = 10) -> int:
   cards = list(hand)
   order_strength = sum(
-    cards_strength[card] * (10 ** order)
+    (base ** order) + cards_strength[card]
     for order, card in enumerate(reversed(cards), start=1)
   )
-  
+  card_count = len(cards)
+  if len(set(cards)) == 1:
+    # Five of a Kind
+    kind_strength = base ** (card_count + 6)
+    return kind_strength + order_strength
+
+  if len(set(cards)) == card_count:
+    kind_strength = base ** (card_count + 2)
+    return kind_strength + order_strength
+    
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
