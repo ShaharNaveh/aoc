@@ -1,6 +1,10 @@
 import enum
 import operator
 import pathlib
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from collections.abc import Iterable
 
 @enum.unique
 class Direction(complex, enum.Enum):
@@ -48,7 +52,9 @@ def parse_puzzle(path):
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
 
-def walk_until(cord: complex, direction: Direction, cords: dict[complex, bool]) -> Iterable[complex]:
+def walk_until(
+  cord: complex, direction: Direction, cords: dict[complex, bool]
+) -> "Iterable[complex]":
   """
   Walk until reach obstacle or OOB
   """
