@@ -1,6 +1,6 @@
 import pathlib
 
-input_file = pathlib.Path(__file__).parent / "input.txt"
+input_file = pathlib.Path(__file__).parent / "puzzle.txt"
 inp = input_file.read_text().strip()
 
 grid = {
