@@ -1,4 +1,5 @@
 import collections
+import functools
 import pathlib
 
 def parse_rules(rule_block: str) -> dict[int, set[int]]:
@@ -20,7 +21,8 @@ def is_update_correct(update: list[int], rules: dict[int, set[int]]) -> bool:
   return True
 
 def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
-  res = sorted(update, key=lambda before, after: before in rules.get(after, set()) - 1)
+  func = lambda before, after: (before in rules.get(after, set()) - 1)
+  res = sorted(update, key=functools.cmp_to_key(func))
   print(res)
   return res
 
