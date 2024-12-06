@@ -6,7 +6,6 @@ CARDS_STRENGTH = {
 }  
 
 def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) -> int:
-  s
   cards = list(hand)
   order_strength = sum(
     (base ** order) + cards_strength[card]
