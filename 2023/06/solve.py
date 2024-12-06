@@ -6,8 +6,7 @@ def possible_race_ways(race: complex):
   prev_distance = 0
   for hold in range(1, race_time):
     distance = hold * (race_time - hold)
-    print(f"{hold=}\t{distance=}")
-    if distance_rec > distance:
+    if distance_rec >= distance:
       if prev_distance > distance:
         break
       continue
@@ -26,8 +25,6 @@ def p1(path):
   races = parse(path)
   res = 1
   for race in races:
-    if int(race.real) != 30:
-      continue
     res *= sum(1 for _ in possible_race_ways(race))
   print(res)
 
