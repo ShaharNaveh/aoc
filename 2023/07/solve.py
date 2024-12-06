@@ -43,13 +43,14 @@ def hand_strength(
     hand_type = HandType.OnePair
   elif cards_unique_count == cards_count:
     hand_type = HandType.HighCard
-  '''
-    print(f"{hand=}")
-    print(f"{cards=}")
-    print(f"{cards_count=}")
-    print(f"{cards_unique=}")
-    print(f"{cards_unique_count=}")
-  '''
+  
+  print(f"{hand=}")
+  print(f"{hand_type=}")
+  print(f"{cards=}")
+  print(f"{cards_count=}")
+  print(f"{cards_unique=}")
+  print(f"{cards_unique_count=}")
+  
   
   base_hand_type_strength = base ** (cards_count + hand_type.value + 1)
   return base_hand_type_strength + order_strength
