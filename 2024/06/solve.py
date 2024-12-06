@@ -1,4 +1,5 @@
 import enum
+import operator
 import pathlib
 
 @enum.unique
@@ -51,17 +52,18 @@ def walk_until(cord: complex, direction: Direction, cords: dict[complex, bool]) 
   """
   Walk until reach obstacle or OOB
   """
-  dir_x, dir_y = direction.value.real, direction.value.imag
-
-  
-
+  while cords.get(cord, False):
+    yield cord
+    cord += direction.value
 
 def p1(path):
   puzzle = parse_puzzle(path)
   guard, cords = puzzle["guard"], puzzle["cords"]
 
-  print(guard)
-  print(puzzle)
+  for idx, cord in enumerate(walk_until(**guard, cords=cords)):
+    print(idx)
+    print(cord)
+    
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
