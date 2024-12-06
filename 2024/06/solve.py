@@ -6,6 +6,29 @@ class Direction(complex, enum.Enum):
   South = (1, 0)
   West = (0, -1)
   East = (0, 1)
+
+  @classmethod
+  def rotate(cls, direction):
+    """
+    Rotate 90 degrees.
+    """
+    mapping = {
+      cls.North: cls.East,
+      cls.East: cls.South,
+      cls.South: cls.West,
+      cls.West: cls.North,
+    }
+    return mapping[direction]
+
+  @classmethod
+  def from_char(cls, char):
+    mapping = {
+      "^": cls.North,
+      ">": cls.East,
+      "<": cls.West,
+      "v": cls.South,
+    }
+    return mapping[char.lower()]
   
 def parse_puzzle(path):
   inp = path.read_text().strip().lower()
@@ -19,7 +42,7 @@ def parse_puzzle(path):
       cords[cord] = char == "."
       if char in {"^", ">", "<", "v"}:
         cords[cord] = True
-        guard["direction"] = char
+        guard["direction"] = Direction.from_char(char)
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
   
