@@ -4,7 +4,7 @@ def possible_race_ways(race: complex):
   race_time, distance_rec = race.real, race.imag
 
   prev_distance = 0
-  for hold in range(start, race_time):
+  for hold in range(1, race_time):
     distance = hold * (race_time - hold)
     if distance_rec > distance:
       if prev_distance > distance:
