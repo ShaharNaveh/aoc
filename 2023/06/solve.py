@@ -1,19 +1,10 @@
 import pathlib
 
-
 def parse(path) -> set[complex]:
   puzzle = path.read_text().strip()
-  #time_line, distance_line = puzzle.splitlines()
-  #_, times, _, distances = puzzle.split(":")
-  a, b, c = puzzle.split(":")
-  print(f"{a=}")
-  print(f"{b=}")
-  
-  print(f"{c=}")
-
-              
-  times = map(int, times.split())
-  distances = map(int, distances.split())
+  time_line, distance_line = puzzle.splitlines()
+  times = map(int, time_line.split(":")[1].strip().split())
+  distances = map(int, distance_line.split(":")[1].strip().split())
   races = {complex(time, distance) for time, distance in zip(times, distances)}
   return races
 
