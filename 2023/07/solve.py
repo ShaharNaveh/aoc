@@ -30,7 +30,7 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
       # Three of a Kind
       type_strength = 4
 
-  elif unique_cards_len == card_count:
+  elif cards_unique_count == cards_count:
     # High Card
     type_strength = 2
     
