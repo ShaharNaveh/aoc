@@ -76,5 +76,4 @@ jobs:
           persist-credentials: false
           
       - name: Solve
-        if: ${{ steps.lang.outputs.stdout == "python" }}
         run: python ./solve.py
