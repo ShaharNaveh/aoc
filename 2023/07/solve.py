@@ -44,7 +44,7 @@ def iter_puzzle(path):
     yield (hand, int(bid))
 
 def p1(path):
- it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0]), reverse=True)
+ it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], card_strength=CARD_STRENGTH), reverse=True)
  res = 0
  for rank, _, bid in enumerate(it, start=1):
    res += rank * bid
