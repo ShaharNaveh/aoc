@@ -88,7 +88,7 @@ def patrol(
     while True:
       try:
         step = next(walk)
-        seen.add({(step, direction)})
+        seen.add((step, direction))
       except StopIteration as err:
         last_steps = err.value
         break
