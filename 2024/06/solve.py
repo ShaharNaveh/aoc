@@ -64,7 +64,7 @@ def walk_until(
   seen = seen if seen else set()
   steps = 0
   cord += direction.value
-  while cords.get(cord, False) and not in seen:
+  while cords.get(cord, False) and cord not in seen:
     yield cord
     seen.add(cord)
     steps += 1
