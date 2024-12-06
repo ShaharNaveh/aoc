@@ -1,6 +1,12 @@
+import enum
 import pathlib
 
-
+class Direction(complex, enum.Enum):
+  North = (-1, 0)
+  South = (1, 0)
+  West = (0, -1)
+  East = (0, 1)
+  
 def parse_puzzle(path):
   inp = path.read_text().strip().lower()
   grid = [list(line) for line in inp.splitlines()]
