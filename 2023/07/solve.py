@@ -3,9 +3,11 @@ import pathlib
 CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
-}  
+}
 
-def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) -> int:
+def hand_strength(
+ hand: str, cards_strength: dict[str, int], *, base: int = 10
+) -> int:
   cards = list(hand)
   order_strength = sum(
     (base ** order) + cards_strength[card]
@@ -17,6 +19,10 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
   cards_unique_count = len(cards_unique)
 
   print(f"{hand=}")
+  print(f"{cards=")
+  print(f"{cards_count=}")
+  print(f"{cards_unique=}")
+  print(f"{cards_unique_count=}")
  
   if cards_unique_count == 1:
     # Five of a Kind
