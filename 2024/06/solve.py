@@ -62,11 +62,17 @@ def walk_until(
   while cords.get(cord, False):
     yield cord
     cord += direction.value
-
+    
+def patrol(
+  cord: complex, direction: Direction, cords: dict[complex, bool]
+) -> "Iterable[complex]":
+  
+  
+  
 def p1(path):
   puzzle = parse_puzzle(path)
   guard, cords = puzzle["guard"], puzzle["cords"]
-
+  cord, direction = guard["cord"], guard["direction"]
   for idx, cord in enumerate(walk_until(**guard, cords=cords)):
     print(idx)
     print(cord)
