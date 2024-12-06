@@ -75,14 +75,14 @@ def patrol(
     while True:
       try:
         step = next(walk)
-        print(f"B {step=}")
       except StopIteration as err:
         last_steps = err.value
         break
-      print(f"C {step=}")
-      yield step
+      #yield step
+      seen.add(step)
     cord = step
-    direction = Direction.rotate(direction)  
+    direction = Direction.rotate(direction)
+  return seen
   
 def p1(path):
   puzzle = parse_puzzle(path)
