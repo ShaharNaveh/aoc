@@ -47,6 +47,15 @@ def parse_puzzle(path):
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
 
+def walk_until(cord: complex, direction: Direction, cords: dict[complex, bool]) -> Iterable[int]:
+  """
+  Walk until reach obstacle or OOB
+  """
+  dir_x, dir_y = direction.value.real, direction.value.imag
+
+  
+
+
 def p1(path):
   puzzle = parse_puzzle(path)
   guard, cords = puzzle["guard"], puzzle["cords"]
