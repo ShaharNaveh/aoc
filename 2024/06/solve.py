@@ -1,17 +1,19 @@
 import enum
+import itertools
 import pathlib
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
   from collections.abc import Iterable
 
+
 @enum.unique
 class Direction(complex, enum.Enum):
   North = (-1, 0)
+  East = (0, 1)
   South = (1, 0)
   West = (0, -1)
-  East = (0, 1)
-
+  
   @classmethod
   def rotate(cls, direction):
     """
@@ -26,7 +28,7 @@ class Direction(complex, enum.Enum):
     return mapping[direction]
 
   @classmethod
-  def from_char(cls, char):
+  def from_string(cls, char):
     mapping = {
       "^": cls.North,
       ">": cls.East,
@@ -47,19 +49,30 @@ def parse_puzzle(path):
       cords[cord] = char == "."
       if char not in {".", "#"}:
         cords[cord] = True # If there's a guard there, it's walkable
-        guard["direction"] = Direction.from_char(char)
+        guard["direction"] = Direction.from_string(char)
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
 
+'''
+def walked_cords(cord, direction, cords):
+  directions = itertools.cycle(Direcrion)
+  seen = set()
+  while cords.get(cord, False)
+'''
+
+
 def walk_until(
-  cord: complex, direction: Direction, cords: dict[complex, bool], seen
+  cord: complex, 
+  direction: Direction, 
+  cords: dict[complex, bool], 
+  seen: set[tuple[complex, Direction]]
 ) -> "Iterable[complex]":
   """
   Walk until reach obstacle or OOB.
   """
   steps = 0
   cord += direction.value
-  while cords.get(cord, False) and cord not in seen:
+  while cords.get(cord, False) and (cord, direction) not in seen :
     yield cord
     steps += 1
     cord += direction.value
@@ -75,14 +88,13 @@ def patrol(
     while True:
       try:
         step = next(walk)
+        seen.add({(step, direction)}
       except StopIteration as err:
         last_steps = err.value
         break
-      #yield step
-      seen.add(step)
+      yield step
     cord = step
     direction = Direction.rotate(direction)
-  return seen
   
 def p1(path):
   puzzle = parse_puzzle(path)
@@ -90,7 +102,8 @@ def p1(path):
   cord, direction = guard["cord"], guard["direction"]
   locations = set(patrol(cord, direction, cords))
   print(len(locations))
-  
+
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
