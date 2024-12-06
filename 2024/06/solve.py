@@ -1,4 +1,4 @@
-import functools
+import itertools
 import pathlib
 
 def parse_puzzle(path):
@@ -10,7 +10,7 @@ def parse_puzzle(path):
   }
   
 def get_seen(cord, cords):
-    dir_iter = functools.cycle([(-1, 0), (0, 1), (1, 0), (0, -1)])
+    dir_iter = itertools.cycle([(-1, 0), (0, 1), (1, 0), (0, -1)])
     d = next(dir_iter)
     p = cord
     seen = set()
