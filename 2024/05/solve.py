@@ -18,7 +18,11 @@ def is_update_correct(update: list[int], rules: dict[int, set[int]]) -> bool:
     if befores & afters:
       return False
   return True
-     
+
+def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
+  for idx, num in enumerate(update):
+    pass
+
 def middle_page(update: list[int]) -> int:
   idx = (len(update) - 1) // 2
   return update[idx]
@@ -41,7 +45,7 @@ def p2(path):
   rules = parse_rules(rule_block)
   updates = [list(map(int, line.split(","))) for line in update_block.splitlines()]
   
-  bad_updates = filter(lambda update: not is_update_ok(update, rules), updates)
+  bad_updates = filter(lambda update: not is_update_correct(update, rules), updates)
   fixed_updates = map(lambda update: fix_update(update, rules), bad_updates)
   res = sum(map(middle_page, fixed_updates))          
   print(res)
