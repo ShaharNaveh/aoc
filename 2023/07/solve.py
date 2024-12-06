@@ -1,4 +1,15 @@
+import enum
 import pathlib
+
+@enum.unique
+class HandType(enum.Enum):
+  HighCard = enum.auto()
+  OnePair = enum.auto()
+  TwoPairs = enum.auto()
+  ThreeOfAKind = enum.auto()
+  FullHouse = enum.auto()
+  FourOfAKind = enum.auto()
+  FiveOfAKind = enum.auto()
 
 CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
@@ -17,36 +28,31 @@ def hand_strength(
   cards_count = len(cards)
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
-
-  type_strength = 0
   
   if cards_unique_count == 1:
-    # Five of a Kind
-    type_strength = 6 
+    hand_type = HandType.FiveOfAKind
+  elif (cards_unique_count == 2) and any(cards.count(card) == 4 for card in cards_unique):
+    hand_type =  HandType.FourOfAKind
   elif cards_unique_count == 2:
-    # Four of a Kind
-    type_strength =  5
+    hand_type = HandType.FullHouse
   elif (cards_unique_count == 3) and any(cards.count(card) == 3 for card in cards_unique):
-    # Three of a Kind
-    type_strength = 4
+    hand_type = HandType.ThreeOfAKind
   elif cards_unique_count == 3:
-    # Two Pairs
-    type_strength = 3
+    hand_type = HandtType.TwoPairs
+  elif cards_unique_count == 4:
+    hand_type = HandType.OnePair
   elif cards_unique_count == cards_count:
-    # High Card
-    type_strength = 2
-
-  if type_strength == 0:
-    
+    hand_type = HandType.HighCard
+  '''
     print(f"{hand=}")
     print(f"{cards=}")
     print(f"{cards_count=}")
     print(f"{cards_unique=}")
     print(f"{cards_unique_count=}")
-   
+  '''
   
-  base_type_strength = base ** (cards_count + type_strength)
-  return base_type_strength + order_strength
+  base_hand_type_strength = base ** (cards_count + hand_type.value + 1)
+  return base_hand_type_strength + order_strength
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
