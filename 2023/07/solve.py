@@ -15,7 +15,8 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
   cards_count = len(cards)
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
-  
+
+  print(hand)
   if cards_unique_count == 1:
     # Five of a Kind
     type_strength = 6 
