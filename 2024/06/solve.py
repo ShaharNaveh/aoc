@@ -86,7 +86,7 @@ def p1(path):
   guard, cords = puzzle["guard"], puzzle["cords"]
   cord, direction = guard["cord"], guard["direction"]
   locations = set(patrol(cord, direction, cords))
-  print(len(locations)
+  print(len(locations))
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
