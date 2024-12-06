@@ -15,6 +15,8 @@ CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
+print(CARDS_STRENGTH)
+exit()
 
 def hand_strength(
  hand: str, cards_strength: dict[str, int], *, base: int = 10
