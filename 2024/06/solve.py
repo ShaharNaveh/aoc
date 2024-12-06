@@ -52,21 +52,15 @@ def parse_puzzle(path):
   return {"guard": guard, "cords": cords}
 
 def walk_until(
-  cord: complex,
-  direction: Direction,
-  cords: dict[complex, bool], 
-  *,
-  seen: set[complex] | None = None
+  cord: complex, direction: Direction, cords: dict[complex, bool]
 ) -> "Iterable[complex]":
   """
   Walk until reach obstacle or OOB.
   """
-  seen = seen if seen else set()
   steps = 0
   cord += direction.value
-  while cords.get(cord, False) and cord not in seen:
+  while cords.get(cord, False):
     yield cord
-    seen.add(cord)
     steps += 1
     cord += direction.value
   return steps    
@@ -80,11 +74,13 @@ def patrol(
     walk = walk_until(cord, direction, cords, seen=seen)
     while True:
       try:
+        print(f"A {step=}")
         step = next(walk)
+        print(f"B {step=}")
       except StopIteration as err:
         last_steps = err.value
         break
-      seen.add(step)
+      print(f"C {step=}")
       yield step
     cord = step
     direction = Direction.rotate(direction)  
