@@ -7,7 +7,7 @@ on:
       day:
         description: Day
         required: true
-        default: '06'
+        default: '07'
         type: choice
         options:
           - '01'
