@@ -58,6 +58,7 @@ def walk_until(
   """
   Walk until reach obstacle or OOB
   """
+  cord += direction.value
   while cords.get(cord, False):
     yield cord
     cord += direction.value
