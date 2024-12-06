@@ -2,15 +2,20 @@ import pathlib
 
 
 def parse_puzzle(path):
-  inp = path.read_text().strip()
+  inp = path.read_text().strip().lower()
   grid = [list(line) for line in inp.splitlines()]
-  
+
+  cords = {}
+  guard = {}
   for row_idx, row in enumerate(grid):
     for col_idx, char in enumerate(row):
-      if char != "x":
-        continue
-      cord = Cord(x=row_idx, y=col_idx)
-      start_cords.add(cord)
+      cord = complex(row_idx, col_idx)
+      cords[cord] = char == "."
+      if char in {"^", ">", "<", "v"}:
+        cords[cord] = True
+        guard["direction"] = char
+        guard["cord"] = cord
+  return {"guard": guard, "cords": cords}
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
