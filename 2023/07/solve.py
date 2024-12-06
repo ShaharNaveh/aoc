@@ -21,7 +21,7 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
     type_strength = 6 
   elif cards_unique_count == 2:
     # Four of a Kind
-    kind_strength =  5
+    type_strength =  5
   elif cards_unique_count == 3:
     # Two Pairs
     type_strength = 3
