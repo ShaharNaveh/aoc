@@ -1,6 +1,7 @@
 import enum
 import pathlib
 
+@enum.unique
 class Direction(complex, enum.Enum):
   North = (-1, 0)
   South = (1, 0)
