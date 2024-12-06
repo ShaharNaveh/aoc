@@ -7,7 +7,7 @@ def parse(path) -> set[complex]:
   #_, times, _, distances = puzzle.split(":")
   a, b, c = puzzle.split(":")
   print(f"{a=}")
-  print(f"b=}")
+  print(f"{b=}")
   
   print(f"{c=}")
 
