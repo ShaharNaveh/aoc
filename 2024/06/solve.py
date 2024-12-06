@@ -98,7 +98,7 @@ def patrol(
         break
       yield step
     cord = step
-    direction = Direction.rotate(direction)
+  #  direction = Direction.rotate(direction)
   
 def p1(path):
   puzzle = parse_puzzle(path)
