@@ -1,5 +1,18 @@
 import pathlib
 
+def possible_race_ways(race: complex):
+  race_time, distance_rec = race.real, race.imag
+
+  prev_distance = 0
+  for hold in range(race_time, start=1):
+    distance = hold * (race_time - hold)
+    if distance_rec > distance:
+      if prev_distance > distance:
+        break
+      continue
+    yield hold
+    prev_distance = distance
+      
 def parse(path) -> set[complex]:
   puzzle = path.read_text().strip()
   time_line, distance_line = puzzle.splitlines()
@@ -10,7 +23,10 @@ def parse(path) -> set[complex]:
 
 def p1(path):
   races = parse(path)
-  print(races)
+  res = 1
+  for race in races:
+    res *= sum(1 for _ in possible_race_ways(race))
+  print(res)
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
