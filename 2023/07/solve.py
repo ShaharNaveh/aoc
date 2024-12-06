@@ -15,8 +15,6 @@ CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
-print(CARDS_STRENGTH)
-exit()
 
 def hand_strength(
  hand: str, cards_strength: dict[str, int], *, base: int = 10
@@ -26,7 +24,7 @@ def hand_strength(
     (base ** order) + cards_strength[card]
     for order, card in enumerate(reversed(cards), start=2)
   )
-  
+  print(order_strength)
   cards_count = len(cards)
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
