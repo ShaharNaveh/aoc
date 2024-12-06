@@ -56,16 +56,33 @@ def walk_until(
   cord: complex, direction: Direction, cords: dict[complex, bool]
 ) -> "Iterable[complex]":
   """
-  Walk until reach obstacle or OOB
+  Walk until reach obstacle or OOB.
   """
+  steps = 0
   cord += direction.value
   while cords.get(cord, False):
     yield cord
+    steps += 1
     cord += direction.value
+  return steps    
     
 def patrol(
   cord: complex, direction: Direction, cords: dict[complex, bool]
 ) -> "Iterable[complex]":
+  last_steps = None
+  while last_steps != 0:
+    walk = walk_until(cord, direction, cords)
+    while True:
+      try:
+        step = next(walk)
+      except StopIteration as err:
+        last_steps = err.value
+        break
+      yield step
+    cord = step
+    direction = Direction.rotate(direction)
+  
+        
   
   
   
