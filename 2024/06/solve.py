@@ -13,19 +13,6 @@ class Direction(complex, enum.Enum):
   East = (0, 1)
   South = (1, 0)
   West = (0, -1)
-  
-  @classmethod
-  def rotate(cls, direction):
-    """
-    Rotate 90 degrees.
-    """
-    mapping = {
-      cls.North: cls.East,
-      cls.East: cls.South,
-      cls.South: cls.West,
-      cls.West: cls.North,
-    }
-    return mapping[direction]
 
   @classmethod
   def from_string(cls, char):
@@ -49,17 +36,22 @@ def parse_puzzle(path):
       cords[cord] = char
       if char not in {".", "#"}:
         cords[cord] = "." # If there's a guard there, it's walkable
-        guard["direction"] = Direction.from_string(char)
+        guard["direction"] = Direction.from_string(char) # TOSO: REMOOOOOOOOOVE
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
 
-'''
-def walked_cords(cord, direction, cords):
+def walked_cords(cord, cords):
   directions = itertools.cycle(Direcrion)
+  direction = next(directions)
   seen = set()
-  while cords.get(cord, False)
-'''
+  while (cord in cords) and (cord, direction) not in seen:
+    seen.add((cord, direction))
 
+    cord = cord + direction.value
+    while cords.get(cord) == "#":
+      direction = next(directions)
+      cord = cord + direction.value
+  return seen
 
 def walk_until(
   cord: complex, 
@@ -104,7 +96,8 @@ def p1(path):
   puzzle = parse_puzzle(path)
   guard, cords = puzzle["guard"], puzzle["cords"]
   cord, direction = guard["cord"], guard["direction"]
-  locations = set(patrol(cord, direction, cords))
+  #locations = set(patrol(cord, direction, cords))
+  locations = walked_cords(cord, cords)
   print(len(locations))
 
 
