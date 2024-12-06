@@ -53,7 +53,7 @@ def hand_strength(
     print(f"{cards_unique_count=}")
   
   
-  base_hand_type_strength = base ** (cards_count + hand_type.value + 1)
+  base_hand_type_strength = base ** (cards_count + hand_type.value + 2)
   return base_hand_type_strength + order_strength
   
 def iter_puzzle(path):
