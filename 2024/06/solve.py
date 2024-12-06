@@ -70,6 +70,7 @@ def patrol(
 ) -> "Iterable[complex]":
   last_steps = None
   while last_steps != 0:
+    print(f"Walking: {cord=}\t{direction=}\t{last_steps=}")
     walk = walk_until(cord, direction, cords)
     while True:
       try:
