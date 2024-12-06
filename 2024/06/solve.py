@@ -51,7 +51,7 @@ def walked_cords(cord: complex, cords: dict[complex, str]) -> tuple[set[tuple[co
 def p1(path):
   puzzle = parse_puzzle(path)
   cord, cords = puzzle["guard"], puzzle["cords"]
-  locations = set(map(operator.itemgetter(0), walked_cords(cord, cords)))
+  locations = set(map(operator.itemgetter(0), walked_cords(cord, cords)[0]))
   print(len(locations))
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
