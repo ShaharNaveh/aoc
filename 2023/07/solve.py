@@ -16,14 +16,14 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
   
-  if unique_unique_count == 1:
+  if cards_unique_count == 1:
     # Five of a Kind
-    kind_strength = base ** (cards_count + 6) 
+    type_strength = 6 
   elif cards_unique_count == 2:
     # Four of a Kind
     kind_strength =  5
-  elif unique_cards_len == 3:
-    # Two of a Kind
+  elif cards_unique_count == 3:
+    # Two Pairs
     type_strength = 3
 
     if any(cards.count(card) == 3 for card in unique_cards):
@@ -32,7 +32,7 @@ def hand_strength(hand: str, cards_strength: dict[str, int], *, base: int = 10) 
 
   elif unique_cards_len == card_count:
     # High Card
-    type_strength = base ** (card_count + 2)
+    type_strength = 2
     
   base_type_strength = base ** (cards_count + type_strength)
   return base_type_strength + order_strength  
