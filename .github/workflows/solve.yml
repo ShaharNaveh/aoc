@@ -55,7 +55,7 @@ on:
         description: Job timeout
         required: false
         type: number
-        default: 5
+        default: 1
 
 permissions:
   contents: read
