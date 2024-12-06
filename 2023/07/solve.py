@@ -1,4 +1,3 @@
-import collections
 import pathlib
 
 def hand_strength(hand: str, card_strength: dict[str, int], *, base: int = 10) -> int:
@@ -8,17 +7,30 @@ def hand_strength(hand: str, card_strength: dict[str, int], *, base: int = 10) -
     for order, card in enumerate(reversed(cards), start=1)
   )
   
-  card_count = len(cards)
-  card_counter = 
+  cards_count = len(cards)
+  cards_unique = set(cards)
+  cards_unique_count = len(cards_unique)
   
-  if len(set(cards)) == 1:
+  if unique_unique_count == 1:
     # Five of a Kind
-    kind_strength = base ** (card_count + 6)
-    return kind_strength + order_strength
+    kind_strength = base ** (cards_count + 6) 
+  elif cards_unique_count == 2:
+    # Four of a Kind
+    kind_strength =  5
+  elif unique_cards_len == 3:
+    # Two of a Kind
+    type_strength = 3
 
-  if len(set(cards)) == card_count:
-    kind_strength = base ** (card_count + 2)
-    return kind_strength + order_strength
+    if any(cards.count(card) == 3 for card in unique_cards):
+      # Three of a Kind
+      type_strength = 4
+
+  elif unique_cards_len == card_count:
+    # High Card
+    type_strength = base ** (card_count + 2)
+    
+  base_type_strength = base ** (cards_count + type_strength)
+  return base_type_strength + order_strength
     
   
 def iter_puzzle(path):
