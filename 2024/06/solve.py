@@ -45,13 +45,13 @@ def walked_cords(cord, cords):
   direction = next(directions)
   seen = set()
   while (cord in cords) and (cord, direction) not in seen:
+    yield cord
     seen.add((cord, direction))
     
     while cords.get(cord + direction.value) == "#":
       direction = next(directions)
       
     cord = cord + direction.value
-  return seen
 
 def walk_until(
   cord: complex, 
@@ -97,7 +97,7 @@ def p1(path):
   guard, cords = puzzle["guard"], puzzle["cords"]
   cord, direction = guard["cord"], guard["direction"]
   #locations = set(patrol(cord, direction, cords))
-  locations = walked_cords(cord, cords)
+  locations = set(walked_cords(cord, cords))
   print(len(locations))
 
 
