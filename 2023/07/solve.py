@@ -19,7 +19,7 @@ def hand_strength(
   cards_unique_count = len(cards_unique)
 
   print(f"{hand=}")
-  print(f"{cards=")
+  print(f"{cards=}")
   print(f"{cards_count=}")
   print(f"{cards_unique=}")
   print(f"{cards_unique_count=}")
