@@ -52,14 +52,19 @@ def parse_puzzle(path):
   return {"guard": guard, "cords": cords}
 
 def walk_until(
-  cord: complex, direction: Direction, cords: dict[complex, bool]
+  cord: complex,
+  direction: Direction,
+  cords: dict[complex, bool], 
+  *,
+  seen: set[complex] | None = None
 ) -> "Iterable[complex]":
   """
   Walk until reach obstacle or OOB.
   """
+  seen = seen if seen else set()
   steps = 0
   cord += direction.value
-  while cords.get(cord, False):
+  while cords.get(cord, False) and (cord not in seen):
     yield cord
     steps += 1
     cord += direction.value
@@ -68,16 +73,18 @@ def walk_until(
 def patrol(
   cord: complex, direction: Direction, cords: dict[complex, bool]
 ) -> "Iterable[complex]":
+  seen = set()
   last_steps = None
   while last_steps != 0:
     print(f"Walking: {cord=}\t{direction=}\t{last_steps=}")
-    walk = walk_until(cord, direction, cords)
+    walk = walk_until(cord, direction, cords, seen=seen)
     while True:
       try:
         step = next(walk)
       except StopIteration as err:
         last_steps = err.value
         break
+      seen.add(step)
       yield step
     cord = step
     direction = Direction.rotate(direction)  
@@ -90,6 +97,6 @@ def p1(path):
   print(len(locations))
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
