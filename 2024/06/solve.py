@@ -41,7 +41,7 @@ def parse_puzzle(path):
   return {"guard": guard, "cords": cords}
 
 def walked_cords(cord, cords):
-  directions = itertools.cycle(Direcrion)
+  directions = itertools.cycle(Direction)
   direction = next(directions)
   seen = set()
   while (cord in cords) and (cord, direction) not in seen:
