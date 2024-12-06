@@ -41,10 +41,19 @@ def parse_puzzle(path):
       cord = complex(row_idx, col_idx)
       cords[cord] = char == "."
       if char in {"^", ">", "<", "v"}:
-        cords[cord] = True
+        cords[cord] = True # If there's a guard there, it's walkable
         guard["direction"] = Direction.from_char(char)
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
+
+def p1(path):
+  puzzle = parse_puzzle(path)
+  guard, cords = puzzle["guard"], puzzle["cords"]
+
+  print(guard)
+  print(puzzle)
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+
+p1(puzzle_file)
