@@ -20,8 +20,9 @@ def is_update_correct(update: list[int], rules: dict[int, set[int]]) -> bool:
   return True
 
 def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
-  for idx, num in enumerate(update):
-    pass
+  res = sorted(update, key=lambda before, after: before in rules.get(after, set()) - 1)
+  print(res)
+  return res
 
 def middle_page(update: list[int]) -> int:
   idx = (len(update) - 1) // 2
@@ -54,4 +55,4 @@ input_file = pathlib.Path(__file__).parent / "input.txt"
 input_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(input_file)
-#p2(input_file)
+p2(input_file)
