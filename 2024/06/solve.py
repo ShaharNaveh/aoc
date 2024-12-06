@@ -46,9 +46,9 @@ def parse_puzzle(path):
   for row_idx, row in enumerate(grid):
     for col_idx, char in enumerate(row):
       cord = complex(row_idx, col_idx)
-      cords[cord] = char == "."
+      cords[cord] = char
       if char not in {".", "#"}:
-        cords[cord] = True # If there's a guard there, it's walkable
+        cords[cord] = "." # If there's a guard there, it's walkable
         guard["direction"] = Direction.from_string(char)
         guard["cord"] = cord
   return {"guard": guard, "cords": cords}
@@ -72,7 +72,7 @@ def walk_until(
   """
   steps = 0
   cord += direction.value
-  while cords.get(cord, False) and (cord, direction) not in seen :
+  while (cord in cords) and (cord, direction) not in seen :
     yield cord
     steps += 1
     cord += direction.value
@@ -90,7 +90,7 @@ def patrol(
         step = next(walk)
         seen.add((step, direction))
         next_step = step + direction.value
-        while not cords.get(next_step, False):
+        while cords.get(next_step) == "#":
           direction = Direction.rotate(direction)
           next_step = step + direction.value
       except StopIteration as err:
