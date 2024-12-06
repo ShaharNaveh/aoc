@@ -1,10 +1,7 @@
 import enum
 import itertools
+import operaror
 import pathlib
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-  from collections.abc import Iterable
 
 @enum.unique
 class Direction(complex, enum.Enum):
@@ -38,25 +35,24 @@ def parse_puzzle(path):
         guard = cord
   return {"guard": guard, "cords": cords}
 
-def walked_cords(cord, cords):
+def walked_cords(cord: complex, cords: dict[complex, str]) -> tuple[set[tuple[complex, Direction]], bool]:
   directions = itertools.cycle(Direction)
   direction = next(directions)
   seen = set()
   while (cord in cords) and (cord, direction) not in seen:
-    yield cord
     seen.add((cord, direction))
     
     while cords.get(cord + direction.value) == "#":
       direction = next(directions)
       
     cord = cord + direction.value
+  return seen, cord in cords
   
 def p1(path):
   puzzle = parse_puzzle(path)
   cord, cords = puzzle["guard"], puzzle["cords"]
-  locations = set(walked_cords(cord, cords))
+  locations = set(map(operator.itemgetter(0), walked_cords(cord, cords)))
   print(len(locations))
-
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
