@@ -21,7 +21,7 @@ def is_update_correct(update: list[int], rules: dict[int, set[int]]) -> bool:
   return True
 
 def fix_update(update: list[int], rules: dict[int, set[int]]) -> list[int]:
-  func = lambda before, after: (before in rules.get(after, set()) - 1)
+  func = lambda before, after: before not in rules.get(after, set())
   res = sorted(update, key=functools.cmp_to_key(func))
   print(res)
   return res
