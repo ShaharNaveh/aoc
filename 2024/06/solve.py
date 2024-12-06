@@ -74,7 +74,6 @@ def patrol(
     walk = walk_until(cord, direction, cords)
     while True:
       try:
-        print(f"A {step=}")
         step = next(walk)
         print(f"B {step=}")
       except StopIteration as err:
