@@ -38,7 +38,7 @@ on:
       year:
         description: Year
         required: true
-        default: '2024'
+        default: '2023'
         type: choice
         options:
           - '2015'
