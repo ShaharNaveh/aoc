@@ -46,11 +46,11 @@ def walked_cords(cord, cords):
   seen = set()
   while (cord in cords) and (cord, direction) not in seen:
     seen.add((cord, direction))
-
-    cord = cord + direction.value
-    while cords.get(cord) == "#":
+    
+    while cords.get(cord + direction.value) == "#":
       direction = next(directions)
-      cord = cord + direction.value
+      
+    cord = cord + direction.value
   return seen
 
 def walk_until(
