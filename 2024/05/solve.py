@@ -1,15 +1,16 @@
-import collections
 import pathlib
 
 def parse_rules(rule_block: str) -> dict[int, set[int]]:
   rules = map(lambda line: complex(*map(int, line.split("|"))), rule_block.splitlines())
   
-  result = collections.defaultdict(set)
+  result = {}
   for rule in rules:
     before, after = int(rule.real), int(rule.imag)
-    result[after] |= {before}
+    item = {after}
+    result.setdefault(before, item)
+    result[before] |= item
 
-  return dict(result)
+  return result
   
 def is_update_ok(update: list[int], rules: dict[int, set[int]]) -> bool:
   for idx, num in enumerate(update, start=1):
