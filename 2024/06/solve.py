@@ -31,7 +31,7 @@ def parse_puzzle(path):
       cord = complex(row_idx, col_idx)
       cords[cord] = char
       if char not in {".", "#"}:
-        #cords[cord] = "." # If there's a guard there, it's walkable
+        cords[cord] = "." # If there's a guard there, it's walkable
         guard = cord
   return {"guard": guard, "cords": cords}
 
@@ -62,7 +62,7 @@ def p2(path):
     sum(
       walked_cords(cord, (cords | {pos: "#"}))[1]
       for pos in seen
-    )
+    ) - 1
   )
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
