@@ -25,7 +25,6 @@ def parse_puzzle(path):
   grid = [list(line) for line in inp.splitlines()]
 
   cords = {}
-  guard = {}
   for row_idx, row in enumerate(grid):
     for col_idx, char in enumerate(row):
       cord = complex(row_idx, col_idx)
@@ -33,6 +32,7 @@ def parse_puzzle(path):
       if char not in {".", "#"}:
         cords[cord] = "." # If there's a guard there, it's walkable
         guard = cord
+        
   return {"guard": guard, "cords": cords}
 
 def walked_cords(cord: complex, cords: dict[complex, str]) -> tuple[set[tuple[complex, Direction]], bool]:
