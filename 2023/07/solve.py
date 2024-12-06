@@ -23,7 +23,7 @@ def hand_strength(
   print(f"{cards_count=}")
   print(f"{cards_unique=}")
   print(f"{cards_unique_count=}")
- 
+  '''
   if cards_unique_count == 1:
     # Five of a Kind
     type_strength = 6 
@@ -42,7 +42,9 @@ def hand_strength(
    
   print(type_strength)
   base_type_strength = base ** (cards_count + type_strength)
-  return base_type_strength + order_strength  
+  return base_type_strength + order_strength
+  '''
+  return 3
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
