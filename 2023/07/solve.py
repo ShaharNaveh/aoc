@@ -1,3 +1,4 @@
+import collections
 import pathlib
 
 def hand_strength(hand: str, card_strength: dict[str, int], *, base: int = 10) -> int:
@@ -6,7 +7,10 @@ def hand_strength(hand: str, card_strength: dict[str, int], *, base: int = 10) -
     (base ** order) + cards_strength[card]
     for order, card in enumerate(reversed(cards), start=1)
   )
+  
   card_count = len(cards)
+  card_counter = 
+  
   if len(set(cards)) == 1:
     # Five of a Kind
     kind_strength = base ** (card_count + 6)
