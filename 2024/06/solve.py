@@ -41,7 +41,7 @@ def parse_puzzle(path):
     for col_idx, char in enumerate(row):
       cord = complex(row_idx, col_idx)
       cords[cord] = char == "."
-      if char in {"^", ">", "<", "v"}:
+      if char not in {".", "#"}:
         cords[cord] = True # If there's a guard there, it's walkable
         guard["direction"] = Direction.from_char(char)
         guard["cord"] = cord
