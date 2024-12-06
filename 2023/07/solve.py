@@ -38,7 +38,7 @@ def hand_strength(
   elif (cards_unique_count == 3) and any(cards.count(card) == 3 for card in cards_unique):
     hand_type = HandType.ThreeOfAKind
   elif cards_unique_count == 3:
-    hand_type = HandtType.TwoPairs
+    hand_type = HandType.TwoPairs
   elif cards_unique_count == 4:
     hand_type = HandType.OnePair
   elif cards_unique_count == cards_count:
