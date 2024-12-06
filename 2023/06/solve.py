@@ -1,7 +1,7 @@
 import pathlib
 
 def possible_race_ways(race: complex):
-  race_time, distance_rec = race.real, race.imag
+  race_time, distance_rec = int(race.real), int(race.imag)
 
   prev_distance = 0
   for hold in range(1, race_time):
