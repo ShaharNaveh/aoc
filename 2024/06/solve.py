@@ -79,20 +79,14 @@ def patrol(
         break
       yield step
     cord = step
-    direction = Direction.rotate(direction)
-  
-        
-  
-  
+    direction = Direction.rotate(direction)  
   
 def p1(path):
   puzzle = parse_puzzle(path)
   guard, cords = puzzle["guard"], puzzle["cords"]
   cord, direction = guard["cord"], guard["direction"]
-  for idx, cord in enumerate(walk_until(**guard, cords=cords)):
-    print(idx)
-    print(cord)
-    
+  locations = set(patrol(cord, direction, cords))
+  print(len(locations)
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
