@@ -1,6 +1,6 @@
 import enum
 import itertools
-import operaror
+import operator
 import pathlib
 
 @enum.unique
