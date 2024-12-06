@@ -74,6 +74,21 @@ jobs:
           sparse-checkout: |
             ${{ inputs.year }}/${{ inputs.day }}/
           persist-credentials: false
+          
+      - name: Detect language
+        id: lang
+        run: |
+          if [ -f "Cargo.toml" ]
+          then
+            echo -n "rust"
+          else
+            echo -n "python"
+          fi
 
+      - uses: actions/cache@v4
+        with:
+          a: b
+          
       - name: Solve
+        if: ${{ steps.lang.outputs.stdout == "python" }}
         run: python ./solve.py
