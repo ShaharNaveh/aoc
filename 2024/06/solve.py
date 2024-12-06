@@ -1,5 +1,4 @@
 import enum
-import operator
 import pathlib
 from typing import TYPE_CHECKING
 
