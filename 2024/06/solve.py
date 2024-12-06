@@ -37,33 +37,38 @@ def parse_puzzle(path):
 
 def walked_cords(cord: complex, cords: dict[complex, str]) -> tuple[set[tuple[complex, Direction]], bool]:
   directions = itertools.cycle(Direction)
-  direction = next(directions)
+  #direction = next(directions)
+  direction = -1
   seen = set()
   while (cord in cords) and (cord, direction) not in seen:
-    seen.add((cord, direction))
-    
+    seen |= {(cord, direction)}
+    if cords.get(cord + direction) == "#":
+      direction *= -1j
+    else:
+      cord += direction
+
+    '''
     while cords.get(cord + direction.value) == "#":
       direction = next(directions)
       
     cord = cord + direction.value
-  return seen, cord in cords
+    '''
+  return set(map(operator.itemgetter(0), seen)), (cord, direction) in seen
   
 def p1(path):
   puzzle = parse_puzzle(path)
   cord, cords = puzzle["guard"], puzzle["cords"]
   seen, _ = walked_cords(cord, cords)
-  locs = set(map(operator.itemgetter(0), seen))
-  print(len(locs))
+  print(len(seen))
 
 def p2(path):
   puzzle = parse_puzzle(path)
   cord, cords = puzzle["guard"], puzzle["cords"]
   seen, _ = walked_cords(cord, cords)
-  locs = set(map(operator.itemgetter(0), seen))
   print(
     sum(
       walked_cords(cord, cords | {pos: "#"})[1]
-      for pos in set(pos for pos, _ in seen)
+      for pos in seen
     )
   )
   '''
