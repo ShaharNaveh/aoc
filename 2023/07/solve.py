@@ -62,7 +62,7 @@ def cmp(a, b, *, cards_strength=None) -> int:
   elif type_b > type_a:
     return -1
 
-  cards_strength = cards_strength if cards_strength else CARSS_STRENGTH
+  cards_strength = cards_strength if cards_strength else CARDS_STRENGTH
   for i, j in zip(a, b):
     i_strength = cards_strength[i]
     j_strength = cards_strength[j]
