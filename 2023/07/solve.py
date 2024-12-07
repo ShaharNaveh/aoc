@@ -24,13 +24,14 @@ def hand_strength(
    # (base ** order) + cards_strength[card]
    # for order, card in enumerate(reversed(cards), start=2)
  # )
+  print()
+  print("*" * 10)
+  print()
   order_strength = 0
-  print(f"{cards=}")
   for order, card in enumerate(reversed(cards), start=2):
     strength = (base ** order) + cards_strength[card]
     print(f"{card=}\t{strength=}")
     order_strength += strength
-    
   
   cards_count = len(cards)
   cards_unique = set(cards)
@@ -63,6 +64,8 @@ def hand_strength(
     print(f"{order_strength=}")
     print(f"{hand_type_strength=}")
     print(f"{strength=}")
+    print()
+    print("*" * 10)
   return strength
   
 def iter_puzzle(path):
