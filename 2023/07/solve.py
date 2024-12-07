@@ -71,10 +71,16 @@ def iter_puzzle(path):
 
 def p1(path):
   hands = iter_puzzle(path)
-  print(hands)
+  it = sorted(hands, key=functools.cmp_to_key(lambda a, b: cmp(a[0], b[0)))
+  res = 0
+  for rank, (_, bid) in enumerate(it, start=1):
+    bid = int(bid)
+    res += bid * rank
+    
+  print(res)
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 
 p1(puzzle_file)
