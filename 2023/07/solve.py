@@ -32,14 +32,12 @@ class HandType(enum.Enum):
       hand_type = cls.OnePair
     elif cards_unique_count == cards_count:
       hand_type = cls.HighCard
-    return hand_type
-  
+    return hand_type  
 
 CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
-
 
 def hand_strength(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple[int, ...]]:
   hand_type = HandType.from_str(hand)
@@ -50,23 +48,15 @@ def iter_puzzle(path):
   puzzle = path.read_text().strip()
   for line in puzzle.splitlines():
     hand, bid = line.split()
-   # if hand not in {"KK677", 
     yield (hand, int(bid))
 
 def p1(path):
   it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH))
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
-  return
-  
-  res = 0
-  for rank, (card, bid) in enumerate(it, start=1):
-    print(f"{rank=}\t{card=}\t{bid=}")
-    res += rank * bid
-  print(res)
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 #p2(puzzle_file)
