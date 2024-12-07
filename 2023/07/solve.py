@@ -75,7 +75,7 @@ def iter_puzzle(path):
 
 def p1(path):
   it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH))
-  res = sum(rank * bid for rank, (_, bid) for enumerate(it, start=1))
+  res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
   return
   
