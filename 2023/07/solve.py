@@ -42,27 +42,13 @@ CARDS_STRENGTH = {
 
 
 def hand_strength(
- hand: str, cards_strength: dict[str, int], *, base: int = 13, mul_start: int = 2
+ hand: str, cards_strength: dict[str, int], *, base: int = 13, mul_start: int = 1
 ) -> int:
-  #cards = list(hand)
   order_strength = sum(
-   (base ** order) + cards_strength[card]
-    for order, card in enumerate(reversed(hand), start=mul_start)
+    cards_strength[card] * order
+    for order, card in enumerate(hand, start=mul_start)
   )
-  print()
-  print("*" * 10)
-  print()
-  '''
-  order_strength = 0
-  for order, card in enumerate(reversed(cards), start=mul_start):
-    card_strength = (base ** order) + cards_strength[card]
-    print(f"{card=}\t{strength=}")
-    order_strength += card_strength
-  
-  cards_count = len(cards)
-  cards_unique = set(cards)
-  cards_unique_count = len(cards_unique)
-  '''
+
   hand_type = HandType.from_str(hand)
   hand_type_strength = base ** (hand_type.value + len(hand) + mul_start)
   strength = hand_type_strength + order_strength
@@ -88,14 +74,16 @@ def iter_puzzle(path):
     yield (hand, int(bid))
 
 def p1(path):
- it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH))
- if it == sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH), reverse=True):
-   print("A"* 50)
- res = 0
- for rank, (card, bid) in enumerate(it, start=1):
-   print(f"{rank=}\t{card=}\t{bid=}")
-   res += rank * bid
- print(res)
+  it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH))
+  res = sum(rank * bid for rank, (_, bid) for enumerate(it, start=1))
+  print(res)
+  return
+  
+  res = 0
+  for rank, (card, bid) in enumerate(it, start=1):
+    print(f"{rank=}\t{card=}\t{bid=}")
+    res += rank * bid
+  print(res)
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
