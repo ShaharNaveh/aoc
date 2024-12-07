@@ -31,7 +31,7 @@ def hand_strength(
     print(f"{card=}\t{strength=}")
     order_strength += strength
     
-  print(order_strength)
+  
   cards_count = len(cards)
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
@@ -51,8 +51,8 @@ def hand_strength(
   elif cards_unique_count == cards_count:
     hand_type = HandType.HighCard
   
-  base_hand_type_strength = base ** (cards_count + hand_type.value + 5)
-  strength = base_hand_type_strength + order_strength
+  hand_type_strength = base ** (cards_count + hand_type.value + 5)
+  strength = hand_type_strength + order_strength
   if True:
     print(f"{hand=}")
     print(f"{hand_type=}")
@@ -60,6 +60,9 @@ def hand_strength(
     print(f"{cards_count=}")
     print(f"{cards_unique=}")
     print(f"{cards_unique_count=}")
+    print(f"{order_strength=}")
+    print(f"{hand_type_strength=}")
+    print(f"{strength=}")
   return strength
   
 def iter_puzzle(path):
