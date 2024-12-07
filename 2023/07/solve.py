@@ -71,7 +71,7 @@ def iter_puzzle(path):
 
 def p1(path):
   hands = iter_puzzle(path)
-  it = sorted(hands, key=functools.cmp_to_key(lambda a, b: cmp(a[0], b[0)))
+  it = sorted(hands, key=functools.cmp_to_key(lambda a, b: cmp(a[0], b[0])))
   res = 0
   for rank, (_, bid) in enumerate(it, start=1):
     bid = int(bid)
