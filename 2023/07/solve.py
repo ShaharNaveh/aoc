@@ -1,4 +1,5 @@
 import enum
+import functools
 import pathlib
 
 @enum.unique
@@ -39,17 +40,30 @@ CARDS_STRENGTH = {
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
 
-def hand_strength(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple[int, ...]]:
+def hand_strength(hand: str, cards_strength: dict[str, int] = CARDS_STRENGTH) -> tuple[int, tuple[int, ...]]:
   hand_type = HandType.from_str(hand)
   cards = tuple(cards_strength[card] for card in hand)
   return (hand_type.value, cards)
 
-def hand_strength_j(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple[int, ...]]:
+def max_hand_strength_j(hand: str):
   hands = {hand.replace("J", card) for card in set(hand)}
-  return max(
-    hand_strength(new_hand, cards_strength=cards_strength)
-    for new_hand in hands
-  )
+  return max(hand_strength(new_hand) for new_hand in hands)
+
+@functools.cmp_to_key
+def cmp_hands_j(hand1: str, hand2: str, cards_strength: dict[str, int] = CARDS_STRENGTH) -> bool:
+  if all("J" not in hand for hand in (hand1, hand2)):
+    hs1 = hand_strength(hand1)
+    hs2 = hand_strength(hand2)
+    return hs1 > hs2
+
+  hs1 = max_hand_strength_j(hand1)
+  hs2 = max_hand_strength_j(hand2)
+  if hs1 != hs2:
+    return hs1 > hs2
+
+  hs1 = hand_strength(hand1)
+  hs2 = hand_strength(hand2)
+  return hs1 > hs2
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
@@ -63,12 +77,12 @@ def p1(path):
   print(res)
   
 def p2(path):
-  it = sorted(iter_puzzle(path), key=lambda l: hand_strength_j(l[0], cards_strength=CARDS_STRENGTH))
+  it = sorted(iter_puzzle(path), key=cmp_hands_j)
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)
