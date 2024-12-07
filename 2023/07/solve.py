@@ -97,13 +97,9 @@ def p2(path):
   it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=False)
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
-  it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=True)
-  res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
-  print(res)
-  
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)
