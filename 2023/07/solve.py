@@ -79,7 +79,7 @@ def p1(path):
   print(res)
   
 def p2(path):
-  it = sorted(iter_puzzle(path), key=cmp_hands_j)
+  it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=True)
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
   
