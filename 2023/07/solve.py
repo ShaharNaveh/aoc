@@ -53,9 +53,9 @@ class HandType(enum.IntEnum):
       
     raise ValueError(f"Could not determine the hand type of: {repr(hand)}")     
 
-def cmp(a, b, *, cards_strength=None) -> int:
-  type_a = HandType.detect(a)
-  type_b = HandType.detect(b)
+def cmp(a, b, *, cards_strength=None, is_p2: bool = False) -> int:
+  type_a = HandType.detect(a, is_p2=is_p2)
+  type_b = HandType.detect(b, is_p2=is_p2)
 
   if type_a > type_b:
     return 1
