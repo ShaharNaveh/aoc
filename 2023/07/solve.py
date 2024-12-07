@@ -27,7 +27,7 @@ def hand_strength(
   order_strength = 0
   print(f"{cards=}")
   for order, card in enumerate(reversed(cards), start=2):
-    strength = (base ** order) + card_strength[card]
+    strength = (base ** order) + cards_strength[card]
     print(f"{strength=}")
     order_strength += strength
     
