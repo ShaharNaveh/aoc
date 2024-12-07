@@ -11,43 +11,48 @@ class HandType(enum.Enum):
   FourOfAKind = enum.auto()
   FiveOfAKind = enum.auto()
 
+  @classmethod
+  def from_str(cls, hand: str) -> cls:
+    cards = list(hand)
+    cards_unique = set(cards)
+    cards_count = len(cards)
+    cards_unique_count = len(cards_unique)
+  
+    if cards_unique_count == 1:
+      hand_type = cls.FiveOfAKind
+    elif (cards_unique_count == 2) and any(cards.count(card) == 4 for card in cards_unique):
+      hand_type =  cls.FourOfAKind
+    elif cards_unique_count == 2:
+      hand_type = cls.FullHouse
+    elif (cards_unique_count == 3) and any(cards.count(card) == 3 for card in cards_unique):
+      hand_type = cls.ThreeOfAKind
+    elif cards_unique_count == 3:
+      hand_type = cls.TwoPairs
+    elif cards_unique_count == 4:
+      hand_type = cls.OnePair
+    elif cards_unique_count == cards_count:
+      hand_type = cls.HighCard
+    return hand_type
+  
+
 CARDS_STRENGTH = {
   **{str(num): num for num in range(2, 10)},
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
 
-def detect_hand_type(cards: list[str]) -> HandType:
-  cards_unique = set(cards)
-  cards_count = len(cards)
-  cards_unique_count = len(cards_unique)
-  
-  if cards_unique_count == 1:
-    hand_type = HandType.FiveOfAKind
-  elif (cards_unique_count == 2) and any(cards.count(card) == 4 for card in cards_unique):
-    hand_type =  HandType.FourOfAKind
-  elif cards_unique_count == 2:
-    hand_type = HandType.FullHouse
-  elif (cards_unique_count == 3) and any(cards.count(card) == 3 for card in cards_unique):
-    hand_type = HandType.ThreeOfAKind
-  elif cards_unique_count == 3:
-    hand_type = HandType.TwoPairs
-  elif cards_unique_count == 4:
-    hand_type = HandType.OnePair
-  elif cards_unique_count == cards_count:
-    hand_type = HandType.HighCard
-  return hand_type
-  
+
 def hand_strength(
- hand: str, cards_strength: dict[str, int], *, base: int = 10, mul_start: int = 2
+ hand: str, cards_strength: dict[str, int], *, base: int = 13, mul_start: int = 2
 ) -> int:
-  cards = list(hand)
-  #order_strength = sum(
-   # (base ** order) + cards_strength[card]
-   # for order, card in enumerate(reversed(cards), start=2)
- # )
+  #cards = list(hand)
+  order_strength = sum(
+   (base ** order) + cards_strength[card]
+    for order, card in enumerate(reversed(cards), start=mul_start)
+  )
   print()
   print("*" * 10)
   print()
+  '''
   order_strength = 0
   for order, card in enumerate(reversed(cards), start=mul_start):
     card_strength = (base ** order) + cards_strength[card]
@@ -57,11 +62,11 @@ def hand_strength(
   cards_count = len(cards)
   cards_unique = set(cards)
   cards_unique_count = len(cards_unique)
-  
-  hand_type = detect_hand_type(hand)
-  hand_type_strength = base ** (hand_type.value + cards_count + 1)
+  '''
+  hand_type = HandType.from_str(hand)
+  hand_type_strength = base ** (hand_type.value + cards_count + mul_start)
   strength = hand_type_strength + order_strength
-  if True:
+  if False:
     print(f"{hand=}")
     print(f"{hand_type=}")
     print(f"{cards=}")
