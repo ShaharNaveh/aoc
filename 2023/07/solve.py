@@ -41,18 +41,10 @@ CARDS_STRENGTH = {
 }
 
 
-def hand_strength(
- hand: str, cards_strength: dict[str, int], *, base: int = 15, mul_start: int = 1
-) -> int:
-  order_strength = sum(
-    cards_strength[card] * order
-    for order, card in enumerate(hand, start=mul_start)
-  )
-
+def hand_strength(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple[int, ...]]:
   hand_type = HandType.from_str(hand)
-  hand_type_strength = base ** (hand_type.value + len(hand) + mul_start + mul_start)
-  strength = hand_type_strength + order_strength
-  return strength
+  cards = tuple(cards_strength[card] for card in hand)
+  return (hand_type.value, cards)
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
