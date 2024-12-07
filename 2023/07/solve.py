@@ -47,7 +47,7 @@ def hand_strength(
   #cards = list(hand)
   order_strength = sum(
    (base ** order) + cards_strength[card]
-    for order, card in enumerate(reversed(cards), start=mul_start)
+    for order, card in enumerate(reversed(hand), start=mul_start)
   )
   print()
   print("*" * 10)
