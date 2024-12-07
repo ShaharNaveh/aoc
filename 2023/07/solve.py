@@ -45,6 +45,12 @@ def hand_strength(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple
   return (hand_type.value, cards)
 
 def hand_strength_j(hand: str, cards_strength: dict[str, int]) -> tuple[int, tuple[int, ...]]:
+  hands = {hand.replace("J", card) for card in set(hand)}
+  return max(
+    hand_strength(new_hand, cards_strength=cards_strength)
+    for new_hand in hands
+  )
+  
   if "J" not in hand:
     return hand_strength(hand, cards_strength=cards_strength)
 
@@ -65,8 +71,6 @@ def p1(path):
   print(res)
   
 def p2(path):
- # cards_strength = CARDS_STRENGTH.copy()
-  #cards_strength["J"] = 1
   it = sorted(iter_puzzle(path), key=lambda l: hand_strength_j(l[0], cards_strength=CARDS_STRENGTH))
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
@@ -74,5 +78,5 @@ def p2(path):
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
-#p1(puzzle_file)
+p1(puzzle_file)
 p2(puzzle_file)
