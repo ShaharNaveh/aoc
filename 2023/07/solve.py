@@ -51,14 +51,6 @@ def hand_strength_j(hand: str, cards_strength: dict[str, int]) -> tuple[int, tup
     for new_hand in hands
   )
   
-  if "J" not in hand:
-    return hand_strength(hand, cards_strength=cards_strength)
-
-  return max(
-    hand_strength(hand.replace("J", card), cards_strength=cards_strength)
-    for card in set(hand)
-  )
-  
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
   for line in puzzle.splitlines():
@@ -76,7 +68,7 @@ def p2(path):
   print(res)
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)
