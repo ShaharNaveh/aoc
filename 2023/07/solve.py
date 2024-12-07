@@ -72,10 +72,11 @@ def iter_puzzle(path):
   puzzle = path.read_text().strip()
   for line in puzzle.splitlines():
     hand, bid = line.split()
+   # if hand not in {"KK677", 
     yield (hand, int(bid))
 
 def p1(path):
- it = sorted(iter_puzzle(path), key=lambda l: hand_strength(l[0], cards_strength=CARDS_STRENGTH))
+ it = sorted(iter_puzzle(path), key=lambda l: -hand_strength(l[0], cards_strength=CARDS_STRENGTH))
  res = 0
  for rank, (card, bid) in enumerate(it, start=1):
    print(f"{rank=}\t{card=}\t{bid=}")
