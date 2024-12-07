@@ -64,7 +64,7 @@ def hand_strength(
   cards_unique_count = len(cards_unique)
   '''
   hand_type = HandType.from_str(hand)
-  hand_type_strength = base ** (hand_type.value + cards_count + mul_start)
+  hand_type_strength = base ** (hand_type.value + len(hand) + mul_start)
   strength = hand_type_strength + order_strength
   if False:
     print(f"{hand=}")
