@@ -40,19 +40,21 @@ CARDS_STRENGTH = {
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
 
+CARDS_STRENGTH_P2 = CARDS_STRENGTH.copy() | {"J": 1}
+
 def hand_strength(hand: str, cards_strength: dict[str, int] = CARDS_STRENGTH) -> tuple[int, tuple[int, ...]]:
   hand_type = HandType.from_str(hand)
   cards = tuple(cards_strength[card] for card in hand)
   return (hand_type.value, cards)
 
 def max_hand_strength_j(hand: str):
-  hands = {hand.replace("J", card) for card in set(hand)}
-  return max(hand_strength(new_hand) for new_hand in hands)
+  hands = {hand.replace("J", card) for card in set(hand)} # Maybe exclude J
+  return max(hand_strength(new_hand, CARDS_STRENGTH_P2) for new_hand in hands)
 
 @functools.cmp_to_key
-def cmp_hands_j(hand1: str, hand2: str, cards_strength: dict[str, int] = CARDS_STRENGTH) -> bool:
-  hand1, _ = hand1
-  hand2, _ = hand2
+def cmp_hands_j(tup1: tuple, tup2: tup2, cards_strength: dict[str, int] = CARDS_STRENGTH) -> bool:
+  hand1, _ = tup1
+  hand2, _ = tup2
   if all("J" not in hand for hand in (hand1, hand2)):
     hs1 = hand_strength(hand1)
     hs2 = hand_strength(hand2)
@@ -79,7 +81,7 @@ def p1(path):
   print(res)
   
 def p2(path):
-  it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=True)
+  it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=False)
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
   
