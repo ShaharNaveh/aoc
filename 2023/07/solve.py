@@ -52,12 +52,12 @@ def max_hand_strength_j(hand: str):
   return max(hand_strength(new_hand, CARDS_STRENGTH_P2) for new_hand in hands)
 
 @functools.cmp_to_key
-def cmp_hands_j(tup1: tuple, tup2: tuple, cards_strength: dict[str, int] = CARDS_STRENGTH) -> bool:
+def cmp_hands_j(tup1: tuple, tup2: tuple, cards_strength: dict[str, int] = CARDS_STRENGTH_P2) -> bool:
   hand1, _ = tup1
   hand2, _ = tup2
   if all("J" not in hand for hand in (hand1, hand2)):
-    hs1 = hand_strength(hand1)
-    hs2 = hand_strength(hand2)
+    hs1 = hand_strength(hand1, cards_strength=cards_strength)
+    hs2 = hand_strength(hand2, cards_strength=cards_strength)
     return hs1 > hs2
 
   hs1 = max_hand_strength_j(hand1)
@@ -65,8 +65,8 @@ def cmp_hands_j(tup1: tuple, tup2: tuple, cards_strength: dict[str, int] = CARDS
   if hs1 != hs2:
     return hs1 > hs2
 
-  hs1 = hand_strength(hand1)
-  hs2 = hand_strength(hand2)
+  hs1 = hand_strength(hand1, cards_strength=cards_strength)
+  hs2 = hand_strength(hand2, cards_strength=cards_strength)
   return hs1 > hs2
   
 def iter_puzzle(path):
@@ -84,6 +84,10 @@ def p2(path):
   it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=False)
   res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
   print(res)
+  it = sorted(iter_puzzle(path), key=cmp_hands_j, reverse=True)
+  res = sum(rank * bid for rank, (_, bid) in enumerate(it, start=1))
+  print(res)
+  
   
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
