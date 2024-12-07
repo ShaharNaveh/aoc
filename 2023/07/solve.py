@@ -42,7 +42,7 @@ CARDS_STRENGTH = {
 
 
 def hand_strength(
- hand: str, cards_strength: dict[str, int], *, base: int = 13, mul_start: int = 1
+ hand: str, cards_strength: dict[str, int], *, base: int = 15, mul_start: int = 1
 ) -> int:
   order_strength = sum(
     cards_strength[card] * order
@@ -50,20 +50,8 @@ def hand_strength(
   )
 
   hand_type = HandType.from_str(hand)
-  hand_type_strength = base ** (hand_type.value + len(hand) + mul_start)
+  hand_type_strength = base ** (hand_type.value + len(hand) + mul_start + mul_start)
   strength = hand_type_strength + order_strength
-  if False:
-    print(f"{hand=}")
-    print(f"{hand_type=}")
-    print(f"{cards=}")
-    print(f"{cards_count=}")
-    print(f"{cards_unique=}")
-    print(f"{cards_unique_count=}")
-    print(f"{order_strength=}")
-    print(f"{hand_type_strength=}")
-    print(f"{strength=}")
-    print()
-    print("*" * 10)
   return strength
   
 def iter_puzzle(path):
