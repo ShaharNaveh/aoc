@@ -16,25 +16,9 @@ CARDS_STRENGTH = {
   **{symbol: idx for idx, symbol in enumerate(list("TJQKA"), start=10)},
 }
 
-def hand_strength(
- hand: str, cards_strength: dict[str, int], *, base: int = 10
-) -> int:
-  cards = list(hand)
-  #order_strength = sum(
-   # (base ** order) + cards_strength[card]
-   # for order, card in enumerate(reversed(cards), start=2)
- # )
-  print()
-  print("*" * 10)
-  print()
-  order_strength = 0
-  for order, card in enumerate(reversed(cards), start=2):
-    strength = (base ** order) + cards_strength[card]
-    print(f"{card=}\t{strength=}")
-    order_strength += strength
-  
-  cards_count = len(cards)
+def detect_hand_type(cards: list[str]) -> HandType:
   cards_unique = set(cards)
+  cards_count = len(cards)
   cards_unique_count = len(cards_unique)
   
   if cards_unique_count == 1:
@@ -51,7 +35,30 @@ def hand_strength(
     hand_type = HandType.OnePair
   elif cards_unique_count == cards_count:
     hand_type = HandType.HighCard
+  return hand_type
   
+def hand_strength(
+ hand: str, cards_strength: dict[str, int], *, base: int = 10, mul_start: int = 2
+) -> int:
+  cards = list(hand)
+  #order_strength = sum(
+   # (base ** order) + cards_strength[card]
+   # for order, card in enumerate(reversed(cards), start=2)
+ # )
+  print()
+  print("*" * 10)
+  print()
+  order_strength = 0
+  for order, card in enumerate(reversed(cards), start=mul_start):
+    card_strength = (base ** order) + cards_strength[card]
+    print(f"{card=}\t{strength=}")
+    order_strength += card_strength
+  
+  cards_count = len(cards)
+  cards_unique = set(cards)
+  cards_unique_count = len(cards_unique)
+  
+  hand_type = detect_hand_type(hand)
   hand_type_strength = base ** (hand_type.value + cards_count + 1)
   strength = hand_type_strength + order_strength
   if True:
