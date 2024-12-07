@@ -1,6 +1,8 @@
+import collections
 import enum
 import functools
 import pathlib
+#from typing import Sequence
 
 @enum.unique
 class HandType(enum.Enum):
@@ -12,6 +14,31 @@ class HandType(enum.Enum):
   FourOfAKind = enum.auto()
   FiveOfAKind = enum.auto()
 
+  @classmethod
+  def detect(cls, hand: str):
+    counts = sorted(collections.Counter(hand).values(), reverse=True)
+    
+    if counts[0] == 5:
+      return cls.FiveOfAKind
+
+    if counts[0] == 4:
+      return cls.FourOfAKind
+
+    if (counts[0] == 3) and (counts[1] == 2):
+      return cls.FullHouse 
+    elif counts[0] == 3:
+      return cls.ThreeOfAKind
+
+    if all(count == 2 for count in counts[:2]):
+      return cls.TwoPairs
+    elif counts[0] == 2:
+      return cls.OnePair
+
+    if counts[0] == 1:
+      return cls.HighCard
+      
+    raise ValueError(f"Could not determine the hand type of: {repr(hand)}")     
+    
   @classmethod
   def from_str(cls, hand: str):
     cards = list(hand)
