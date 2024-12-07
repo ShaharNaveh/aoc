@@ -58,16 +58,29 @@ def cmp_hands_j(tup1: tuple, tup2: tuple, cards_strength: dict[str, int] = CARDS
   if all("J" not in hand for hand in (hand1, hand2)):
     hs1 = hand_strength(hand1, cards_strength=cards_strength)
     hs2 = hand_strength(hand2, cards_strength=cards_strength)
-    return hs1 > hs2
+    if hs1 > hs2:
+      return 1
+    elif hs1 == hs2:
+      return 0
+    else:
+      return -1
 
   hs1 = max_hand_strength_j(hand1)
   hs2 = max_hand_strength_j(hand2)
   if hs1 != hs2:
-    return hs1 > hs2
+    if hs1 > hs2:
+      return 1
+    else:
+      return -1
 
   hs1 = hand_strength(hand1, cards_strength=cards_strength)
   hs2 = hand_strength(hand2, cards_strength=cards_strength)
-  return hs1 > hs2
+  if hs1 > hs2:
+    return 1
+  elif hs1 == hs2:
+    return 0
+  else:
+    return -1
   
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
