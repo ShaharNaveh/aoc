@@ -12,7 +12,7 @@ class HandType(enum.Enum):
   FiveOfAKind = enum.auto()
 
   @classmethod
-  def from_str(cls, hand: str) -> cls:
+  def from_str(cls, hand: str):
     cards = list(hand)
     cards_unique = set(cards)
     cards_count = len(cards)
