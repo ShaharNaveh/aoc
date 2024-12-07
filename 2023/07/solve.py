@@ -51,6 +51,8 @@ def max_hand_strength_j(hand: str):
 
 @functools.cmp_to_key
 def cmp_hands_j(hand1: str, hand2: str, cards_strength: dict[str, int] = CARDS_STRENGTH) -> bool:
+  hand1, _ = hand1
+  hand2, _ = hand2
   if all("J" not in hand for hand in (hand1, hand2)):
     hs1 = hand_strength(hand1)
     hs2 = hand_strength(hand2)
