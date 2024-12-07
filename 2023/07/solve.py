@@ -65,14 +65,17 @@ def cmp(a, b, *, cards_strength=None) -> int:
       return -1
   return 0
 
-
 def iter_puzzle(path):
   puzzle = path.read_text().strip()
-  yield from re.finditer(r"(\w{5}) (\d+)", puzzle)
-  
-puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+  return re.findall(r"(\w{5}) (\d+)", puzzle)
 
-print(list(iter_puzzle(puzzle_file)))
-#p1(puzzle_file)
+def p1(path):
+  hands = iter_puzzle(path)
+  print(hands)
+
+puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
+puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+
+
+p1(puzzle_file)
 #p2(puzzle_file)
