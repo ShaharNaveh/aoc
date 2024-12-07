@@ -20,10 +20,17 @@ def hand_strength(
  hand: str, cards_strength: dict[str, int], *, base: int = 10
 ) -> int:
   cards = list(hand)
-  order_strength = sum(
-    (base ** order) + cards_strength[card]
-    for order, card in enumerate(reversed(cards), start=2)
-  )
+  #order_strength = sum(
+   # (base ** order) + cards_strength[card]
+   # for order, card in enumerate(reversed(cards), start=2)
+ # )
+  order_strength = 0
+  print(f"{cards=}")
+  for order, card in enumerate(reversed(cards), strat=2):
+    strength = (base ** order) + card_strength[card]
+    print(f"{strength=}")
+    order_strength += strength
+    
   print(order_strength)
   cards_count = len(cards)
   cards_unique = set(cards)
