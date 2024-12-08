@@ -46,8 +46,8 @@ class Hand:
     else:
       return 0 # High card
      
-def __lt__(self, other):
-return self._typ < other._typ or (self._typ == other._typ and self._cards < other._cards)
+  def __lt__(self, other):
+    return self._typ < other._typ or (self._typ == other._typ and self._cards < other._cards)
 
 def p1(path):
   puzzle = path.read_text().strip()
