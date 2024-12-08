@@ -40,6 +40,6 @@ def p1(path):
     print(len(seen))
 
 puzzle_file = pathlib.Path(__file__).parent / "input.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(puzzle_file)
