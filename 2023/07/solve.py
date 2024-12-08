@@ -2,13 +2,13 @@ import collections
 import pathlib
 
 def card_strength(card: str, is_p2: bool = False) -> int:
- 	if card.isnumeric():   
-	   return int(card)
+  if card.isnumeric():
+    return int(card)
    
- 	dct = {c: idx for idx, c in enumerate("TJQKA", start=10)}
+  dct = {c: idx for idx, c in enumerate("TJQKA", start=10)}
   if is_p2:
     dct["J"] = -1
- 	return dct[card]
+  return dct[card]
 
 class Hand:
   __slots__ = ("_cards", "_bid", "_typ", "_is_p2")
