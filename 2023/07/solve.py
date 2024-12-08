@@ -14,12 +14,13 @@ class Hand:
   __slots__ = ("_cards", "_bid", "_typ", "_is_p2")
 
   def __init__(self, line: str, *, is_p2: bool = True):
+    self._is_p2 = is_p2
+    
     raw, bid = line.split()
     self._bid = int(bid)
     self._cards = tuple(card_strength(c, is_p2=is_p2) for c in raw)
     self._typ = self.detect_type()
-    self._is_p2 = is_p2
-
+    
   def detect_type(self):
     counter = collections.Counter(self._cards)
     highest = max(counter.values())
