@@ -23,7 +23,8 @@ class Hand:
  	def detect_type(self):
 	  counter = collections.Counter(self._cards)
   	highest = max(counter.values())
-  	if is_p2:
+    
+    if self._is_p2:
 	  	wilds = counter[1]
 		  del counter[1]
 	   	highest = wilds
