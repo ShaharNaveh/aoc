@@ -57,7 +57,7 @@ def p1(path):
 
 def p2(path):
   puzzle = path.read_text().strip()
-  hands = sorted(map(lambda line: Hand(line, is_p2=True, puzzle.splitlines()))
+  hands = sorted(map(lambda line: Hand(line, is_p2=True), puzzle.splitlines()))
   res = sum(rank * hand._bid for rank, hand in hands)
   print(res)
  
