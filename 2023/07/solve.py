@@ -31,20 +31,20 @@ class Hand:
       if counter:
         highest += max(counter.values())
 
-	  if highest == 5:
-		  return 6 # Five of a kind
-  	elif highest == 4:
-			return 5 # Four of a kind
-  	elif len(counter) == 2:
-		 	return 4 # Full house
-  	elif highest == 3:
-		 	return 3 # Three of a kind
-  	elif len(counter) == 3:
-		 	return 2 # Two pair
-  	elif highest == 2:
-		 	return 1 # One pair
-	  else:
-		 	return 0 # High card
+if highest == 5:
+return 6 # Five of a kind
+elif highest == 4:
+return 5 # Four of a kind
+elif len(counter) == 2:
+return 4 # Full house
+elif highest == 3:
+return 3 # Three of a kind
+elif len(counter) == 3:
+return 2 # Two pair
+elif highest == 2:
+return 1 # One pair
+else:
+return 0 # High card
      
   def __lt__(self, other):
 	  return self._typ < other._typ or (self._typ == other._typ and self._cards < other._cards)
