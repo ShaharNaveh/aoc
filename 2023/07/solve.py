@@ -13,23 +13,23 @@ def card_strength(card: str, is_p2: bool = False) -> int:
 class Hand:
   __slots__ = ("_cards", "_bid", "_typ", "_is_p2")
 
- 	def __init__(self, line: str, *, is_p2: bool = True):
-	  raw, bid = line.split()
-	 	self._bid = int(bid)
-  	self._cards = tuple(card_strength(c, is_p2=is_p2) for c in raw)
- 	  self._typ = self.detect_type()
+  def __init__(self, line: str, *, is_p2: bool = True):
+    raw, bid = line.split()
+    self._bid = int(bid)
+    self._cards = tuple(card_strength(c, is_p2=is_p2) for c in raw)
+    self._typ = self.detect_type()
     self._is_p2 = is_p2
 
- 	def detect_type(self):
-	  counter = collections.Counter(self._cards)
-  	highest = max(counter.values())
+  def detect_type(self):
+    counter = collections.Counter(self._cards)
+    highest = max(counter.values())
     
     if self._is_p2:
-	  	wilds = counter[1]
-		  del counter[1]
-	   	highest = wilds
-		 	if counter:
-		    highest += max(counter.values())
+      wilds = counter[1]
+      del counter[1]
+      highest = wilds
+      if counter:
+        highest += max(counter.values())
 
 	  if highest == 5:
 		  return 6 # Five of a kind
