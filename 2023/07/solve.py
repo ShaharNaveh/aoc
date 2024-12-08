@@ -53,13 +53,13 @@ class Hand:
 def p1(path):
   puzzle = path.read_text().strip()
   hands = sorted(map(Hand, puzzle.splitlines()))
-  res = sum(rank * hand._bid for rank, hand in hands)
+  res = sum(rank * hand._bid for rank, hand in enumerate(hands, start=1))
   print(res)
 
 def p2(path):
   puzzle = path.read_text().strip()
   hands = sorted(map(lambda line: Hand(line, is_p2=True), puzzle.splitlines()))
-  res = sum(rank * hand._bid for rank, hand in hands)
+  res = sum(rank * hand._bid for rank, hand in enumerate(hands, start=1))
   print(res)
  
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
