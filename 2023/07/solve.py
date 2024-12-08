@@ -1,54 +1,149 @@
-import collections
+import enum
 import pathlib
 
-def card_strength(card: str, is_p2: bool = False) -> int:
-  if card.isnumeric():
-    return int(card)
-   
-  dct = {c: idx for idx, c in enumerate("TJQKA", start=10)}
-  if is_p2:
-    dct["J"] = -1
-  return dct[card]
+@enum.unique
+class HandType(enum.IntEnum):
+  HIGH_CARD = enum.auto()
+  ONE_PAIR = enum.auto()
+  TWO_PAIR = enum.auto()
+  THREE_KIND = enum.auto()
+  FULL_HOUSE = enum.auto()
+  FOUR_KIND = enum.auto()
+  FIVE_KIND = enum.auto()
 
-class Hand:
-  __slots__ = ("_cards", "_bid", "_typ", "_is_p2")
 
-  def __init__(self, line: str, *, is_p2: bool = True):
-    self._is_p2 = is_p2
-    
-    raw, bid = line.split()
-    self._bid = int(bid)
-    self._cards = tuple(card_strength(c, is_p2=is_p2) for c in raw)
-    self._typ = self.detect_type()
-    
-  def detect_type(self):
-    counter = collections.Counter(self._cards)
-    highest = max(counter.values())
-    
-    if self._is_p2:
-      wilds = counter[1]
-      del counter[1]
-      highest = wilds
-      if counter:
-        highest += max(counter.values())
+CARD_VALUES = {
+  **{str(num): num for num in range(2, 10)},
+  **{c: num for num, c in enumerate("TJQKA")}
+}
 
-    if highest == 5:
-      return 6 # Five of a kind
-    elif highest == 4:
-      return 5 # Four of a kind
-    elif len(counter) == 2:
-      return 4 # Full house
-    elif highest == 3:
-      return 3 # Three of a kind
-    elif len(counter) == 3:
-      return 2 # Two pair
-    elif highest == 2:
-      return 1 # One pair
+JOKER = "J"
+JOKER_VALUE = 1
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_file")
+    args = parser.parse_args()
+
+    with open(args.input_file, "r") as file:
+        lines = file.read().splitlines()
+
+    print(f"part 1 solution: {part_one(lines)}")
+    print(f"part 2 solution: {part_two(lines)}")
+
+
+def part_one(lines: list[str]) -> int:
+    hands = []
+    bids = []
+    for line in lines:
+        hand, bid = line.split(" ")
+        hands.append(hand)
+        bids.append(int(bid))
+
+    hand_bid_pairs = list(zip(hands, bids))
+    hand_bid_pairs.sort(key=lambda pair: hand_to_score(pair[0]))
+
+    total = 0
+    for i, (_, bid) in enumerate(hand_bid_pairs):
+        rank = i + 1
+        total += rank * bid
+
+    return total
+
+
+def part_two(lines: List[str]) -> int:
+    hands = []
+    bids = []
+    for line in lines:
+        hand, bid = line.split(" ")
+        hands.append(hand)
+        bids.append(int(bid))
+
+    hand_bid_pairs = list(zip(hands, bids))
+    hand_bid_pairs.sort(key=lambda pair: hand_to_score(pair[0], True))
+
+    total = 0
+    for i, (_, bid) in enumerate(hand_bid_pairs):
+        rank = i + 1
+        total += rank * bid
+
+    return total
+
+
+# map each hand to a score such that better hands have higher scores
+def hand_to_score(hand: str, use_joker=False) -> int:
+    hand_type = get_hand_type(hand, use_joker)
+    hand_tiebreaker = get_hand_tiebreaker(hand, use_joker)
+
+    max_tiebreaker = get_hand_tiebreaker("AAAAA")
+    score = TYPE_VALUES[hand_type] * max_tiebreaker + hand_tiebreaker
+    return score
+
+
+def get_hand_type(hand: str, use_joker=False) -> HandType:
+    hand_counts = {}
+    if use_joker:
+        joker_count = 0
+        for card in hand:
+            if card == JOKER:
+                joker_count += 1
+            else:
+                hand_counts[card] = hand_counts.get(card, 0) + 1
+
+        if joker_count == 5:
+            hand_counts["A"] = 5
+        else:
+            max_count = 0
+            max_card = "A"
+            for card, count in hand_counts.items():
+                if count > max_count:
+                    max_count = count
+                    max_card = card
+
+            hand_counts[max_card] += joker_count
     else:
-      return 0 # High card
-     
-  def __lt__(self, other):
-    return self._typ < other._typ or (self._typ == other._typ and self._cards < other._cards)
+        for card in hand:
+            hand_counts[card] = hand_counts.get(card, 0) + 1
+
+    if len(hand_counts) == 1:
+        return HandType.FIVE_KIND
+
+    if len(hand_counts) == 2:
+        count = list(hand_counts.values())[0]
+        if count == 1 or count == 4:
+            return HandType.FOUR_KIND
+        else:
+            return HandType.FULL_HOUSE
+
+    if len(hand_counts) == 3:
+        for count in hand_counts.values():
+            if count == 2:
+                return HandType.TWO_PAIR
+
+            if count == 3:
+                return HandType.THREE_KIND
+
+    if len(hand_counts) == 4:
+        return HandType.ONE_PAIR
+
+    return HandType.HIGH_CARD
+
+
+# maps each hand to a tiebreaker between 0 and 10^10
+def get_hand_tiebreaker(hand: str, use_joker=False) -> int:
+    values = []
+    for card in hand:
+        if use_joker and card == JOKER:
+            values.append(JOKER_VALUE)
+        else:
+            values.append(CARD_VALUES[card])
+
+    tiebreaker = 0
+    for value in values:
+        tiebreaker = 100 * tiebreaker + value
+    return tiebreaker
+
 
 def p1(path):
   puzzle = path.read_text().strip()
