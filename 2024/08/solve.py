@@ -42,7 +42,7 @@ def p2(path):
     print(len(anti))
 
 puzzle_file = pathlib.Path(__file__).parent / "input.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)
