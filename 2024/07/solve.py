@@ -14,7 +14,7 @@ def is_possible(nums: list[int], val: int, allowed_ops: list[callable]) -> bool:
     for ops in itertools.product(allowed_ops, repeat=len(nums) - 1):
         actions = iter(ops)
         if val == functools.reduce(lambda x, y: next(actions)(x, y), nums):
-            return True
+          return True
     return False
 
 def p1(path):
@@ -23,7 +23,7 @@ def p1(path):
   for val, nums in iter_puzzle(path):
     if not is_possible(nums=nums, val=val, allowed_ops=allowed_ops):
       continue
-     res += val
+    res += val
   print(res)
 
 def p2(path):
@@ -32,7 +32,7 @@ def p2(path):
   for val, nums in iter_puzzle(path):
     if not is_possible(nums=nums, val=val, allowed_ops=allowed_ops):
       continue
-     res += val
+    res += val
   print(res)
     
 
