@@ -1,64 +1,63 @@
+import collections
 import itertools
-import operator
 import pathlib
 
-ANS1 = 1374934
-ANS2 = None
+DIRECTIONS = {0+1j, 1, 0-1j, -1}
 
-def fence_sides(_fences) -> int:
+def calc_cost(puzzle, *, is_p2: bool = False) -> int:
+    seen = set()
+    fences = collections.defaultdict(list)
 
-
-def garden_info(puzzle):
-    garden = {plant: [] for plant in set(puzzle.values())}
-    for loc, plant in puzzle.items():
-        if loc in itertools.chain.from_iterable(
-            map(operator.itemgetter("plots"), garden[plant])
-        ):
+    cost = 0
+    for pos in puzzle:
+        if pos is seen:
             continue
 
-        plots = {loc}
-        fences_pos = set()
-        while True:
-            old_plots = plots.copy()
+        size = 0
+        region = [pos]
+        while region:
+            plant_pos = region.pop()
+            if plant_pos in seen:
+                continue
 
-            for plot in old_plots:
-                direction = -1
-                for _ in range(4):
-                    nplot = plot + direction
-                    if puzzle.get(nplot) == plant:
-                        plots.add(nplot)
-                    else:
-                        fences_pos.add((plot, nplot))
-                    direction *= -1j
+            seen.add(plant_pos)
+            size += 1
+            for direction in DIRECTIONS:
+                npos = plant_pos + direction
+                if puzzle[plant_pos] == puzzle.get(npos):
+                    region.append(npos)
+                    continue
 
-            if old_plots == plots:
-                break
+                neigh = []
+                for idx, fence in enumerate(fences[direction]):
+                    for member in fence:
+                        if any(
+                            plant_pos == (member + direction * offset)
+                            for offset in {1j, -1j}
+                        ):
+                            neigh.append(idx)
+                match len(neigh):
+                    case 0:
+                        fences[direction].append([plant_pos])
+                    case 1:
+                        fences[direction][neigh[0]].append(plant_pos)
+                    case 2:
+                        fences[direction][
+                            neigh[0]
+                        ].extend(
+                            fences[direction][neigh[1]] + [plant_pos]
+                        )
+                        del fences[direction][neigh[1]]
+        if is_p2:
+            cost += size * sum(len(edges) for edges in fences.values())
+        else:
+            cost += size * sum(
+                len(list(itertools.chain.from_iterable(edges)))
+                for edges in fences.values()
+            )
+        fences.clear()
+    return cost
 
-        garden[plant].append({"plots": plots, "fences": fences_pos})
-
-    return garden
-
-def p1(path):
-    puzzle = load_puzzle(path)
-    garden = garden_info(puzzle)
-    res = 0
-    for plant, regions in garden.items():
-        for region in regions:
-            plots = region["plots"]
-            fences = region["fences"]
-            res += len(plots) * len(fences)
-    print(res)
-
-def p2(path):
-    puzzle = load_puzzle(path)
-    garden = garden_info(puzzle)
-    res = 0
-    for plant, regions in garden.items():
-        for region in regions:
-            plots = region["plots"]
-            fences = region["fences"]
-            res += len(plots) * fence_sides(fences)
-    print(res)
 
 def load_puzzle(path):
     inp = path.read_text().strip()
@@ -68,13 +67,20 @@ def load_puzzle(path):
             puzzle[complex(col_idx, row_idx)] = plant
     return puzzle
 
+def p1(path):
+    puzzle = load_puzzle(path)
+    res = calc_cost(puzzle)
+    print(res)
+
+def p2(path):
+    puzzle = load_puzzle(path)
+    res = calc_cost(puzzle, is_p2=True)
+    print(res)
+
+
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 #puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "dummy.txt"
 
-if not ANS1:
-    p1(puzzle_file)
-
-if not ANS2:
-    p2(puzzle_file)
+p1(puzzle_file)
+p2(puzzle_file)
