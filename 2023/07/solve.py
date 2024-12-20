@@ -1,164 +1,56 @@
-import enum
-import pathlib
-
-@enum.unique
-class HandType(enum.IntEnum):
-  HIGH_CARD = enum.auto()
-  ONE_PAIR = enum.auto()
-  TWO_PAIR = enum.auto()
-  THREE_KIND = enum.auto()
-  FULL_HOUSE = enum.auto()
-  FOUR_KIND = enum.auto()
-  FIVE_KIND = enum.auto()
-
-
-CARD_VALUES = {
-  **{str(num): num for num in range(2, 10)},
-  **{c: num for num, c in enumerate("TJQKA")}
+import collections
+import functools
+import pathlib                                                                                                                                                                                            BASE_REPLACE = {                                                                                         "A": "Z",                                                                                            "K": "Y",
+    "T": "B",
 }
 
-JOKER = "J"
-JOKER_VALUE = 1
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input_file")
-    args = parser.parse_args()
-
-    with open(args.input_file, "r") as file:
-        lines = file.read().splitlines()
-
-    print(f"part 1 solution: {part_one(lines)}")
-    print(f"part 2 solution: {part_two(lines)}")
-
-
-def part_one(lines: list[str]) -> int:
-    hands = []
-    bids = []
-    for line in lines:
-        hand, bid = line.split(" ")
-        hands.append(hand)
-        bids.append(int(bid))
-
-    hand_bid_pairs = list(zip(hands, bids))
-    hand_bid_pairs.sort(key=lambda pair: hand_to_score(pair[0]))
-
-    total = 0
-    for i, (_, bid) in enumerate(hand_bid_pairs):
-        rank = i + 1
-        total += rank * bid
-
-    return total
-
-
-def part_two(lines: List[str]) -> int:
-    hands = []
-    bids = []
-    for line in lines:
-        hand, bid = line.split(" ")
-        hands.append(hand)
-        bids.append(int(bid))
-
-    hand_bid_pairs = list(zip(hands, bids))
-    hand_bid_pairs.sort(key=lambda pair: hand_to_score(pair[0], True))
-
-    total = 0
-    for i, (_, bid) in enumerate(hand_bid_pairs):
-        rank = i + 1
-        total += rank * bid
-
-    return total
-
-
-# map each hand to a score such that better hands have higher scores
-def hand_to_score(hand: str, use_joker=False) -> int:
-    hand_type = get_hand_type(hand, use_joker)
-    hand_tiebreaker = get_hand_tiebreaker(hand, use_joker)
-
-    max_tiebreaker = get_hand_tiebreaker("AAAAA")
-    score = TYPE_VALUES[hand_type] * max_tiebreaker + hand_tiebreaker
-    return score
-
-
-def get_hand_type(hand: str, use_joker=False) -> HandType:
-    hand_counts = {}
-    if use_joker:
-        joker_count = 0
-        for card in hand:
-            if card == JOKER:
-                joker_count += 1
-            else:
-                hand_counts[card] = hand_counts.get(card, 0) + 1
-
-        if joker_count == 5:
-            hand_counts["A"] = 5
-        else:
-            max_count = 0
-            max_card = "A"
-            for card, count in hand_counts.items():
-                if count > max_count:
-                    max_count = count
-                    max_card = card
-
-            hand_counts[max_card] += joker_count
+                                                                                                     def cmp(v1, v2):                                                                                         if v1 > v2:                                                                                              return 1
+    elif v1 < v2:
+        return -1
     else:
-        for card in hand:
-            hand_counts[card] = hand_counts.get(card, 0) + 1
+        return 0                                                                                                                                                                                          def cmp_hands(hand1, hand2, cmp_func):                                                                   h1, h2 = hand1[0], hand2[0]                                                                          cmp_h1, cmp_h2 = cmp_func(h1), cmp_func(h2)
+    cmp_res = cmp(cmp_h1, cmp_h2)
+    if cmp_res != 0:
+        return cmp_res
+    return cmp(h1, h2)                                                                                                                                                                                    def p1_eval(hand: str):                                                                                  return tuple(sorted(collections.Counter(hand).values(), reverse=True))                           
+def p2_eval(hand: str):
+    if (jokers_count := hand.count("!")) == 5:
+        return (5, )
+    new_hand = hand.replace("!", "")
+    hand_counter = sorted(collections.Counter(new_hand).values(), reverse=True)
+    hand_counter[0] += jokers_count
+    return tuple(hand_counter)
 
-    if len(hand_counts) == 1:
-        return HandType.FIVE_KIND
+def solve(txt: str, cmp_func: callable):
+    hands = [line.split() for line in txt.splitlines()]
 
-    if len(hand_counts) == 2:
-        count = list(hand_counts.values())[0]
-        if count == 1 or count == 4:
-            return HandType.FOUR_KIND
-        else:
-            return HandType.FULL_HOUSE
+    key = functools.partial(cmp_hands, cmp_func=cmp_func)
+    hands_s = sorted(hands, key=functools.cmp_to_key(key))
 
-    if len(hand_counts) == 3:
-        for count in hand_counts.values():
-            if count == 2:
-                return HandType.TWO_PAIR
+    return sum(
+        int(bid) * rank for rank, (_, bid) in enumerate(hands_s, start=1)
+    )
 
-            if count == 3:
-                return HandType.THREE_KIND
+def p1(puzzle_file):
+    inp = puzzle_file.read_text().strip()
+    txt = inp
+    for frm, to in BASE_REPLACE.items():
+        txt = txt.replace(frm, to)
+    return solve(txt, p1_eval)
 
-    if len(hand_counts) == 4:
-        return HandType.ONE_PAIR
+def p2(puzzle_file):
+    replace = BASE_REPLACE | {"J": "!"}
 
-    return HandType.HIGH_CARD
+    inp = puzzle_file.read_text().strip()
+    txt = inp
+    for frm, to in replace.items():
+        txt = txt.replace(frm, to)
 
-
-# maps each hand to a tiebreaker between 0 and 10^10
-def get_hand_tiebreaker(hand: str, use_joker=False) -> int:
-    values = []
-    for card in hand:
-        if use_joker and card == JOKER:
-            values.append(JOKER_VALUE)
-        else:
-            values.append(CARD_VALUES[card])
-
-    tiebreaker = 0
-    for value in values:
-        tiebreaker = 100 * tiebreaker + value
-    return tiebreaker
+    return solve(txt, p2_eval)
 
 
-def p1(path):
-  puzzle = path.read_text().strip()
-  hands = sorted(map(Hand, puzzle.splitlines()))
-  res = sum(rank * hand._bid for rank, hand in enumerate(hands, start=1))
-  print(res)
+puzzle_file = pathlib.Path(__file__).parent / "input.txt"
+#puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
 
-def p2(path):
-  puzzle = path.read_text().strip()
-  hands = sorted(map(lambda line: Hand(line, is_p2=True), puzzle.splitlines()))
-  res = sum(rank * hand._bid for rank, hand in enumerate(hands, start=1))
-  print(res)
- 
-puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
-
-p1(puzzle_file)
-p2(puzzle_file)
+print(p1(puzzle_file))               
+print(p2(puzzle_file))
