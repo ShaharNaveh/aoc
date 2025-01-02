@@ -32,7 +32,6 @@ PIPE_DIRECTION = {
 }
 
 def is_pos_inside(pos: complex, mloop, grid, bounds: complex) -> bool:
-
     npos = pos + Direction.Southeast
     inside = False
     while (bounds.real >= npos.real) and (bounds.imag >= npos.imag):
