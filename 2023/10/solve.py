@@ -43,21 +43,38 @@ def is_pos_inside(pos: complex, mloop, grid, bounds: complex) -> bool:
     return inside
 
 def find_main_loop(grid):
-    start = next(pos for pos, tile in grid.items() if tile == "S")                          main_loop = collections.defaultdict(lambda: float("inf"))
-    todo = {(start, direction, 0) for direction in PIPE_DIRECTION["S"]}                     while todo:
-        pos, direction, steps = todo.pop()                                                      main_loop[pos] = min(steps, main_loop[pos])
-                                                                                                ctile = grid[pos]
-        pipe_directions = PIPE_DIRECTION[ctile] - {~direction}                                  for ndirection in pipe_directions:
-            npos = pos + ndirection                                                                 if steps > main_loop[npos]:
-                continue                                                                
-            ntile = grid.get(npos, ".")                                                             if ~ndirection not in PIPE_DIRECTION[ntile]:
-                continue                                                                
-            main_loop[npos] = (nsteps := steps + 1)                                                 todo |= {(npos, ndirection, nsteps)}
-    return {k: v for k, v in main_loop.items() if v != float("inf")}                    
-                                                                                        def parse_puzzle(puzzle_file):
-    return {                                                                                    x + (y * 1j): tile                                                                      for y, line in enumerate(puzzle_file.read_text().strip().splitlines())                  for x, tile in enumerate(line)
-    }                                                                                   
-def p1(puzzle_file):                                                                        grid = parse_puzzle(puzzle_file)
+    start = next(pos for pos, tile in grid.items() if tile == "S")
+    main_loop = collections.defaultdict(lambda: float("inf"))
+    todo = {(start, direction, 0) for direction in PIPE_DIRECTION["S"]}
+    while todo:
+        pos, direction, steps = todo.pop()
+        main_loop[pos] = min(steps, main_loop[pos])
+
+        ctile = grid[pos]
+        pipe_directions = PIPE_DIRECTION[ctile] - {~direction}
+        for ndirection in pipe_directions:
+            npos = pos + ndirection
+            if steps > main_loop[npos]:
+                continue
+
+            ntile = grid.get(npos, ".")
+            if ~ndirection not in PIPE_DIRECTION[ntile]:
+                continue
+
+            main_loop[npos] = (nsteps := steps + 1)
+            todo |= {(npos, ndirection, nsteps)}
+    return {k: v for k, v in main_loop.items() if v != float("inf")}
+
+
+def parse_puzzle(puzzle_file):
+    return {
+        x + (y * 1j): tile
+        for y, line in enumerate(puzzle_file.read_text().strip().splitlines())
+        for x, tile in enumerate(line)
+    }
+
+def p1(puzzle_file):
+    grid = parse_puzzle(puzzle_file)
     main_loop = find_main_loop(grid)
     return max(main_loop.values())
 
@@ -69,7 +86,8 @@ def p2(puzzle_file):
     ys = map(lambda n: int(n.imag), mloop)
     max_x, max_y = max(xs), max(ys)
     bounds = complex(max_x, max_y)
-                                                                                            poses = set(grid) - mloop
+
+    poses = set(grid) - mloop
     return sum(is_pos_inside(pos, mloop, grid, bounds) for pos in poses)
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
