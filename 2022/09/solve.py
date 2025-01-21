@@ -12,8 +12,10 @@ def simulate(instructions, rope_len: int = 2):
             rope[0] += direction
             for idx in range(1, rope_len):
                 dist = rope[idx - 1] - rope[idx]
-                if abs(dist) >= 2:
-                    rope[idx] += calc_offset(dist)
+                if 2 > abs(dist):
+                    continue
+                rope[idx] += calc_offset(dist)
+                if idx == rope_len - 1:
                     yield rope[idx]
 
 def iter_puzzle(puzzle_file):
