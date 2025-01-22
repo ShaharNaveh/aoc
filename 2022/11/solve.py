@@ -1,7 +1,5 @@
 import copy
-import functools
 import dataclasses
-import itertools
 import math
 import operator
 import pathlib
