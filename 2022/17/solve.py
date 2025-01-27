@@ -103,7 +103,7 @@ def p2(puzzle_file):
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = puzzle_file.with_stem("test_puzzle")
+#puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
