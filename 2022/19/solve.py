@@ -1,10 +1,12 @@
 import dataclasses
 import functools
+import itertools
+import math
 import operator
 import pathlib
 import re
 
-@dataclasses.dataclass(frozen=True, order=True, slots=True)
+@dataclasses.dataclass(frozen=True, slots=True)
 class Resources:
     ore: int = 0
     clay: int = 0
@@ -23,16 +25,19 @@ class Resources:
     def __mul__(self, other):
         return Resources(*(val * other for val in self))
 
+    def __getitem__(self, item: str) -> int:
+        return getattr(self, item)
+
     def __iter__(self):
         return iter(dataclasses.astuple(self))
 
-@dataclasses.dataclass(frozen=True, order=True, slots=True)
+@dataclasses.dataclass(frozen=True, slots=True)
 class Branch:
     minute: int
     current: Resources = Resources()
     robots: Resources = Resources(ore=1)
 
-@dataclasses.dataclass(frozen=True, kw_only=True, order=True)
+@dataclasses.dataclass(frozen=True)
 class Blueprint:
     _id: int
     prices: dict[str, Resources] = dataclasses.field(hash=False)
@@ -50,18 +55,18 @@ class Blueprint:
         max_geode = resources.geode + robots.geode * minutes
 
         for name, price in self.prices.items():
-            if (name != "geode") and getattr(robots, name) >= self.max_price(name):
+            if (name != "geode") and (robots[name] >= self.max_price(name)):
                 continue
 
             wait = 0
             for rname, amount in dataclasses.asdict(price).items():
                 if amount == 0:
                     continue
-                if getattr(robots, rname) == 0:
+                if robots[rname] == 0:
                     break
                 wait = max(
                     wait,
-                    -(-(amount - getattr(resources, rname)) // getattr(robots, rname))
+                    -(-(amount - resources[rname]) // robots[rname])
                 )
             else:
                 rminutes = minutes - wait - 1
@@ -79,9 +84,7 @@ class Blueprint:
                     }
                 )
 
-                nrobots = dataclasses.replace(
-                    robots, **{name: getattr(robots, name) + 1}
-                )
+                nrobots = dataclasses.replace(robots, **{name: robots[name] + 1})
 
                 max_geode = max(
                     max_geode, self.mine(rminutes, resources=nresources, robots=nrobots)
@@ -90,7 +93,7 @@ class Blueprint:
 
     @functools.cache
     def max_price(self, name: str) -> int:
-        return max(getattr(price, name) for price in self.prices.values())
+        return max(price[name] for price in self.prices.values())
 
     @classmethod
     def from_str(cls, raw: str):
@@ -103,7 +106,7 @@ class Blueprint:
             "geode": Resources(ore=resources[4], obsidian=resources[5]),
         }
 
-        return cls(_id=_id, prices=prices)
+        return cls(_id, prices)
 
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
@@ -116,10 +119,12 @@ def p1(puzzle_file):
     )
 
 def p2(puzzle_file):
-    return
+    return math.prod(
+        map(operator.methodcaller(32), itertools.islice(iter_puzzle(puzzle_file), 3))
+    )
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 puzzle_file = puzzle_file.with_stem("test_puzzle")
 
-print(p1(puzzle_file))
+print(p1(puzzle_file)) 
 print(p2(puzzle_file))
