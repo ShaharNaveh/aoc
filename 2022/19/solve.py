@@ -31,12 +31,6 @@ class Resources:
     def __iter__(self):
         return iter(dataclasses.astuple(self))
 
-@dataclasses.dataclass(frozen=True, slots=True)
-class Branch:
-    minute: int
-    current: Resources = Resources()
-    robots: Resources = Resources(ore=1)
-
 @dataclasses.dataclass(frozen=True)
 class Blueprint:
     _id: int
@@ -64,17 +58,13 @@ class Blueprint:
                     continue
                 if robots[rname] == 0:
                     break
-                wait = max(
-                    wait,
-                    -(-(amount - resources[rname]) // robots[rname])
-                )
+                wait = max(wait, -(-(amount - resources[rname]) // robots[rname]))
             else:
                 rminutes = minutes - wait - 1
                 if rminutes <= 0:
                     continue
 
-                nresources = resources + robots * (wait + 1)
-                nresources -= price
+                nresources = (resources + robots * (wait + 1)) - price
                 nresources = dataclasses.replace(
                     nresources,
                     **{
@@ -120,11 +110,14 @@ def p1(puzzle_file):
 
 def p2(puzzle_file):
     return math.prod(
-        map(operator.methodcaller(32), itertools.islice(iter_puzzle(puzzle_file), 3))
+        map(
+            operator.methodcaller("mine", 32),
+            itertools.islice(iter_puzzle(puzzle_file), 3),
+        )
     )
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = puzzle_file.with_stem("test_puzzle")
+#puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file)) 
 print(p2(puzzle_file))
