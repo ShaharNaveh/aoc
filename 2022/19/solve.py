@@ -1,4 +1,5 @@
 import dataclasses
+import heapq
 import itertools
 import math
 import operator
@@ -48,11 +49,11 @@ class Blueprint:
 
         return cls(_id, prices)
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Branch:
-    current: Resources = Resources()
     total: Resources = Resources()
-    robots: Resources = Resources(ore=1)
+    current: Resources = dataclasses.field(compare=False, default=Resources())
+    robots: Resources = dataclasses.field(compare=False, default=Resources(ore=1))
 
 def mine(
     blueprint: Blueprint, minutes: int = 24, *, max_queue_size: int = 1000
@@ -60,14 +61,10 @@ def mine(
     queue = [Branch()]
 
     for minute in range(minutes):
-        next_queue = set()
+        next_queue = []
 
         if len(queue) > max_queue_size:
-            queue = sorted(
-                queue,
-                key=lambda b: dataclasses.astuple(b.total),
-                reverse=True,
-            )[:max_queue_size]
+            queue = heapq.nlargest(max_queue_size, queue)
 
         for branch in queue:
             current = branch.current
@@ -77,8 +74,8 @@ def mine(
             mined_branch = Branch(
                 current=current + robots, total=total + robots, robots=robots
             )
-
-            next_queue.add(mined_branch)
+            
+            heapq.heappush(next_queue, mined_branch)
 
             if minute == minutes - 1:
                 continue
@@ -91,11 +88,11 @@ def mine(
                     total=mined_branch.total,
                     robots=robots.increment(resource),
                 )
-                next_queue.add(buy_branch)
+                heapq.heappush(next_queue, buy_branch)
 
         queue = next_queue
 
-    return max(b.current.geode for b in queue)
+    return heapq.nlargest(1, queue)[0].current.geode
 
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
