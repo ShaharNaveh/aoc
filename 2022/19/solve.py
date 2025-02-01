@@ -1,20 +1,22 @@
 import dataclasses
-import functools
 import itertools
 import math
 import operator
 import pathlib
 import re
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Resources:
-    ore: int = 0
-    clay: int = 0
-    obsidian: int = 0
     geode: int = 0
+    obsidian: int = 0
+    clay: int = 0
+    ore: int = 0
+
+    def increment(self, name: str, amount: int = 1):
+        return dataclasses.replace(self, **{name: self[name] + amount})
 
     def _combine(self, other, f: callable):
-        return Resources(*(f(*pair) for pair in zip(self, other)))
+        return Resources(*itertools.starmap(f, zip(self, other)))
 
     def __add__(self, other):
         return self._combine(other, operator.add)
@@ -22,68 +24,16 @@ class Resources:
     def __sub__(self, other):
         return self._combine(other, operator.sub)
 
-    def __mul__(self, other):
-        return Resources(*(val * other for val in self))
-
     def __getitem__(self, item: str) -> int:
         return getattr(self, item)
 
     def __iter__(self):
         return iter(dataclasses.astuple(self))
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True, slots=True)
 class Blueprint:
     _id: int
-    prices: dict[str, Resources] = dataclasses.field(hash=False)
-
-    @functools.cache
-    def mine(
-        self,
-        minutes: int = 24,
-        *,
-        resources: Resources = Resources(), 
-        robots: Resources = Resources(ore=1),
-    ) -> int:
-        if minutes == 0:
-            return resources.geode
-        max_geode = resources.geode + robots.geode * minutes
-
-        for name, price in self.prices.items():
-            if (name != "geode") and (robots[name] >= self.max_price(name)):
-                continue
-
-            wait = 0
-            for rname, amount in dataclasses.asdict(price).items():
-                if amount == 0:
-                    continue
-                if robots[rname] == 0:
-                    break
-                wait = max(wait, -(-(amount - resources[rname]) // robots[rname]))
-            else:
-                rminutes = minutes - wait - 1
-                if rminutes <= 0:
-                    continue
-
-                nresources = (resources + robots * (wait + 1)) - price
-                nresources = dataclasses.replace(
-                    nresources,
-                    **{
-                        name: min(val, self.max_price(name) * rminutes)
-                        for name, val in dataclasses.asdict(nresources).items()
-                        if name != "geode"
-                    }
-                )
-
-                nrobots = dataclasses.replace(robots, **{name: robots[name] + 1})
-
-                max_geode = max(
-                    max_geode, self.mine(rminutes, resources=nresources, robots=nrobots)
-                )
-        return max_geode
-
-    @functools.cache
-    def max_price(self, name: str) -> int:
-        return max(price[name] for price in self.prices.values())
+    prices: dict[str, Resources]
 
     @classmethod
     def from_str(cls, raw: str):
@@ -98,22 +48,68 @@ class Blueprint:
 
         return cls(_id, prices)
 
+@dataclasses.dataclass(frozen=True, slots=True)
+class Branch:
+    current: Resources = Resources()
+    total: Resources = Resources()
+    robots: Resources = Resources(ore=1)
+
+def mine(
+    blueprint: Blueprint, minutes: int = 24, *, max_queue_size: int = 1000
+) -> int:
+    queue = [Branch()]
+
+    for minute in range(minutes):
+        next_queue = set()
+
+        if len(queue) > max_queue_size:
+            queue = sorted(
+                queue,
+                key=lambda b: dataclasses.astuple(b.total),
+                reverse=True,
+            )[:max_queue_size]
+
+        for branch in queue:
+            current = branch.current
+            total = branch.total
+            robots = branch.robots
+
+            mined_branch = Branch(
+                current=current + robots, total=total + robots, robots=robots
+            )
+
+            next_queue.add(mined_branch)
+
+            if minute == minutes - 1:
+                continue
+
+            for resource, price in blueprint.prices.items():
+                if any(b > a for a, b in zip(current, price)):
+                    continue
+                buy_branch = Branch(
+                    current=mined_branch.current - price,
+                    total=mined_branch.total,
+                    robots=robots.increment(resource),
+                )
+                next_queue.add(buy_branch)
+
+        queue = next_queue
+
+    return max(b.current.geode for b in queue)
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(Blueprint.from_str, inp.splitlines())
 
 def p1(puzzle_file):
     return sum(
-        blueprint.mine() * blueprint._id
-        for blueprint in iter_puzzle(puzzle_file)
+        mine(blueprint) * blueprint._id for blueprint in iter_puzzle(puzzle_file)
     )
 
 def p2(puzzle_file):
     return math.prod(
-        map(
-            operator.methodcaller("mine", 32),
-            itertools.islice(iter_puzzle(puzzle_file), 3),
-        )
+        mine(blueprint, 32, max_queue_size=20_000)
+        for blueprint in itertools.islice(iter_puzzle(puzzle_file), 3)
     )
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
