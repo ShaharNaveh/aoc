@@ -1,5 +1,6 @@
 import pathlib
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     buf = []
@@ -12,18 +13,13 @@ def iter_puzzle(puzzle_file):
     yield buf
 
 
-
 def p1(puzzle_file):
     return max(map(sum, iter_puzzle(puzzle_file)))
 
+
 def p2(puzzle_file):
-    return sum(
-        sorted(
-            map(
-                sum, iter_puzzle(puzzle_file)
-            ),
-            reverse=True)[:3]
-    )
+    return sum(sorted(map(sum, iter_puzzle(puzzle_file)), reverse=True)[:3])
+
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
 

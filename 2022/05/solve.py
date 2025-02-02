@@ -2,16 +2,19 @@ import collections
 import itertools
 import pathlib
 
+
 def simulate(stacks, instructions, *, is_p2: bool = False):
     for count, src, dest in instructions:
-            crates = [stacks[src].pop() for _ in range(count)]
-            if is_p2:
-                crates = reversed(crates)
-            stacks[dest].extend(crates)
+        crates = [stacks[src].pop() for _ in range(count)]
+        if is_p2:
+            crates = reversed(crates)
+        stacks[dest].extend(crates)
     return stacks
+
 
 def top_crates(stacks):
     return "".join(stacks[idx][-1] for idx in sorted(stacks))
+
 
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().rstrip()
@@ -32,18 +35,21 @@ def parse_puzzle(puzzle_file):
     )
     return dict(stacks), instructions
 
+
 def p1(puzzle_file):
     stacks, instructions = parse_puzzle(puzzle_file)
     stacks = simulate(stacks, instructions)
     return top_crates(stacks)
+
 
 def p2(puzzle_file):
     stacks, instructions = parse_puzzle(puzzle_file)
     stacks = simulate(stacks, instructions, is_p2=True)
     return top_crates(stacks)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

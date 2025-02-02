@@ -6,6 +6,7 @@ import operator
 import pathlib
 import re
 
+
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Resources:
     geode: int = 0
@@ -31,6 +32,7 @@ class Resources:
     def __iter__(self):
         return iter(dataclasses.astuple(self))
 
+
 @dataclasses.dataclass(frozen=True, slots=True)
 class Blueprint:
     _id: int
@@ -49,15 +51,15 @@ class Blueprint:
 
         return cls(_id, prices)
 
+
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Branch:
     total: Resources = Resources()
     current: Resources = dataclasses.field(compare=False, default=Resources())
     robots: Resources = dataclasses.field(compare=False, default=Resources(ore=1))
 
-def mine(
-    blueprint: Blueprint, minutes: int = 24, *, max_queue_size: int = 1000
-) -> int:
+
+def mine(blueprint: Blueprint, minutes: int = 24, *, max_queue_size: int = 1000) -> int:
     queue = [Branch()]
 
     for minute in range(minutes):
@@ -74,7 +76,7 @@ def mine(
             mined_branch = Branch(
                 current=current + robots, total=total + robots, robots=robots
             )
-            
+
             heapq.heappush(next_queue, mined_branch)
 
             if minute == minutes - 1:
@@ -94,14 +96,17 @@ def mine(
 
     return heapq.nlargest(1, queue)[0].current.geode
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(Blueprint.from_str, inp.splitlines())
+
 
 def p1(puzzle_file):
     return sum(
         mine(blueprint) * blueprint._id for blueprint in iter_puzzle(puzzle_file)
     )
+
 
 def p2(puzzle_file):
     return math.prod(
@@ -109,8 +114,9 @@ def p2(puzzle_file):
         for blueprint in itertools.islice(iter_puzzle(puzzle_file), 3)
     )
 
-puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
 
-print(p1(puzzle_file)) 
+puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
+
+print(p1(puzzle_file))
 print(p2(puzzle_file))

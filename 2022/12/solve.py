@@ -3,18 +3,22 @@ import dataclasses
 import heapq
 import pathlib
 
+
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Branch:
     pos: complex = dataclasses.field(compare=False, default=0)
     dist: int = 0
 
+
 def iter_neigh(pos):
     yield from (pos + offset for offset in (1, -1, 1j, -1j))
+
 
 def can_step(src: str, dest: str) -> bool:
     src = "a" if src == "S" else src
     dest = "z" if dest == "E" else dest
     return ord(src) + 1 >= ord(dest)
+
 
 def walk(grid, start):
     dists = collections.defaultdict(lambda: float("inf"))
@@ -49,6 +53,7 @@ def walk(grid, start):
             heapq.heappush(branches, Branch(npos, ndist))
     return float("inf")
 
+
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     return {
@@ -57,17 +62,20 @@ def parse_puzzle(puzzle_file):
         for x, char in enumerate(line)
     }
 
+
 def p1(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     start = next(pos for pos, char in grid.items() if char == "S")
     return walk(grid, start)
 
+
 def p2(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     return min(walk(grid, start) for start, char in grid.items() if char == "a")
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

@@ -5,6 +5,7 @@ import itertools
 import operator
 import pathlib
 
+
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Vec3:
     x: int = 0
@@ -28,33 +29,38 @@ class Vec3:
     def from_str(cls, raw: str):
         return cls(*map(int, raw.split(",")))
 
+
 @enum.unique
 class State(enum.Enum):
     Unreachable = enum.auto()
     Droplet = enum.auto()
     Reachable = enum.auto()
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(Vec3.from_str, inp.splitlines())
 
+
 def p1(puzzle_file):
     droplets = frozenset(iter_puzzle(puzzle_file))
     return sum(
-        neigh not in droplets 
-        for droplet in droplets
-        for neigh in droplet.iter_neigh()
+        neigh not in droplets for droplet in droplets for neigh in droplet.iter_neigh()
     )
+
 
 def p2(puzzle_file):
     droplets = frozenset(iter_puzzle(puzzle_file))
     grid = collections.defaultdict(lambda: State.Unreachable) | {
         droplet: State.Droplet for droplet in droplets
     }
-    max_pos = max(
-        itertools.chain.from_iterable(map(dataclasses.astuple, droplets)),
-        default=0,
-    ) + 1
+    max_pos = (
+        max(
+            itertools.chain.from_iterable(map(dataclasses.astuple, droplets)),
+            default=0,
+        )
+        + 1
+    )
 
     seen = set()
     queue = [Vec3()]
@@ -78,8 +84,9 @@ def p2(puzzle_file):
         for neigh in droplet.iter_neigh()
     )
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

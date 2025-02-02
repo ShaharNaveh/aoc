@@ -6,6 +6,7 @@ import pathlib
 
 OPS = {"+": operator.add, "*": operator.mul}
 
+
 @dataclasses.dataclass(slots=True)
 class Monkey:
     _id: int
@@ -33,14 +34,17 @@ class Monkey:
             val = int(val)
         op = lambda n: func(n, val)
 
-        divisor, if_true, if_false = tuple(int(lines[idx].split()[-1]) for idx in (3, 4, 5))
+        divisor, if_true, if_false = tuple(
+            int(lines[idx].split()[-1]) for idx in (3, 4, 5)
+        )
         branches = (if_false, if_true)
 
         return cls(_id=_id, items=items, op=op, divisor=divisor, branches=branches)
 
+
 def simulate(
     monkeys: list[Monkey],
-    rounds: int = 20, 
+    rounds: int = 20,
     relief: int = 3,
 ) -> list[Monkey]:
     monkeys = copy.deepcopy(monkeys)
@@ -65,22 +69,26 @@ def calc_monkey_business(monkeys: list[Monkey]) -> int:
         sorted(map(operator.attrgetter("score"), monkeys), reverse=True)[:2]
     )
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(Monkey.from_str, inp.split("\n" * 2))
+
 
 def p1(puzzle_file):
     monkeys = list(iter_puzzle(puzzle_file))
     monkeys = simulate(monkeys)
     return calc_monkey_business(monkeys)
 
+
 def p2(puzzle_file):
     monkeys = list(iter_puzzle(puzzle_file))
     monkeys = simulate(monkeys, 10_000, 1)
     return calc_monkey_business(monkeys)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

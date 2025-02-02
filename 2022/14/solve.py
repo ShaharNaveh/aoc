@@ -1,23 +1,22 @@
 import itertools
 import pathlib
 
+
 def pour_sand(
-    rocks: set[complex], 
-    min_x: int, 
+    rocks: set[complex],
+    min_x: int,
     max_x: int,
     max_y: int,
-    *, 
-    pos: complex = 500, 
+    *,
+    pos: complex = 500,
 ) -> complex | None:
     if (max_x < pos.real < min_x) or (pos.imag > max_y):
         return None
 
-    for offset in (1j, -1+1j, 1+1j):
+    for offset in (1j, -1 + 1j, 1 + 1j):
         npos = pos + offset
         if npos not in rocks:
-            return pour_sand(
-                rocks, pos=npos, min_x=min_x, max_x=max_x, max_y=max_y
-            )
+            return pour_sand(rocks, pos=npos, min_x=min_x, max_x=max_x, max_y=max_y)
     return pos
 
 
@@ -37,6 +36,7 @@ def iter_puzzle(puzzle_file):
                 if pos == b:
                     break
                 yield pos
+
 
 def p1(puzzle_file):
     rocks = set(iter_puzzle(puzzle_file))
@@ -65,17 +65,14 @@ def p2(puzzle_file):
         rocks.add(complex(x, max_y))
 
     for i in itertools.count(1):
-        sand = pour_sand(
-            rocks, min_x=-float("inf"), max_x=float("inf"), max_y=max_y
-        )
+        sand = pour_sand(rocks, min_x=-float("inf"), max_x=float("inf"), max_y=max_y)
         if sand == 500:
             return i
         rocks.add(sand)
 
 
-
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

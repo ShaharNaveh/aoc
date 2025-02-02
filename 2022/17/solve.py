@@ -3,15 +3,16 @@ import itertools
 import operator
 import pathlib
 
+
 @dataclasses.dataclass(frozen=True, slots=True)
 class Rock:
-    idx: int 
+    idx: int
     ints: tuple[int, ...]
     pos: int = 0b0010000
 
     def is_shiftable(self, op: callable) -> bool:
         edge = {operator.lshift: 0b1000000, operator.rshift: 0b0000001}[op]
-        return not any(map(lambda x: operator.and_(x, edge), self)) 
+        return not any(map(lambda x: operator.and_(x, edge), self))
 
     def __iter__(self):
         yield from self.ints
@@ -21,35 +22,37 @@ class Rock:
 
     def __lshift__(self, other):
         op = lambda x: operator.lshift(x, other)
-        return dataclasses.replace(
-            self, ints=tuple(map(op, self)), pos=op(self.pos)
-        )
+        return dataclasses.replace(self, ints=tuple(map(op, self)), pos=op(self.pos))
 
     def __rshift__(self, other):
         op = lambda x: operator.rshift(x, other)
-        return dataclasses.replace(
-            self, ints=tuple(map(op, self)), pos=op(self.pos)
-        )
+        return dataclasses.replace(self, ints=tuple(map(op, self)), pos=op(self.pos))
 
     def __len__(self) -> int:
         return len(self.ints)
+
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class Jet:
     idx: int
     op: callable
 
-ROCKS = tuple(itertools.starmap(
-    Rock, enumerate(
-        (
-            (0b0011110,),
-            (0b0001000, 0b0011100, 0b0001000),
-            (0b0000100, 0b0000100, 0b0011100),
-            (0b0010000, 0b0010000, 0b0010000, 0b0010000),
-            (0b0011000, 0b0011000),
-        )
+
+ROCKS = tuple(
+    itertools.starmap(
+        Rock,
+        enumerate(
+            (
+                (0b0011110,),
+                (0b0001000, 0b0011100, 0b0001000),
+                (0b0000100, 0b0000100, 0b0011100),
+                (0b0010000, 0b0010000, 0b0010000, 0b0010000),
+                (0b0011000, 0b0011000),
+            )
+        ),
     )
-))
+)
+
 
 def simulate(jets, count: int = 2022) -> int:
     rocks, jets = map(itertools.cycle, (ROCKS, jets))
@@ -64,7 +67,7 @@ def simulate(jets, count: int = 2022) -> int:
                 if not (shifted & pile[y:]):
                     rock = shifted
 
-            if (len(rock) + y >= len(pile)) or (rock & pile[y + 1:]):
+            if (len(rock) + y >= len(pile)) or (rock & pile[y + 1 :]):
                 for idx, num in enumerate(rock):
                     pile[y + idx] |= num
                 break
@@ -93,9 +96,11 @@ def parse_puzzle(puzzle_file):
     dct = {"<": operator.lshift, ">": operator.rshift}
     return tuple(itertools.starmap(Jet, enumerate(map(dct.get, inp))))
 
+
 def p1(puzzle_file):
     jets = parse_puzzle(puzzle_file)
     return simulate(jets)
+
 
 def p2(puzzle_file):
     jets = parse_puzzle(puzzle_file)
@@ -103,7 +108,7 @@ def p2(puzzle_file):
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

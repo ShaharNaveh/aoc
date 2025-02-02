@@ -1,6 +1,7 @@
 import collections
 import pathlib
 
+
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
 
@@ -25,9 +26,11 @@ def parse_puzzle(puzzle_file):
 
     return dict(sizes)
 
+
 def p1(puzzle_file):
     sizes = parse_puzzle(puzzle_file)
     return sum(filter(lambda size: size <= 100_000, sizes.values()))
+
 
 def p2(puzzle_file):
     sizes = parse_puzzle(puzzle_file)
@@ -35,8 +38,9 @@ def p2(puzzle_file):
     needed = 30_000_000 - (70_000_000 - used)
     return next(filter(lambda size: size >= needed, sorted(sizes.values())))
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

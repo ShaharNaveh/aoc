@@ -1,6 +1,7 @@
 import enum
 import pathlib
 
+
 @enum.unique
 class Hand(enum.IntEnum):
     Rock = enum.auto()
@@ -22,8 +23,9 @@ class Hand(enum.IntEnum):
         return {
             Hand.Rock: Hand.Paper,
             Hand.Paper: Hand.Scissors,
-            Hand.Scissors: Hand.Rock
+            Hand.Scissors: Hand.Rock,
         }[self]
+
 
 @enum.unique
 class MatchOutcome(enum.IntEnum):
@@ -46,6 +48,7 @@ class MatchOutcome(enum.IntEnum):
             "Z": cls.Win,
         }[char]
 
+
 def simulate(col1: str, col2: str, *, is_p2: bool = False) -> int:
     opponent = Hand.from_str(col1)
     if is_p2:
@@ -61,20 +64,24 @@ def simulate(col1: str, col2: str, *, is_p2: bool = False) -> int:
     player = Hand.from_str(col2)
     return MatchOutcome.from_hands(player, opponent) + player
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(str.split, inp.splitlines())
 
+
 def p1(puzzle_file):
     return sum(simulate(col1, col2) for col1, col2 in iter_puzzle(puzzle_file))
+
 
 def p2(puzzle_file):
     return sum(
         simulate(col1, col2, is_p2=True) for col1, col2 in iter_puzzle(puzzle_file)
     )
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

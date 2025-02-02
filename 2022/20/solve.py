@@ -1,6 +1,7 @@
 import collections
 import pathlib
 
+
 def mix(lst: list[int], multiplier: int = 1, times: int = 1) -> int:
     items = list(enumerate(map(lambda n: n * multiplier, lst)))
     items_len = len(items)
@@ -23,18 +24,22 @@ def mix(lst: list[int], multiplier: int = 1, times: int = 1) -> int:
     deque.rotate(-deque.index(zero_item))
     return sum(deque[i * 1000 % items_len][1] for i in range(1, 4))
 
+
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(int, inp.splitlines())
 
+
 def p1(puzzle_file):
     return mix(list(iter_puzzle(puzzle_file)))
+
 
 def p2(puzzle_file):
     return mix(list(iter_puzzle(puzzle_file)), 811_589_153, 10)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

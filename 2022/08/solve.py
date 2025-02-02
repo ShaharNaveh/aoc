@@ -3,6 +3,7 @@ import pathlib
 
 OFFSETS = (1, -1, 1j, -1j)
 
+
 def scenic_score(pos: complex, grid: dict[complex, int], bounds: complex) -> int:
     if is_edge(pos, bounds):
         return 0
@@ -21,16 +22,17 @@ def scenic_score(pos: complex, grid: dict[complex, int], bounds: complex) -> int
 
     return math.prod(scores.values())
 
+
 def iter_until_edge(start: complex, offset: complex, bounds: complex):
     pos = start + offset
-    while (
-        (0 <= pos.real <= bounds.real) and (0 <= pos.imag <= bounds.imag)
-    ):
+    while (0 <= pos.real <= bounds.real) and (0 <= pos.imag <= bounds.imag):
         yield pos
         pos += offset
 
+
 def is_edge(pos: complex, bounds: complex) -> bool:
     return (pos.real in (0, bounds.real)) or (pos.imag in (0, bounds.imag))
+
 
 def is_tree_visible(pos: complex, grid: dict[complex, int], bounds: complex) -> bool:
     if is_edge(pos, bounds):
@@ -57,13 +59,15 @@ def p1(puzzle_file):
     bounds = [*grid][-1]
     return sum(is_tree_visible(pos, grid, bounds) for pos in grid)
 
+
 def p2(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     bounds = [*grid][-1]
     return max(scenic_score(pos, grid, bounds) for pos in grid)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
