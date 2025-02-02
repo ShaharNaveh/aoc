@@ -2,7 +2,8 @@ import collections
 import itertools
 import pathlib
 
-DIRECTIONS = {0+1j, 1, 0-1j, -1}
+DIRECTIONS = {0 + 1j, 1, 0 - 1j, -1}
+
 
 def calc_cost(puzzle, *, is_p2: bool = False) -> int:
     seen = set()
@@ -42,9 +43,7 @@ def calc_cost(puzzle, *, is_p2: bool = False) -> int:
                     case 1:
                         fences[direction][neigh[0]].append(plant_pos)
                     case 2:
-                        fences[direction][
-                            neigh[0]
-                        ].extend(
+                        fences[direction][neigh[0]].extend(
                             fences[direction][neigh[1]] + [plant_pos]
                         )
                         del fences[direction][neigh[1]]
@@ -67,10 +66,12 @@ def load_puzzle(path):
             puzzle[complex(col_idx, row_idx)] = plant
     return puzzle
 
+
 def p1(path):
     puzzle = load_puzzle(path)
     res = calc_cost(puzzle)
     print(res)
+
 
 def p2(path):
     puzzle = load_puzzle(path)
@@ -78,9 +79,8 @@ def p2(path):
     print(res)
 
 
-
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)

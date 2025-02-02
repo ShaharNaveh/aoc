@@ -12,10 +12,8 @@ def blink(stone: int, count: int):
         return blink(1, next_count)
     elif ((stone_l := len((stone_s := str(stone)))) % 2) == 0:
         middle = stone_l // 2
-        return (
-            blink(int(stone_s[:middle]), next_count)
-            +
-            blink(int(stone_s[middle:]), next_count)
+        return blink(int(stone_s[:middle]), next_count) + blink(
+            int(stone_s[middle:]), next_count
         )
     else:
         return blink(stone * 2024, next_count)
@@ -27,11 +25,13 @@ def p1(path):
     res = sum(blink(stone, count) for stone in stones)
     print(res)
 
+
 def p2(path):
     count = 75
     stones = parse_puzzle(path)
     res = sum(blink(stone, count) for stone in stones)
     print(res)
+
 
 def parse_puzzle(path):
     inp = path.read_text().strip()
@@ -40,7 +40,7 @@ def parse_puzzle(path):
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)

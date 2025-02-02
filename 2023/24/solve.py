@@ -5,6 +5,7 @@ import operator
 import pathlib
 import random
 
+
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
 class Vec3:
     x: int = 0
@@ -21,6 +22,7 @@ class Vec3:
     def from_str(cls, s: str):
         return cls(*map(int, s.split(", ")))
 
+
 @dataclasses.dataclass(order=True, slots=True)
 class Hailstone:
     pos: Vec3
@@ -29,7 +31,12 @@ class Hailstone:
     y_hit_at: float = dataclasses.field(init=False)
 
     def slow(self, rvx, rvy):
-        return Hailstone(pos=self.pos, velocity=Vec3(self.velocity.x - rvx, self.velocity.y - rvy, self.velocity.z))
+        return Hailstone(
+            pos=self.pos,
+            velocity=Vec3(
+                self.velocity.x - rvx, self.velocity.y - rvy, self.velocity.z
+            ),
+        )
 
     def __post_init__(self):
         self.slope = self.velocity.y / self.velocity.x
@@ -49,16 +56,17 @@ class Hailstone:
     def from_str(cls, s: str):
         return cls(*map(Vec3.from_str, s.split(" @ ")))
 
+
 def iter_possible_velocities(velocity, distance, rng: range):
     yield from (
-        v
-        for v in rng
-        if (v != velocity) and ((distance % (v - velocity)) == 0)
+        v for v in rng if (v != velocity) and ((distance % (v - velocity)) == 0)
     )
+
 
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(Hailstone.from_str, inp.splitlines())
+
 
 def p1(puzzle_file):
     BOUNDS_MIN = 200_000_000_000_000
@@ -79,14 +87,12 @@ def p1(puzzle_file):
 
     return res
 
+
 def p2(puzzle_file):
     hailstones = list(iter_puzzle(puzzle_file))
     all_velocities = set(
         itertools.chain.from_iterable(
-            map(
-                dataclasses.astuple,
-                map(operator.attrgetter("velocity"), hailstones)
-            )
+            map(dataclasses.astuple, map(operator.attrgetter("velocity"), hailstones))
         )
     )
     min_v, max_v = min(all_velocities), max(all_velocities)
@@ -106,7 +112,7 @@ def p2(puzzle_file):
                 )
                 for a, b in itertools.combinations(hailstones, 2)
                 if getattr(a.velocity, dim) == getattr(b.velocity, dim)
-            )
+            ),
         )
         rock_dims[dim] = common.pop()
 
@@ -125,8 +131,9 @@ def p2(puzzle_file):
 
     return int(rx + ry + rz)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

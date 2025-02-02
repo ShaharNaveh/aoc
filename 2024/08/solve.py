@@ -2,6 +2,7 @@ import collections
 import itertools
 import pathlib
 
+
 def parse_puzzle(path):
     inp = path.read_text().strip().replace("#", ".")
     puzzle = collections.defaultdict(set)
@@ -10,6 +11,7 @@ def parse_puzzle(path):
             puzzle[char].add(row_idx + col_idx * 1j)
 
     return dict(puzzle)
+
 
 def p1(path):
     puzzle = parse_puzzle(path)
@@ -26,6 +28,7 @@ def p1(path):
                 anti.add(b)
     print(len(anti))
 
+
 def p2(path):
     puzzle = parse_puzzle(path)
     all_pos = {pos for pos in itertools.chain.from_iterable(puzzle.values())}
@@ -41,8 +44,9 @@ def p2(path):
                 anti.add(b)
     print(len(anti))
 
+
 puzzle_file = pathlib.Path(__file__).parent / "input.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)

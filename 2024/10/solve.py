@@ -1,5 +1,6 @@
 import pathlib
 
+
 def available_trails(puzzle):
     trails = [[pos] for pos, height in puzzle.items() if height == 0]
     for height in range(1, 10):
@@ -17,17 +18,20 @@ def available_trails(puzzle):
         trails = [trail for trail in trails if len(trail) >= height + 1]
     return trails
 
+
 def p1(path):
     puzzle = parse_puzzle(path)
     trails = available_trails(puzzle)
     res = len({(trail[0], trail[-1]) for trail in trails})
     print(res)
 
+
 def p2(path):
     puzzle = parse_puzzle(path)
     trails = available_trails(puzzle)
     res = len(trails)
     print(res)
+
 
 def parse_puzzle(path):
     inp = path.read_text().strip().replace(".", "0")
@@ -37,8 +41,9 @@ def parse_puzzle(path):
             puzzle[complex(row_idx, col_idx)] = int(num)
     return puzzle
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 p1(puzzle_file)
 p2(puzzle_file)

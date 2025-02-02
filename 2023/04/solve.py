@@ -4,41 +4,47 @@ INPUT_FILE = pathlib.Path(__file__).parent / "input.txt"
 
 data = INPUT_FILE.read_text().splitlines()
 
-def parse_line(line):
-  title, numbers = line.strip().split(":")
-  card_id = int(title.strip().split(" ")[-1])
 
-  winning, have = numbers.strip().split("|")
-  parse_numbers = lambda n: {int(x) for x in n.strip().split(" ") if x.strip() != ""}
-  winning = parse_numbers(winning)
-  have = parse_numbers(have)
-  entry = {card_id: {"winning": winning, "have": have}}
-  return entry
+def parse_line(line):
+    title, numbers = line.strip().split(":")
+    card_id = int(title.strip().split(" ")[-1])
+
+    winning, have = numbers.strip().split("|")
+    parse_numbers = lambda n: {int(x) for x in n.strip().split(" ") if x.strip() != ""}
+    winning = parse_numbers(winning)
+    have = parse_numbers(have)
+    entry = {card_id: {"winning": winning, "have": have}}
+    return entry
+
 
 def calc_won_points(card):
-  count = matches_count(card)  
-  if count == 0:
-    return 0 
-  return 2 ** (count - 1)
+    count = matches_count(card)
+    if count == 0:
+        return 0
+    return 2 ** (count - 1)
+
 
 def matches_count(card):
-  values = next(iter(card.values()))
-  winning, have = values["winning"], values["have"]
-  overlap = winning & have
-  count = len(overlap)
-  return count
-  
+    values = next(iter(card.values()))
+    winning, have = values["winning"], values["have"]
+    overlap = winning & have
+    count = len(overlap)
+    return count
+
+
 def solve_p2(cards):
-  # yield len(cards)
-  counter = [1] * len(cards)
-  for i, card in enumerate(cards):
-    count = matches_count(card)
-    for num in range(count):
-      counter[i + num + 1] += counter[i]
-  return sum(counter)
-  
+    # yield len(cards)
+    counter = [1] * len(cards)
+    for i, card in enumerate(cards):
+        count = matches_count(card)
+        for num in range(count):
+            counter[i + num + 1] += counter[i]
+    return sum(counter)
+
+
 def solve_p1(cards):
-  yield from map(calc_won_points, cards)
+    yield from map(calc_won_points, cards)
+
 
 test_inp = """
 Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -51,12 +57,10 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 
 test_cards = list(map(parse_line, test_inp))
 
-#test_res = sum(solve_p1(test_cards))
-#print(f"{test_res=}")
+# test_res = sum(solve_p1(test_cards))
+# print(f"{test_res=}")
 
 cards = list(map(parse_line, data))
 
 print(sum(solve_p1(cards)))
 print(solve_p2(cards))
-
-

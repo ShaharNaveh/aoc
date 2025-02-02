@@ -10,12 +10,14 @@ def move(pos: complex, v: complex, bounds: complex):
     npos = pos + v
     return complex(npos.real % bounds.real, npos.imag % bounds.imag)
 
+
 def simulate(robots, seconds: int, bounds: complex):
     lst = robots.copy()
     for _ in range(seconds):
         for idx, robot in enumerate(lst):
             lst[idx] = robot | {"pos": move(**robot, bounds=bounds)}
     return lst
+
 
 def parse_puzzle(path):
     inp = path.read_text().strip()
@@ -26,6 +28,7 @@ def parse_puzzle(path):
         for key, block in entry.items():
             entry[key] = complex(*map(int, block.split("=")[-1].split(",")))
         yield entry
+
 
 def calc_safety(robots, bounds):
     x_mid = bounds.real // 2
@@ -48,17 +51,22 @@ def calc_safety(robots, bounds):
 
     return functools.reduce(operator.mul, quadrants.values())
 
+
 def calc_entropy(positions):
     counter = collections.Counter(positions)
     total = sum(counter.values())
-    entropy = -sum((count / total) * math.log2(count / total) for count in counter.values())
+    entropy = -sum(
+        (count / total) * math.log2(count / total) for count in counter.values()
+    )
     return entropy
+
 
 def p1(path, bounds):
     robots = list(parse_puzzle(path))
     simulated = simulate(robots, seconds=100, bounds=bounds)
     res = calc_safety(simulated, bounds=bounds)
     return res
+
 
 def p2(path, bounds):
     robots = list(parse_puzzle(path))
@@ -70,11 +78,12 @@ def p2(path, bounds):
 
     return max(
         ((calc_entropy(positions), idx) for idx, positions in enumerate(lst)),
-        key=operator.itemgetter(0)
+        key=operator.itemgetter(0),
     )[1]
 
+
 puzzle_file = (pathlib.Path(__file__).parent / "puzzle.txt", 101 + 103j)
-#puzzle_file = (pathlib.Path(__file__).parent / "test_puzzle.txt", 11 + 7j)
+# puzzle_file = (pathlib.Path(__file__).parent / "test_puzzle.txt", 11 + 7j)
 
 print(p1(*puzzle_file))
 print(p2(*puzzle_file))

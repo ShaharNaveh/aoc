@@ -2,6 +2,7 @@ import itertools
 import math
 import pathlib
 
+
 def steps_to_reach(instructions, nodes, start_nodes, end_nodes):
     for target_node in start_nodes:
         node = target_node
@@ -10,6 +11,7 @@ def steps_to_reach(instructions, nodes, start_nodes, end_nodes):
                 yield step
                 break
             node = nodes[node][ins]
+
 
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
@@ -20,11 +22,14 @@ def parse_puzzle(puzzle_file):
 
     nodes = {}
     for line in nodes_block.splitlines():
-        line = line.replace(" = ", " ").replace("(", "").replace(")", "").replace(",", "")
+        line = (
+            line.replace(" = ", " ").replace("(", "").replace(")", "").replace(",", "")
+        )
         node, node_l, node_r = line.split()
         nodes[node] = (node_l, node_r)
 
     return instructions, nodes
+
 
 def p1(puzzle_file):
     instructions, nodes = parse_puzzle(puzzle_file)
@@ -33,6 +38,7 @@ def p1(puzzle_file):
     res = steps_to_reach(instructions, nodes, start_nodes, end_nodes)
     return next(res)
 
+
 def p2(puzzle_file):
     instructions, nodes = parse_puzzle(puzzle_file)
     start_nodes = [node for node in nodes if node.endswith("A")]
@@ -40,8 +46,9 @@ def p2(puzzle_file):
     res = steps_to_reach(instructions, nodes, start_nodes, end_nodes)
     return math.lcm(*res)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_input.txt"
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

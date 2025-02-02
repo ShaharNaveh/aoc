@@ -23,6 +23,7 @@ DIRPAD = {
     "v": 1 + 1j,
 }
 
+
 def best_path(start, end, robots, pad):
     res = float("inf")
     todo = [(start, "")]
@@ -41,14 +42,14 @@ def best_path(start, end, robots, pad):
                 todo.append((pos - 1j, path + "^"))
     return res
 
+
 @functools.cache
 def best_robot(path, robots):
     if robots == 0:
         return len(path)
     start = DIRPAD["A"]
     return sum(
-        best_path(start, (start := DIRPAD[char]), robots, DIRPAD)
-        for char in path
+        best_path(start, (start := DIRPAD[char]), robots, DIRPAD) for char in path
     )
 
 
@@ -57,28 +58,27 @@ def parse_puzzle(puzzle_file):
     for code in inp.splitlines():
         yield code, int(code.removesuffix("A"))
 
+
 def p1(puzzle_file):
     start = NUMPAD["A"]
     return sum(
-        sum(
-           best_path(start, (start := NUMPAD[char]), 3, NUMPAD)
-           for char in code
-        ) * numeric
+        sum(best_path(start, (start := NUMPAD[char]), 3, NUMPAD) for char in code)
+        * numeric
         for code, numeric in parse_puzzle(puzzle_file)
     )
+
 
 def p2(puzzle_file):
     start = NUMPAD["A"]
     return sum(
-        sum(
-           best_path(start, (start := NUMPAD[char]), 26, NUMPAD)
-           for char in code
-        ) * numeric
+        sum(best_path(start, (start := NUMPAD[char]), 26, NUMPAD) for char in code)
+        * numeric
         for code, numeric in parse_puzzle(puzzle_file)
     )
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

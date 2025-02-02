@@ -3,13 +3,14 @@ import enum
 import operator
 import pathlib
 
+
 @enum.unique
 class Direction(complex, enum.Enum):
     South = (0, 1)
     North = (0, -1)
     East = (1, 0)
     West = (-1, 0)
-    Southeast = (1, 1) # Part 2 only
+    Southeast = (1, 1)  # Part 2 only
 
     def __invert__(self):
         return {
@@ -31,6 +32,7 @@ PIPE_DIRECTION = {
     ".": set(),
 }
 
+
 def is_pos_inside(pos: complex, mloop, grid, bounds: complex) -> bool:
     npos = pos + Direction.Southeast
     inside = False
@@ -40,6 +42,7 @@ def is_pos_inside(pos: complex, mloop, grid, bounds: complex) -> bool:
 
         npos += Direction.Southeast
     return inside
+
 
 def find_main_loop(grid):
     start = next(pos for pos, tile in grid.items() if tile == "S")
@@ -72,10 +75,12 @@ def parse_puzzle(puzzle_file):
         for x, tile in enumerate(line)
     }
 
+
 def p1(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     main_loop = find_main_loop(grid)
     return max(main_loop.values())
+
 
 def p2(puzzle_file):
     grid = parse_puzzle(puzzle_file)
@@ -89,8 +94,9 @@ def p2(puzzle_file):
     poses = set(grid) - mloop
     return sum(is_pos_inside(pos, mloop, grid, bounds) for pos in poses)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 
 print(p1(puzzle_file))

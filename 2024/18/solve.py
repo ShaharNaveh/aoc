@@ -2,10 +2,12 @@ import dataclasses
 import heapq
 import pathlib
 
+
 @dataclasses.dataclass(order=True, frozen=True, slots=True)
 class Branch:
     distance: int = 0
     pos: complex = dataclasses.field(compare=False, default=0)
+
 
 def dijkstra(graph, start=complex(0, 0), end=complex(70, 70)):
     dct = {pos: float("inf") for pos in graph}
@@ -29,12 +31,9 @@ def dijkstra(graph, start=complex(0, 0), end=complex(70, 70)):
                 prev[val] = pos
                 heapq.heappush(pq, Branch(distance=new_dist, pos=val))
 
+
 def parse_puzzle(puzzle_file):
-    graph = {
-        complex(x, y): set()
-        for x in range(71)
-        for y in range(71)
-    }
+    graph = {complex(x, y): set() for x in range(71) for y in range(71)}
     for pos in graph:
         direction = -1
         for _ in range(4):
@@ -57,9 +56,10 @@ def p1(puzzle_file):
     res = dijkstra(graph)
     return len(res)
 
+
 def p2(puzzle_file):
     graph, bits = parse_puzzle(puzzle_file)
-    
+
     path = None
     for idx, bit in enumerate(bits):
         cbit = complex(*bit)
@@ -71,8 +71,9 @@ def p2(puzzle_file):
             if path is None:
                 return ",".join(map(str, bit))
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

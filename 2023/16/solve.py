@@ -1,12 +1,14 @@
 import enum
 import pathlib
 
+
 @enum.unique
-class Direction(complex ,enum.Enum):
-  North = (0, -1)
-  South = (0, 1)
-  West = (-1, 0)
-  East = (1, 0)
+class Direction(complex, enum.Enum):
+    North = (0, -1)
+    South = (0, 1)
+    West = (-1, 0)
+    East = (1, 0)
+
 
 def count_energized(
     grid: dict[complex, str],
@@ -17,7 +19,7 @@ def count_energized(
     seen = set()
     while queue:
         state = queue.pop()
-        if (state in seen):
+        if state in seen:
             continue
 
         pos, direction = state
@@ -27,13 +29,9 @@ def count_energized(
         seen.add(state)
 
         if (
-            (tile == ".") 
-            or (
-                (tile == "|") and (direction in (Direction.North, Direction.South))
-            )
-            or (
-                (tile == "-") and (direction in (Direction.West, Direction.East))
-            )
+            (tile == ".")
+            or ((tile == "|") and (direction in (Direction.North, Direction.South)))
+            or ((tile == "-") and (direction in (Direction.West, Direction.East)))
         ):
             next_states = [(pos + direction, direction)]
         elif tile == "|":
@@ -72,7 +70,8 @@ def count_energized(
 
     unique_pos = {pos for pos, _ in seen}
     return len(unique_pos)
-        
+
+
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     return {
@@ -81,9 +80,11 @@ def parse_puzzle(puzzle_file):
         for x, tile in enumerate(line)
     }
 
+
 def p1(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     return count_energized(grid)
+
 
 def p2(puzzle_file):
     grid = parse_puzzle(puzzle_file)
@@ -99,11 +100,11 @@ def p2(puzzle_file):
         todo.add((complex(x, 0), Direction.South))
         todo.add((complex(x, max_y), Direction.North))
 
-
     return max(count_energized(grid, *state) for state in todo)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

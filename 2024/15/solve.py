@@ -1,6 +1,7 @@
 import enum
 import pathlib
 
+
 @enum.unique
 class Direction(complex, enum.Enum):
     North = (0, -1)
@@ -16,6 +17,7 @@ class Direction(complex, enum.Enum):
             "<": cls.West,
             "v": cls.South,
         }[char]
+
 
 @enum.unique
 class Tile(enum.StrEnum):
@@ -72,6 +74,7 @@ def simulate(_grid, moves):
 
     return grid
 
+
 def calc_gps(grid):
     for pos, tile in grid.items():
         if tile not in (Tile.Box, Tile.Box_S):
@@ -79,14 +82,18 @@ def calc_gps(grid):
 
         yield int(pos.real + (pos.imag * 100))
 
+
 def parse_puzzle(path, *, is_p2: bool = False):
     inp = path.read_text().strip()
     grid_block, moves_block = inp.split("\n" * 2)
 
     if is_p2:
-        grid_block = grid_block.replace(
-            "O", "[]"
-        ).replace(".", "..").replace("#", "##").replace("@", "@.")
+        grid_block = (
+            grid_block.replace("O", "[]")
+            .replace(".", "..")
+            .replace("#", "##")
+            .replace("@", "@.")
+        )
 
     grid = {
         x + (y * 1j): Tile(char)
@@ -104,14 +111,16 @@ def p1(path):
     res = calc_gps(simulated)
     return sum(res)
 
+
 def p2(path):
     grid, moves = parse_puzzle(path, is_p2=True)
     simulated = simulate(grid, moves)
     res = calc_gps(simulated)
     return sum(res)
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

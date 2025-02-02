@@ -5,6 +5,7 @@ import pathlib
 
 OFFSETS = {"<": -1, ">": 1, "^": -1j, "v": 1j}
 
+
 @dataclasses.dataclass(frozen=True, slots=True)
 class Branch:
     pos: complex = dataclasses.field(compare=False, default=0, hash=True)
@@ -18,8 +19,10 @@ class Branch:
     def __lt__(self, other):
         return len(self) > len(other)
 
+
 def iter_neigh(pos):
     yield from (pos + offset for offset in (1, -1, 1j, -1j))
+
 
 def build_graph(grid, start, end):
     pq = [(start, start)]
@@ -33,12 +36,9 @@ def build_graph(grid, start, end):
                 break
             visited |= {pos}
             moves = [
-                npos 
+                npos
                 for npos in iter_neigh(pos)
-                if (
-                    (npos in grid)
-                    and (npos not in visited)
-                )
+                if ((npos in grid) and (npos not in visited))
             ]
 
             if not moves:
@@ -56,6 +56,7 @@ def build_graph(grid, start, end):
     return graph
     return {k: dict(v) for k, v in graph.items()}
 
+
 def walk_graph(graph, start, end):
     pq = [(start, 0, set())]
     while pq:
@@ -72,6 +73,7 @@ def walk_graph(graph, start, end):
                 continue
             pq += [(npos, dist + ndist, visited.copy())]
 
+
 def walk(grid, start, end):
     pq = [Branch(pos=start, visited=frozenset({start}))]
     while pq:
@@ -86,7 +88,7 @@ def walk(grid, start, end):
             visited |= frozenset({pos})
 
             tile = grid[pos]
-            if (offset := OFFSETS.get(tile)):
+            if offset := OFFSETS.get(tile):
                 npos = pos + offset
                 if npos in visited:
                     moves = []
@@ -94,12 +96,9 @@ def walk(grid, start, end):
                     moves = [npos]
             else:
                 moves = [
-                    npos 
+                    npos
                     for npos in iter_neigh(pos)
-                    if (
-                        (npos in grid)
-                        and (npos not in visited)
-                    )
+                    if ((npos in grid) and (npos not in visited))
                 ]
 
             if len(moves) == 1:
@@ -109,7 +108,7 @@ def walk(grid, start, end):
                     heapq.heappush(pq, Branch(npos, visited))
                 break
 
-        
+
 def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     return {
@@ -119,10 +118,12 @@ def parse_puzzle(puzzle_file):
         if tile != "#"
     }
 
+
 def p1(puzzle_file):
     grid = parse_puzzle(puzzle_file)
     start, *_, end = [*grid]
     return max(map(len, walk(grid, start, end)))
+
 
 def p2(puzzle_file):
     grid = parse_puzzle(puzzle_file)
@@ -131,8 +132,9 @@ def p2(puzzle_file):
 
     return max(walk_graph(graph, start, end))
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

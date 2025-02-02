@@ -1,22 +1,26 @@
 import collections
 import pathlib
 
+
 def generate(num: int, count: int = 2000):
     for _ in range(count):
-        num = (num ^ num << 6) & 0xffffff
-        num = (num ^ num >> 5) & 0xffffff
-        num = (num ^ num << 11) & 0xffffff
+        num = (num ^ num << 6) & 0xFFFFFF
+        num = (num ^ num >> 5) & 0xFFFFFF
+        num = (num ^ num << 11) & 0xFFFFFF
         yield num
+
 
 def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(int, inp.splitlines())
+
 
 def p1(puzzle_file):
     return sum(
         collections.deque(generate(num), maxlen=1)[0]
         for num in iter_puzzle(puzzle_file)
     )
+
 
 def p2(puzzle_file):
     prices = collections.defaultdict(int)
@@ -38,8 +42,9 @@ def p2(puzzle_file):
 
     return max(prices.values())
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))

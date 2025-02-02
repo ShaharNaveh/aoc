@@ -6,6 +6,7 @@ import pathlib
 
 INF = float("inf")
 
+
 @dataclasses.dataclass(order=True)
 class Branch:
     cost: int = 0
@@ -14,6 +15,7 @@ class Branch:
     visited: list[tuple[complex, bool]] = dataclasses.field(
         compare=False, default_factory=list
     )
+
 
 def possible_branches(grid):
     start_pos = next(pos for pos, val in grid.items() if val == "S")
@@ -25,7 +27,7 @@ def possible_branches(grid):
     graph = grid_to_graph(grid)
     branch_costs = collections.defaultdict(lambda: INF) | {start: 0}
 
-    min_cost= INF
+    min_cost = INF
     cheapest_branches = []
     branches = [
         Branch(cost=0, steps=0, cnode=start, visited=[start]),
@@ -55,11 +57,15 @@ def possible_branches(grid):
             heapq.heappush(
                 branches,
                 Branch(
-                    cost=ncost, steps=branch.steps + 1, cnode=neigh, visited=visited + [neigh]
+                    cost=ncost,
+                    steps=branch.steps + 1,
+                    cnode=neigh,
+                    visited=visited + [neigh],
                 ),
             )
 
     return min_cost, cheapest_branches
+
 
 def parse_puzzle(path):
     inp = path.read_text().strip()
@@ -69,6 +75,7 @@ def parse_puzzle(path):
         for x, char in enumerate(row)
     }
     return grid
+
 
 def grid_to_graph(grid):
     graph = collections.defaultdict(dict)
@@ -89,10 +96,12 @@ def grid_to_graph(grid):
 
     return dict(graph)
 
+
 def p1(path):
     grid = parse_puzzle(path)
     res, _ = possible_branches(grid)
     return res
+
 
 def p2(path):
     grid = parse_puzzle(path)
@@ -100,9 +109,10 @@ def p2(path):
     res = len({visited[0] for visited in itertools.chain.from_iterable(branches)})
     return res
 
+
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
-#puzzle_file = pathlib.Path(__file__).parent / "test_puzzle2.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle.txt"
+# puzzle_file = pathlib.Path(__file__).parent / "test_puzzle2.txt"
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
