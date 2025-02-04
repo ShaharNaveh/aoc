@@ -1,4 +1,3 @@
-import collections
 import pathlib
 import re
 
@@ -10,71 +9,38 @@ def calc_next_pos_dir(
     bsize2 = bsize * 2
     bsize3 = bsize * 3
     bsize4 = bsize * 4
-
-    #print(f"Got: {pos=} {direction=}")
-
-    #posx , posy = posy, posx
     match direction, posx // bsize, posy // bsize:
-        # Right
         case 1, _, 0:
             return complex(bsize2 - 1, bsize3 - 1 - posy), -1
         case 1, _, 1:
             return complex(posy + bsize, bsize - 1), -1j
         case 1, _, 2:
-            return complex(bsize3 - 1, bsize3 -1 - posy), -1
+            return complex(bsize3 - 1, bsize3 - 1 - posy), -1
         case 1, _, 3:
             return complex(posy - bsize2, bsize3 - 1), -1j
 
-        # Left
         case -1, _, 0:
-            #return complex(bsize3 - 1- posy, 0), 1
-            return complex(0, bsize3 - 1- posy), 1
+            return complex(0, bsize3 - 1 - posy), 1
         case -1, _, 1:
-            #return complex(posx - bsize, bsize2), 1j
-            return complex(posy - bsize, bsize2), 1j
-            return complex(bsize2, posx - bsize), 1j
-            return complex(bsize2, posy - bsize), 1j
             return complex(posy - bsize, bsize2), 1j
         case -1, _, 2:
-            #return complex(bsize3 - 1 - posy, bsize), 1
             return complex(bsize, bsize3 - 1 - posy), 1
         case -1, _, 3:
-            #return complex(0, posy - bsize2), 1j
             return complex(posy - bsize2, 0), 1j
-            #return complex(posx - bsize2, 0), 1j
 
-        # Down
         case 1j, 0, _:
-            #print("Down 0")
-            #return complex(0, posx + bsize2), 1j
             return complex(posx + bsize2, 0), 1j
         case 1j, 1, _:
-            #print("Down 1")
-            #return complex(bsize2 + posx, bsize - 1 ), -1
             return complex(bsize - 1, bsize2 + posx), -1
         case 1j, 2, _:
-            #print("Down 2")
-            #return complex(-bsize + posx, bsize2 - 1), -1
             return complex(bsize2 - 1, -bsize + posx), -1
 
-        # Up
         case -1j, 0, _:
-            #print("Up 0")
-            #return complex( bsize + posx, bsize), 1
             return complex(bsize, bsize + posx), 1
         case -1j, 1, _:
-            #print("Up 1")
-            #return complex( bsize2 + posx, 0), 1
-            return complex(0, bsize2 + posx), 1
-            return complex(0, bsize2 + posx), 1
             return complex(0, bsize2 + posx), 1
         case -1j, 2, _:
-            #print("Up 2")
-            #return complex(bsize4 - 1, posx - bsize2), -1j
             return complex(posx - bsize2, bsize4 - 1), -1j
-
-        case _:
-            raise ValueError((pos, direction))
 
 
 def walk_p2(start_pos, grid, instructions):
@@ -83,14 +49,7 @@ def walk_p2(start_pos, grid, instructions):
     pos = start_pos
     direction = 1
 
-
-    l = int(open("a").read())
-    i = 0
     for ins in instructions:
-        if (False and (i % 100 == 0) ) or(l - 5 <= i <= l + 5):
-            print(i, pos, direction)
-            print()
-        i += 1
         match ins:
             case "L":
                 direction *= -1j
@@ -183,13 +142,8 @@ def p2(puzzle_file):
     return calc_password(*walk_p2(start_pos, grid, instructions))
 
 
-ROOT_DIR = pathlib.Path(__file__).parent
+puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
-puzzle_file = ROOT_DIR / "puzzle.txt"
-test_puzzle_file = ROOT_DIR / "test_puzzle.txt"
-
-assert (res := p1(test_puzzle_file)) == (expected := 6032), f"{res=} {expected=}"
 print(p1(puzzle_file))
-
-#assert (res := p2(test_puzzle_file)) == (expected := 5031), f"{res=} {expected=}"
 print(p2(puzzle_file))
