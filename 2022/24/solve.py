@@ -3,11 +3,6 @@ import heapq
 import pathlib
 import typing
 
-###
-import sys
-from pprint import pprint
-###
-
 
 class Blizzard(typing.NamedTuple):
     pos: complex
@@ -15,16 +10,17 @@ class Blizzard(typing.NamedTuple):
 
 
 @functools.cache
-def blizzard_at(blizzard: Blizzard, minute: int, bounds: complex) -> complex:
-    x_offset = blizzard.direction.real * minute
-    y_offset = blizzard.direction.imag * minute
-    nx = (blizzard.pos.real - 1 + x_offset) % (bounds.real - 1) + 1
-    ny = (blizzard.pos.imag - 1 + y_offset) % (bounds.imag - 1) + 1
-    return complex(nx, ny)
+def blizzards_pos_at(
+    blizzards: frozenset[Blizzard], minute: int, bounds: complex
+) -> complex:
+    def inner(blizzard: Blizzard) -> complex:
+        x_offset = blizzard.direction.real * minute
+        y_offset = blizzard.direction.imag * minute
+        nx = (blizzard.pos.real + x_offset - 1) % (bounds.real - 1) + 1
+        ny = (blizzard.pos.imag + y_offset - 1) % (bounds.imag - 1) + 1
+        return complex(nx, ny)
 
-@functools.cache
-def manhattan(a: complex, b: complex) -> int:
-    return int(abs(a.real - b.real) + abs(a.imag - b.imag))
+    return frozenset(map(inner, blizzards))
 
 
 @functools.cache
@@ -38,38 +34,42 @@ def is_oob(pos: complex, bounds: complex) -> bool:
 
 
 class Branch(typing.NamedTuple):
-    priority: int = float("inf")
     pos: complex = 1
     minute: int = 0
 
-    def __lt__(self, other) -> int:
-        return self.priority < other.priority
+    def __lt__(self, other) -> bool:
+        return self.minute < other.minute
 
 
-def walk(blizzards: frozenset[Blizzard], bounds: complex) -> int:
-    end = bounds - 1
-
-    pq = [Branch()]
+def walk(
+    *,
+    initial_blizzards: frozenset[Blizzard],
+    starting_minute: int,
+    bounds: complex,
+    start: complex,
+    end: complex,
+) -> int:
+    seen = set()
+    pq = [Branch(pos=start, minute=starting_minute)]
     while pq:
-        P_REMOVE_ME, pos, minute = heapq.heappop(pq)
-        sys.stdout.write(f"\rpriority={P_REMOVE_ME:_} {minute=} {pos=} len={len(pq):_}")
-        sys.stdout.flush()
+        branch = heapq.heappop(pq)
 
+        pos, minute = branch
         if pos == end:
-            print()
             return minute
+
+        if branch in seen:
+            continue
+        seen.add(branch)
+
+        nminute = minute + 1
+        blizzards_pos = blizzards_pos_at(initial_blizzards, nminute, bounds)
 
         for direction in (-1, 1, 1j, -1j, 0):
             npos = pos + direction
-            nminute = minute + 1
-            if is_oob(npos, bounds) or any(
-                npos == blizzard_at(blizzard, nminute, bounds) for blizzard in blizzards
-            ):
+            if is_oob(npos, bounds) or (npos in blizzards_pos):
                 continue
-            priority = nminute + manhattan(npos, end)
-            heapq.heappush(pq, Branch(priority=priority, pos=npos, minute=nminute))
-
-    return min_minute
+            heapq.heappush(pq, Branch(pos=npos, minute=nminute))
 
 
 def parse_puzzle(puzzle_file):
@@ -94,16 +94,28 @@ def parse_puzzle(puzzle_file):
 
 
 def p1(puzzle_file):
-    return walk(*parse_puzzle(puzzle_file))
+    blizzards, bounds = parse_puzzle(puzzle_file)
+    return walk(
+        initial_blizzards=blizzards,
+        starting_minute=0,
+        bounds=bounds,
+        start=1,
+        end=bounds - 1,
+    )
 
 
 def p2(puzzle_file):
-    return
+    blizzards, bounds = parse_puzzle(puzzle_file)
+    start, end = 1, bounds - 1
+    pwalk = functools.partial(walk, initial_blizzards=blizzards, bounds=bounds)
+
+    minute1 = pwalk(starting_minute=0, start=start, end=end)
+    minute2 = pwalk(starting_minute=minute1, start=end, end=start)
+    return pwalk(starting_minute=minute2, start=start, end=end)
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = puzzle_file.with_stem("test_puzzle")
-# puzzle_file = puzzle_file.with_stem("small_test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
