@@ -25,6 +25,7 @@ def organize(start: tuple[tuple[str | None, ...], ...]) -> int:
     seen = set()
     while pq:
         cost, rooms, hallway = heapq.heappop(pq)
+
         if rooms == end:
             return cost
 
@@ -134,11 +135,14 @@ def p1(puzzle_file):
 
 
 def p2(puzzle_file):
-    return
+    layout = parse_puzzle(puzzle_file)
+    extra = (("D", "D"), ("C", "B"), ("B", "A"), ("A", "C"))
+    expanded = tuple((l, *addition, r) for (l, r), addition in zip(layout, extra))
+    return organize(expanded)
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
