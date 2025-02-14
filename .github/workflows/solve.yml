@@ -51,6 +51,14 @@ on:
           - '2022'
           - '2023'
           - '2024'
+      language:
+        description: Language to use
+        required: true
+        default: 'python'
+        type: choice
+        options:
+          - 'python'
+          - 'rust'
       timeout:
         description: Job timeout
         required: false
@@ -75,5 +83,10 @@ jobs:
             ${{ inputs.year }}/${{ inputs.day }}/
           persist-credentials: false
           
-      - name: Solve
+      - name: Solve (python)
+        if: ${{ inputs.language == 'python' }}
         run: python ./solve.py
+
+      - name: Solve (rust)
+        if: ${{ inputs.language == 'rust' }}
+        run: cargo run --release
