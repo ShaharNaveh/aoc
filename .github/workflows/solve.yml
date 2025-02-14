@@ -89,4 +89,4 @@ jobs:
 
       - name: Solve (rust)
         if: ${{ inputs.language == 'rust' }}
-        run: cargo run --release
+        run: cargo run --quiet --release
