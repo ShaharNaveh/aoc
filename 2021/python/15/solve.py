@@ -15,7 +15,7 @@ class Branch(typing.NamedTuple):
 
 def expand_grid(grid, mul: int = 5):
     end = [*grid][-1]
-    max_x, max_y = map(int, (end.real+1, end.imag+1))
+    max_x, max_y = map(int, (end.real + 1, end.imag + 1))
 
     for pos, val in grid.copy().items():
         for nx, ny in itertools.product(range(mul), range(mul)):
@@ -29,7 +29,6 @@ def expand_grid(grid, mul: int = 5):
             npos = complex(xpos, ypos)
             grid[npos] = nval
     return grid
-
 
 
 def iter_neigh(pos: complex):
@@ -83,7 +82,7 @@ def p2(puzzle_file):
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
