@@ -1,5 +1,5 @@
 name: Solve
-run-name: Solve-${{ inputs.year }}-${{ inputs.day }}
+run-name: Solve-${{ inputs.year }}-${{ inputs.day }} (${{ inputs.language }})
 
 on:
   workflow_dispatch:
@@ -75,18 +75,18 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./${{ inputs.year }}/${{ inputs.day }}
+        working-directory: ./${{ inputs.year }}/${{ inputs.language }}/${{ inputs.day }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           sparse-checkout: |
-            ${{ inputs.year }}/${{ inputs.day }}/
+            ${{ inputs.year }}/${{ inputs.language }}/${{ inputs.day }}
           persist-credentials: false
           
       - name: Solve (python)
+        run: python -OOO ./solve.py
         if: ${{ inputs.language == 'python' }}
-        run: python ./solve.py
 
       - name: Solve (rust)
-        if: ${{ inputs.language == 'rust' }}
         run: cargo run --quiet --release
+        if: ${{ inputs.language == 'rust' }}
