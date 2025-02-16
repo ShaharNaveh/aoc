@@ -1,6 +1,7 @@
 import pathlib
 import typing
 
+
 class Instruction(typing.NamedTuple):
     op: str
     arg: int
@@ -14,9 +15,11 @@ class Instruction(typing.NamedTuple):
         op, raw_arg = raw.split()
         return cls(op, int(raw_arg))
 
+
 class Result(typing.NamedTuple):
     is_infinite: bool
     acc: int
+
 
 def run(instructions: list[Instruction]) -> Result:
     seen = set()
@@ -38,8 +41,7 @@ def run(instructions: list[Instruction]) -> Result:
 
 def parse_puzzle(puzzle_file) -> list[Instruction]:
     inp = puzzle_file.read_text().strip()
-    return list(map(Instruction.from_str,  inp.splitlines()))
-
+    return list(map(Instruction.from_str, inp.splitlines()))
 
 
 def p1(puzzle_file):
@@ -60,7 +62,7 @@ def p2(puzzle_file):
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-#puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
