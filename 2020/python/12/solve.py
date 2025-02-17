@@ -29,7 +29,7 @@ class Pos(typing.NamedTuple):
         return sum(map(abs, self))
 
 
-def iter_puzzle(puzzle_file) -> dict[complex, bool]:
+def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     pattern = re.compile(r"(\w)(\d+)", re.MULTILINE)
     yield from map(lambda ins: (ins[0], int(ins[1])), pattern.findall(inp))
