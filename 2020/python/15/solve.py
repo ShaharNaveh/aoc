@@ -1,46 +1,26 @@
-import collections
-import itertools
 import pathlib
 
 
-def simulate(nums):
-    turns = collections.defaultdict(lambda: collections.deque(maxlen=2))
+def simulate(nums: tuple[int, ...], steps: int = 2020) -> int:
+    last = nums[-1]
+    turns = {num: turn for turn, num in enumerate(nums)}
+    for turn in range(len(nums) - 1, steps - 1):
+        turns[last], last = turn, turn - turns.get(last, turn)
 
-    for start_turn, num in enumerate(nums, 1):
-        last_spoken = num
-        turns[num].append(start_turn)
-
-    for turn in itertools.count(start_turn + 1):
-        spoken_turns = turns[last_spoken]
-        if len(spoken_turns) == 2:
-            l, r = turns[last_spoken]
-            spoken = r - l
-        else:
-            spoken = 0
-
-        turns[spoken].append(turn)
-        last_spoken = spoken
-
-        yield turn, spoken
+    return last
 
 
-def iter_puzzle(puzzle_file):
+def parse_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
-    yield from map(int, inp.split(","))
+    return tuple(map(int, inp.split(",")))
 
 
 def p1(puzzle_file):
-    return next(
-        spoken for turn, spoken in simulate(iter_puzzle(puzzle_file)) if turn == 2020
-    )
+    return simulate(parse_puzzle(puzzle_file))
 
 
 def p2(puzzle_file):
-    return next(
-        spoken
-        for turn, spoken in simulate(iter_puzzle(puzzle_file))
-        if turn == 30_000_000
-    )
+    return simulate(parse_puzzle(puzzle_file), 30_000_000)
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
