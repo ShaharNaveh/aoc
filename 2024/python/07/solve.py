@@ -2,7 +2,6 @@ import functools
 import itertools
 import operator
 import pathlib
-import re
 
 
 def iter_puzzle(path):
