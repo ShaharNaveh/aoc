@@ -121,11 +121,11 @@ def find_matching_tile(tiles: frozenset[Tile], side: str, target: str) -> Tile:
 
 
 def find_monster_count(image: Tile) -> int:
-    count = 0
-    for rows in sliding_window(image.data, MH):
-        for window in zip(*(sliding_window(row, MW) for row in rows)):
-            count += all(window[y][x] == "#" for x, y in MONSTER_POS)
-    return count
+    return sum(
+        all(window[y][x] == "#" for x, y in MONSTER_POS)
+        for rows in sliding_window(image.data, MH)
+        for window in zip(*(sliding_window(row, MW) for row in rows))
+    )
 
 
 def assemble_image(tiles: frozenset[Tile], edges: dict[str, int]) -> Tile:
