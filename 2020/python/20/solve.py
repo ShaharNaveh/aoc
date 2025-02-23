@@ -36,7 +36,7 @@ class Tile(typing.NamedTuple):
     def rotations(self) -> set[typing.Self]:
         res = {self}
         rotated_tile = self
-        for _ in range(4):
+        for _ in range(3):
             rotated_tile = rotated_tile.rotated
             res.add(rotated_tile)
         return res
