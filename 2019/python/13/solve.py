@@ -4,6 +4,10 @@ import pathlib
 import typing
 
 
+def cmp(a: int, b: int) -> int:
+    return (a > b) - (a < b)
+
+
 @enum.unique
 class TileType(enum.IntEnum):
     Empty = 0
@@ -11,17 +15,6 @@ class TileType(enum.IntEnum):
     Block = 2
     Paddle = 3
     Ball = 4
-
-    def can_break(self, other: "TileType") -> bool:
-        match other:
-            case TileType.Empty:
-                return True
-            case TileType.Wall:
-                return False
-            case TileType.Block:
-                pass
-            case TileType.Paddle:
-                pass
 
 
 @enum.unique
@@ -106,14 +99,8 @@ class Instruction(typing.NamedTuple):
                 return program[base + self.parameter]
 
 
-def run(
-    program: dict[int, int],
-    inputs: list[int] | None = None,
-    default_value: int | None = None,
-):
+def run(program: dict[int, int], default_value: int | None = None):
     program = program.copy()
-    inputs = inputs if inputs else []
-    inps = iter(inputs)
     ip = base = 0
     while True:
         val = program[ip]
@@ -148,7 +135,7 @@ def run(
                 program[dest] = a * b
             case OpcodeType.Input:
                 dest = parameters[0]
-                program[dest] = next(inps)
+                program[dest] = yield "INPUT"
             case OpcodeType.Output:
                 yield from parameters
             case OpcodeType.Jmp:
@@ -189,7 +176,27 @@ def p1(puzzle_file):
 
 
 def p2(puzzle_file):
-    return
+    program = parse_puzzle(puzzle_file)
+    program[0] = 2
+    game = run(program)
+    score = paddle_x = ball_x = 0
+    while True:
+        x = next(game, OpcodeType.Halt)
+        if x == OpcodeType.Halt:
+            return score
+        while x == "INPUT":
+            x = game.send(cmp(ball_x, paddle_x))
+
+        y = next(game)
+        out = next(game)
+        if (x, y) == (-1, 0):
+            score = out
+
+        match out:
+            case TileType.Paddle:
+                paddle_x = x
+            case TileType.Ball:
+                ball_x = x
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
