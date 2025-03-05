@@ -1,3 +1,4 @@
+import collections
 import itertools
 import math
 import operator
@@ -34,6 +35,9 @@ class Moon(typing.NamedTuple):
     def moved(self) -> typing.Self:
         return self._replace(pos=self.pos + self.vel)
 
+    def axis(self, idx: int) -> tuple[int, int]:
+        return tuple(attr[idx] for attr in self)
+
     def find_vel_diff(self, other) -> Vec3:
         return Vec3(*itertools.starmap(cmp, zip(self.pos, other.pos)))
 
@@ -46,8 +50,8 @@ class Moon(typing.NamedTuple):
         return cls(position)
 
 
-def simulate(moons: dict[int, Moon], steps: int = 1000) -> int:
-    for _ in range(steps):
+def simulate(moons: dict[int, Moon]):
+    while True:
         nmoons = moons.copy()
         for (name1, moon1), (name2, moon2) in itertools.combinations(
             moons.items(), r=2
@@ -56,8 +60,23 @@ def simulate(moons: dict[int, Moon], steps: int = 1000) -> int:
             nmoons[name1] += Moon(vel=-vel_offset)
             nmoons[name2] += Moon(vel=vel_offset)
         moons = {i: moon.moved for i, moon in nmoons.items()}
+        yield moons
 
-    return sum(moon.energy for moon in moons.values())
+
+def predict(moons: dict[int, Moon]) -> int:
+    states = collections.defaultdict(set)
+    for moons in simulate(moons.copy()):
+        nstates = {
+            idx: tuple(moon.axis(idx) for moon in moons.values()) for idx in range(3)
+        }
+
+        if all(nstate in states[idx] for idx, nstate in nstates.items()):
+            break
+
+        for idx, nstate in nstates.items():
+            states[idx].add(nstate)
+
+    return math.lcm(*map(len, states.values()))
 
 
 def parse_puzzle(puzzle_file):
@@ -66,11 +85,16 @@ def parse_puzzle(puzzle_file):
 
 
 def p1(puzzle_file):
-    return simulate(parse_puzzle(puzzle_file))
+    moons = next(
+        moons
+        for step, moons in enumerate(simulate(parse_puzzle(puzzle_file)), 1)
+        if step == 1000
+    )
+    return sum(moon.energy for moon in moons.values())
 
 
 def p2(puzzle_file):
-    return
+    return predict(parse_puzzle(puzzle_file))
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
