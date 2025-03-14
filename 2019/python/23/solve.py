@@ -2,8 +2,6 @@ import collections
 import enum
 import itertools
 import pathlib
-
-# import queue
 import typing
 
 
