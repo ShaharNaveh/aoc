@@ -107,7 +107,6 @@ fn main() {
                     }
                 }
                 alus = new_alus;
-                // println!("Processing {} alu states.", alus.len());
             }
             op => {
                 for alu in &mut alus {
