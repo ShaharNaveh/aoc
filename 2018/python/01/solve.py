@@ -1,6 +1,5 @@
-import pathlib
 import itertools
-import operator
+import pathlib
 
 
 def iter_puzzle(puzzle_file):
