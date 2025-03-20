@@ -1,5 +1,4 @@
 import collections
-import datetime
 import pathlib
 import re
 
@@ -10,16 +9,16 @@ def parse_puzzle(puzzle_file):
     guards = collections.defaultdict(set)
     times = collections.defaultdict(int)
     for line in sorted(inp.splitlines()):
-        raw_dt, action = line.removeprefix("[").split("] ")
-        dt = datetime.datetime.strptime(raw_dt, "%Y-%m-%d %H:%M")
+        raw_minute, action = re.findall(r"\:(\d+)\] (.*)", line)[0]
+        minute = int(raw_minute)
         if action.startswith("Guard"):
             guard = int(re.findall(r"Guard #(\d+)", line)[0])
         elif "falls" in action:
-            start = dt
+            start = minute
         elif "wakes" in action:
-            stop = dt
-            guards[guard].add((start.minute, stop.minute))
-            times[guard] += (stop - start).seconds
+            stop = minute
+            guards[guard].add((start, stop))
+            times[guard] += stop - start
 
     return guards, times
 
@@ -34,11 +33,10 @@ def p1(puzzle_file):
 
 
 def p2(puzzle_file):
-    guards, times = parse_puzzle(puzzle_file)
-    tguard, _ = max(times.items(), key=lambda x: x[1])
+    guards, _ = parse_puzzle(puzzle_file)
     guard, minute = max(
         ((guard, minute) for minute in range(60) for guard in guards),
-        key=lambda t: sum(start <= t[1] < stop for start, stop in guards[t[0]]),
+        key=lambda tup: sum(start <= tup[1] < stop for start, stop in guards[tup[0]]),
     )
     return guard * minute
 
