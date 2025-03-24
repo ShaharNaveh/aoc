@@ -1,9 +1,9 @@
-import collections
+import functools
 import itertools
 import pathlib
 
 
-MAX_GRID_SIZE = 300
+MIN_GRID_SIZE, MAX_GRID_SIZE = 1, 300
 type PrefixSum = collections.defaultdict[complex, int]
 
 
@@ -22,56 +22,56 @@ def find_power_level(pos: complex, serial_number: int) -> int:
     return power_level - 5
 
 
-def build_prefix_sum(serial_number: int, grid_size: int = MAX_GRID_SIZE) -> PrefixSum:
-    res = collections.defaultdict(int)
-    for pos in itertools.starmap(
-        complex, itertools.product(range(1, grid_size + 1), repeat=2)
-    ):
-        res[pos] = (
-            find_power_level(pos, serial_number)
-            + res[pos - 1]
-            + res[pos - 1j]
-            - res[pos - 1 - 1j]
-        )
-    return res
-
-
-def find_grid_power_level(pos: complex, grid_size: int, prefix_sum: PrefixSum) -> int:
+@functools.cache
+def find_prefix_sum(pos: complex, serial_number: int) -> int:
+    if not all(MAX_GRID_SIZE >= n >= MIN_GRID_SIZE for n in (pos.real, pos.imag)):
+        return 0
     return (
-        prefix_sum[pos + complex(grid_size, grid_size)]
-        - prefix_sum[complex(pos.real, pos.imag + grid_size)]
-        - prefix_sum[complex(pos.real + grid_size, pos.imag)]
-        + prefix_sum[pos]
+        find_power_level(pos, serial_number)
+        + find_prefix_sum(pos - 1, serial_number)
+        + find_prefix_sum(pos - 1j, serial_number)
+        - find_prefix_sum(pos - 1 - 1j, serial_number)
+    )
+
+
+def find_grid_power_level(pos: complex, grid_size: int, serial_number: int) -> int:
+    return (
+        find_prefix_sum(pos + complex(grid_size, grid_size), serial_number)
+        - find_prefix_sum(pos + (grid_size * 1j), serial_number)
+        - find_prefix_sum(pos + grid_size, serial_number)
+        + find_prefix_sum(pos, serial_number)
     )
 
 
 def p1(puzzle_file):
     serial_number = parse_puzzle(puzzle_file)
-    prefix_sum = build_prefix_sum(serial_number)
     grid_size = 3
-
     pos = max(
         itertools.starmap(
-            complex, itertools.product(range(MAX_GRID_SIZE - grid_size + 1), repeat=2)
+            complex,
+            itertools.product(
+                range(MIN_GRID_SIZE, MAX_GRID_SIZE - grid_size + 1), repeat=2
+            ),
         ),
-        key=lambda pos: find_grid_power_level(pos, grid_size, prefix_sum),
+        key=lambda pos: find_grid_power_level(pos, grid_size, serial_number),
     )
     return ",".join(map(str, map(int, (pos.real, pos.imag))))
 
 
 def p2(puzzle_file):
     serial_number = parse_puzzle(puzzle_file)
-    prefix_sum = build_prefix_sum(serial_number)
     pos, grid_size = max(
         (
             (pos, grid_size)
-            for grid_size in range(1, MAX_GRID_SIZE)
+            for grid_size in range(MIN_GRID_SIZE, MAX_GRID_SIZE)
             for pos in itertools.starmap(
                 complex,
-                itertools.product(range(1, MAX_GRID_SIZE - grid_size + 1), repeat=2),
+                itertools.product(
+                    range(MIN_GRID_SIZE, MAX_GRID_SIZE - grid_size + 1), repeat=2
+                ),
             )
         ),
-        key=lambda tup: find_grid_power_level(*tup, prefix_sum),
+        key=lambda tup: find_grid_power_level(*tup, serial_number),
     )
     return ",".join(map(str, map(int, (pos.real + 1, pos.imag + 1, grid_size))))
 
