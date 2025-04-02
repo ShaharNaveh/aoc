@@ -11,7 +11,7 @@ def solve(nums, size: int = 2) -> int:
     )
 
 
-def iter_puzzle(puzzle_file) -> tuple[dict[complex, str], complex]:
+def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from map(int, inp.splitlines())
 
