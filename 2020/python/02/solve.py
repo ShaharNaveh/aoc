@@ -12,7 +12,7 @@ def is_valid(line: str, *, is_p2: bool = False) -> bool:
     return password.count(letter) in range(l, m + 1)
 
 
-def iter_puzzle(puzzle_file) -> tuple[dict[complex, str], complex]:
+def iter_puzzle(puzzle_file):
     inp = puzzle_file.read_text().strip()
     yield from inp.splitlines()
 
