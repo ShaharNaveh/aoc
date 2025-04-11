@@ -81,15 +81,6 @@ def parse_puzzle(puzzle_file):
     return grid
 
 
-def draw(grid: Grid):
-    min_x, max_x, min_y, max_y = find_bounds(grid)
-    res = "\n".join(
-        "".join(grid[complex(x, y)] for x in range(min_x, max_x + 1))
-        for y in range(min_y, max_y + 1)
-    )
-    print(res)
-
-
 def find_bounds(grid: Grid) -> tuple[int, int, int, int]:
     xs = {pos.real for pos in grid}
     ys = {pos.imag for pos in grid}
