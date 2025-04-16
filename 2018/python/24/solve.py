@@ -1,4 +1,6 @@
+import copy
 import dataclasses
+import itertools
 import pathlib
 import re
 
@@ -16,6 +18,7 @@ class Group:
     weak: frozenset[str]
     immune: frozenset[str]
     initiative: int
+    boost: int = 0
 
     def attacked_by(self, other):
         lost_units = other.dealt_damage(self) // self.hp
@@ -29,7 +32,7 @@ class Group:
 
     @property
     def effective_power(self) -> int:
-        return self.units * self.ap
+        return self.units * (self.ap + self.boost)
 
     @property
     def is_alive(self) -> bool:
@@ -108,13 +111,21 @@ def attack(groups: Groups):
         defending.attacked_by(attacking)
 
 
-def fight(groups: Groups) -> int:
+def fight(groups: Groups) -> Groups:
+    groups = copy.deepcopy(groups)
     while True:
+        before_total_units = total_alive_units(groups)
         attack(groups)
+        if before_total_units == total_alive_units(groups):
+            return groups
         alive_teams = {group.team for group in groups if group.is_alive}
         if len(alive_teams) != 2:
-            break
+            return groups
+        if not find_target_selections(groups):
+            return groups
 
+
+def total_alive_units(groups: Groups) -> int:
     return sum(group.units for group in groups if group.is_alive)
 
 
@@ -129,15 +140,25 @@ def parse_puzzle(puzzle_file) -> Groups:
 
 
 def p1(puzzle_file):
-    return fight(parse_puzzle(puzzle_file))
+    return total_alive_units(fight(parse_puzzle(puzzle_file)))
 
 
 def p2(puzzle_file):
-    return
+    groups = parse_puzzle(puzzle_file)
+    for boost in itertools.count(1):
+        boosted = copy.deepcopy(groups)
+        for group in boosted:
+            if group.team == "infection":
+                continue
+            group.boost = boost
+        survived = fight(boosted)
+        if any(group.team == "infection" for group in survived if group.is_alive):
+            continue
+        return total_alive_units(survived)
 
 
 puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-puzzle_file = puzzle_file.with_stem("test_puzzle")
+# puzzle_file = puzzle_file.with_stem("test_puzzle")
 
 print(p1(puzzle_file))
 print(p2(puzzle_file))
