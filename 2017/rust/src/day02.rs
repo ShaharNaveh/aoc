@@ -1,7 +1,4 @@
-const PUZZLE_FILE: &str = "puzzle.txt";
-type Puzzle = Vec<Vec<usize>>;
-
-fn parse_puzzle(inp: &str) -> Puzzle {
+fn parse_puzzle(inp: &str) -> Vec<Vec<usize>> {
     inp.trim()
         .lines()
         .map(|row| row.split_whitespace().map(|w| w.parse().unwrap()).collect())
@@ -34,16 +31,16 @@ where
         })
 }
 
-fn p1(inp: &str) -> usize {
-    parse_puzzle(inp)
+fn p1(input: &str) -> usize {
+    parse_puzzle(input)
         .into_iter()
         .map(find_min_max)
         .map(|(min, max)| max - min)
         .sum()
 }
 
-fn p2(inp: &str) -> usize {
-    parse_puzzle(inp)
+fn p2(input: &str) -> usize {
+    parse_puzzle(input)
         .into_iter()
         .map(|row| {
             let (mut min, mut max) = (usize::MIN, usize::MAX);
@@ -58,10 +55,9 @@ fn p2(inp: &str) -> usize {
         .sum()
 }
 
-fn main() {
-    let inp = std::fs::read_to_string(PUZZLE_FILE).unwrap();
-    println!("{}", p1(&inp));
-    println!("{}", p2(&inp));
+pub fn solve(input: &str) {
+    println!("{}", p1(&input));
+    println!("{}", p2(&input));
 }
 
 #[cfg(test)]

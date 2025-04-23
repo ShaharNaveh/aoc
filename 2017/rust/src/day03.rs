@@ -1,8 +1,12 @@
 use std::collections::HashMap;
-const PUZZLE_FILE: &str = "puzzle.txt";
 
-fn parse_puzzle(inp: &str) -> isize {
-    inp.trim().parse().unwrap()
+pub fn solve(input: &str) {
+    println!("{}", p1(&input));
+    println!("{}", p2(&input));
+}
+
+fn parse_puzzle(input: &str) -> isize {
+    input.trim().parse().unwrap()
 }
 
 fn find_next_val(x: isize, y: isize) -> (isize, isize) {
@@ -20,8 +24,8 @@ fn find_next_val(x: isize, y: isize) -> (isize, isize) {
     unreachable!();
 }
 
-fn p1(inp: &str) -> isize {
-    let data = parse_puzzle(inp);
+fn p1(input: &str) -> isize {
+    let data = parse_puzzle(input);
     let circle = (f32::sqrt(data as f32).ceil() / 2.0f32) as isize;
     let circle_zero = (circle * 2 - 1).pow(2);
     let centers = vec![1, 3, 5, 7]
@@ -31,8 +35,8 @@ fn p1(inp: &str) -> isize {
     circle + centers.into_iter().map(|x| (data - x).abs()).min().unwrap()
 }
 
-fn p2(inp: &str) -> isize {
-    let data = parse_puzzle(inp);
+fn p2(input: &str) -> isize {
+    let data = parse_puzzle(input);
     let (mut x, mut y) = (0, 0);
     let mut vals = HashMap::from([((x, y), 1)]);
     let offsets = (-1..=1)
@@ -52,36 +56,27 @@ fn p2(inp: &str) -> isize {
     vals[&(x, y)]
 }
 
-fn main() {
-    let inp = std::fs::read_to_string(PUZZLE_FILE).unwrap();
-    println!("{}", p1(&inp));
-    println!("{}", p2(&inp));
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn p1e1() {
-        let inp = "1";
-        assert_eq!(p1(inp), 0);
+        assert_eq!(p1("1"), 0);
     }
 
     #[test]
     fn p1e2() {
-        let inp = "12";
-        assert_eq!(p1(inp), 3);
+        assert_eq!(p1("12"), 3);
     }
+
     #[test]
     fn p1e3() {
-        let inp = "23";
-        assert_eq!(p1(inp), 2);
+        assert_eq!(p1("23"), 2);
     }
 
     #[test]
     fn p1e4() {
-        let inp = "1024";
-        assert_eq!(p1(inp), 31);
+        assert_eq!(p1("1024"), 31);
     }
 }

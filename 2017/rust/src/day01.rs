@@ -1,36 +1,37 @@
-const PUZZLE_FILE: &str = "puzzle.txt";
-type Puzzle = Vec<u8>;
+pub fn solve(input: &str) {
+    println!("{}", p1(&input));
+    println!("{}", p2(&input));
+}
 
-fn parse_puzzle(inp: &str) -> Puzzle {
-    inp.trim()
+fn parse_puzzle(input: &str) -> Vec<u8> {
+    input
+        .trim()
         .chars()
         .map(|c| c.to_digit(10).unwrap() as u8)
         .collect()
 }
 
-fn solve(vec: &Puzzle, offset: usize) -> usize {
+fn main<I>(iter: I, offset: usize) -> usize
+where
+    I: IntoIterator<Item = u8>,
+{
+    let vec = iter.into_iter().collect::<Vec<_>>();
     let len = vec.len();
-    vec.into_iter()
+    vec.iter()
         .enumerate()
         .filter(|&(i, x)| *x == vec[(i + offset) % len])
-        .map(|(_, &x)| x as usize)
+        .map(|(_, x)| *x as usize)
         .sum()
 }
 
-fn p1(inp: &str) -> usize {
-    solve(&parse_puzzle(inp), 1)
+fn p1(input: &str) -> usize {
+    main(parse_puzzle(input), 1)
 }
 
-fn p2(inp: &str) -> usize {
-    let nums = parse_puzzle(inp);
+fn p2(input: &str) -> usize {
+    let nums = parse_puzzle(input);
     let offset = nums.len() / 2;
-    solve(&nums, offset)
-}
-
-fn main() {
-    let inp = std::fs::read_to_string(PUZZLE_FILE).unwrap();
-    println!("{}", p1(&inp));
-    println!("{}", p2(&inp));
+    main(nums, offset)
 }
 
 #[cfg(test)]
