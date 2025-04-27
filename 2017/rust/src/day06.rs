@@ -1,7 +1,4 @@
-use std::{
-    collections::{HashMap, HashSet},
-    hash::Hash,
-};
+use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Eq, Hash, PartialEq)]
 struct Memory(Vec<u8>);
