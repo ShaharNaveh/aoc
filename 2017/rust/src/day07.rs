@@ -1,90 +1,90 @@
-use std::collections::HashMap;
-
-#[derive(Clone, Debug)]
-struct Program {
-    name: String,
-    weight: u32,
-    holds: Vec<String>,
-}
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug)]
-struct Tower(HashMap<String, Vec<Program>>);
+struct Tower {
+    root: String,
+    children: HashMap<String, Vec<String>>,
+    weights: HashMap<String, u32>,
+}
 
 impl Tower {
-    fn find_len(&self, name: &str) -> usize {
-        let holds = &self.0[name];
-        holds.len()
-            + holds
-                .into_iter()
-                .map(|prog| self.find_len(&prog.name))
-                .sum::<usize>()
+    fn walk(&self, root: String) -> (bool, u32) {
+        let mut weight = self.weights[&root];
+        let mut map: HashMap<u32, Vec<String>> = HashMap::new();
+
+        for child in self.children.get(&root).unwrap_or(&vec![]) {
+            let (found, child_weight) = self.walk(child.into());
+
+            if found {
+                return (found, child_weight);
+            }
+
+            map.entry(child_weight).or_default().push(child.into());
+            weight += child_weight;
+        }
+
+        if map.len() < 2 {
+            return (false, weight);
+        }
+
+        let (mut bad_weight, mut bad, mut good) = (0, 0, 0);
+        for (&cost, children) in &map {
+            if children.len() == 1 {
+                bad_weight = self.weights[&children[0]];
+                bad = cost;
+            } else {
+                good = cost;
+            }
+        }
+
+        (true, bad_weight + good - bad)
     }
 }
 
 impl From<&str> for Tower {
     fn from(raw: &str) -> Self {
-        let programs = raw.trim().lines().map(Into::into).collect::<Vec<Program>>();
+        let mut all_children = HashSet::new();
+        let mut children = HashMap::new();
+        let mut weights = HashMap::new();
+        for line in raw.trim().lines() {
+            let mut it = line.split("->");
 
-        Self(
-            programs
-                .iter()
-                .map(|prog| {
-                    (prog.name.clone(), {
-                        let holds = &prog.holds;
-                        programs
-                            .iter()
-                            .filter(|other| holds.contains(&other.name))
-                            .cloned()
-                            .collect()
-                    })
-                })
-                .collect(),
-        )
-    }
-}
+            let (name, raw_weight) = it.next().unwrap().trim().split_once(' ').unwrap();
+            let weight = {
+                let mut chars = raw_weight.chars();
+                chars.next();
+                chars.next_back();
+                chars.as_str().parse().unwrap()
+            };
+            weights.insert(name.into(), weight);
 
-impl From<&str> for Program {
-    fn from(raw: &str) -> Self {
-        let parts = raw.trim().split(" -> ").collect::<Vec<_>>();
-        let holds = if let Some(names) = parts.get(1) {
-            names.trim().split(", ").map(Into::into).collect()
-        } else {
-            vec![]
-        };
-        let name_weight = parts[0];
-        let (name, raw_weight) = name_weight.split_once(' ').unwrap();
-        let weight = {
-            let mut chars = raw_weight.chars();
-            chars.next();
-            chars.next_back();
-            chars.as_str().parse().unwrap()
-        };
-
-        Program {
-            name: name.into(),
-            weight,
-            holds,
+            let child = it.next().map_or(vec![], |c| {
+                c.split(',').map(|x| x.trim().to_owned()).collect()
+            });
+            all_children.extend(child.clone());
+            children.insert(name.into(), child);
+        }
+        let keys = weights.keys().map(Into::into).collect::<HashSet<String>>();
+        let root = keys.difference(&all_children).next().unwrap();
+        Self {
+            root: root.into(),
+            children,
+            weights,
         }
     }
 }
 
 fn parse_puzzle(input: &str) -> Tower {
-    input.trim().into()
+    input.into()
 }
 
 fn p1(input: &str) -> String {
-    let tower = parse_puzzle(&input);
-    tower
-        .0
-        .clone()
-        .into_iter()
-        .max_by_key(|(k, _)| tower.find_len(&k))
-        .map(|(k, _)| k)
-        .unwrap()
+    parse_puzzle(input).root
 }
 
-fn p2(input: &str) -> usize {
-    0
+fn p2(input: &str) -> u32 {
+    let tower = parse_puzzle(input);
+    tower.walk(tower.root.clone()).1
 }
 
 pub fn solve(input: &str) {
@@ -95,10 +95,7 @@ pub fn solve(input: &str) {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn p1e1() {
-        let input = "
+    const INPUT: &str = "
 pbga (66)
 xhth (57)
 ebii (61)
@@ -113,11 +110,14 @@ ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)
 ";
-        assert_eq!(p1(input), "tknk".to_string());
+
+    #[test]
+    fn p1e1() {
+        assert_eq!(p1(INPUT), "tknk".to_string());
     }
 
     #[test]
     fn p2e1() {
-        assert_eq!(0, 0);
+        assert_eq!(p2(INPUT), 60);
     }
 }
