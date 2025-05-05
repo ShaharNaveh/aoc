@@ -9,6 +9,7 @@ mod day06;
 mod day07;
 mod day08;
 mod day09;
+mod day10;
 
 fn main() {
     let day = env::args().nth(1).unwrap_or("01".to_string());
@@ -25,6 +26,7 @@ fn main() {
         "07" => day07::solve(&input),
         "08" => day08::solve(&input),
         "09" => day09::solve(&input),
+        "10" => day10::solve(&input),
         _ => eprintln!("Day {day} not found"),
     }
 }
