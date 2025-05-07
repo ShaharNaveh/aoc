@@ -1,7 +1,4 @@
-use std::ops::{
-    Add,
-    //   AddAssign
-};
+use std::ops::Add;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct IVec2 {
@@ -11,6 +8,14 @@ pub struct IVec2 {
 
 impl IVec2 {
     pub const ZERO: Self = Self { x: 0, y: 0 };
+
+    pub const fn new(x: i32, y: i32) -> Self {
+        Self { x, y }
+    }
+
+    pub fn neighbors_4(&self) -> [Self; 4] {
+        Offset::NEIGHBORS_4.map(|offset| *self + offset)
+    }
 
     pub fn element_sum(self) -> i32 {
         self.x + self.y
@@ -90,6 +95,31 @@ impl HexOffset {
     */
 }
 
+#[derive(Clone, Copy, Debug)]
+pub enum Offset {
+    East,
+    North,
+    South,
+    West,
+}
+
+impl Offset {
+    pub const NEIGHBORS_4: [Self; 4] = Self::neighbors_4();
+
+    pub const fn value(&self) -> IVec2 {
+        match self {
+            Self::East => IVec2 { x: 1, y: 0 },
+            Self::North => IVec2 { x: 0, y: -1 },
+            Self::South => IVec2 { x: 0, y: 1 },
+            Self::West => IVec2 { x: -1, y: 0 },
+        }
+    }
+
+    pub const fn neighbors_4() -> [Self; 4] {
+        [Self::East, Self::North, Self::South, Self::West]
+    }
+}
+
 impl From<&str> for HexOffset {
     fn from(raw: &str) -> Self {
         match raw {
@@ -112,6 +142,14 @@ impl Add<IVec2> for IVec2 {
             x: self.x.add(rhs.x),
             y: self.y.add(rhs.y),
         }
+    }
+}
+
+impl Add<Offset> for IVec2 {
+    type Output = Self;
+
+    fn add(self, rhs: Offset) -> Self {
+        self + rhs.value()
     }
 }
 

@@ -1,23 +1,24 @@
 #[derive(Clone, Debug, Default)]
-struct TieKnot {
-    rope: Vec<u8>,
-    lengths: Vec<u8>,
-    current: usize,
-    skip: usize,
+pub struct TieKnot {
+    pub rope: Vec<u8>,
+    pub lengths: Vec<u8>,
+    pub current: usize,
+    pub skip: usize,
 }
 
 impl TieKnot {
     const SALT: [u8; 5] = [17, 31, 73, 47, 23];
+    const ROUNDS: u8 = 64;
 
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             ..Default::default()
         }
     }
 
-    fn knot_hash(mut self, rounds: usize) -> u128 {
+    pub fn knot_hash(mut self) -> u128 {
         self.lengths.extend(&Self::SALT);
-        (0..rounds).for_each(|_| {
+        (0..Self::ROUNDS).for_each(|_| {
             self = self.clone().knot_tie();
         });
 
@@ -50,7 +51,7 @@ impl TieKnot {
         self
     }
 
-    fn with_rope<I>(mut self, iter: I) -> Self
+    pub fn with_rope<I>(mut self, iter: I) -> Self
     where
         I: IntoIterator<Item = u8>,
     {
@@ -58,7 +59,7 @@ impl TieKnot {
         self
     }
 
-    fn with_lengths<I>(mut self, iter: I) -> Self
+    pub fn with_lengths<I>(mut self, iter: I) -> Self
     where
         I: IntoIterator<Item = u8>,
     {
@@ -94,7 +95,7 @@ fn p2(input: &str) -> String {
         TieKnot::new()
             .with_rope(0..=255)
             .with_lengths(input.trim().bytes())
-            .knot_hash(64)
+            .knot_hash()
     )
 }
 
@@ -129,7 +130,7 @@ mod tests {
         ] {
             let result = format!(
                 "{:032x}",
-                tie_knot.clone().with_lengths(input.bytes()).knot_hash(64)
+                tie_knot.clone().with_lengths(input.bytes()).knot_hash()
             );
             assert_eq!(result, expected);
         }
