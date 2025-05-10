@@ -1,50 +1,38 @@
-use std::collections::HashMap;
+use std::collections::VecDeque;
 
-#[derive(Debug, Default)]
+#[derive(Clone, Debug, Default)]
 struct Program {
-    instructions: Vec<Instruction>,
-    registers: HashMap<char, i64>,
+    ops: Vec<Opcode>,
+    regs: [i64; 26],
+    queue: VecDeque<i64>,
+    ip: usize,
+    sent: usize,
+    last_sent: i64,
+    first_rcv: i64,
 }
 
 impl Program {
-    fn insert(&mut self, key: &Value, value: i64) {
-        self.registers.insert(key.reg(), value);
+    #[must_use]
+    #[inline]
+    fn with_id(mut self, id: i64) -> Self {
+        self.regs[(b'p' - b'a') as usize] = id;
+        self
     }
 
-    #[must_use]
-    fn resolve(&self, value: &Value) -> i64 {
-        match value {
-            Value::Number(num) => *num,
-            Value::Register(reg) => *self.registers.get(reg).unwrap_or(&0),
-        }
-    }
-
-    #[must_use]
-    fn run(&mut self) -> i64 {
-        let mut ip = 0;
-        let mut last_played_sound = 0;
-
-        loop {
-            match self.instructions[ip as usize] {
-                Instruction::Snd(x) => last_played_sound = self.resolve(&x),
-                Instruction::Set(x, y) => self.insert(&x, self.resolve(&y)),
-                Instruction::Add(x, y) => self.insert(&x, self.resolve(&x) + self.resolve(&y)),
-                Instruction::Mul(x, y) => self.insert(&x, self.resolve(&x) * self.resolve(&y)),
-                Instruction::Mod(x, y) => self.insert(&x, self.resolve(&x) % self.resolve(&y)),
-                Instruction::Rcv(x) => {
-                    if self.resolve(&x) != 0 {
-                        break last_played_sound;
-                    }
-                }
-
-                Instruction::Jgz(x, y) => {
-                    if self.resolve(&x) > 0 {
-                        ip += self.resolve(&y);
-                        continue;
-                    }
-                }
+    fn run(&mut self, other: &mut Self, is_first_run: bool) {
+        while self.ip < self.ops.len() {
+            if self.ops[self.ip].clone().execute(self, other) {
+                continue;
             }
-            ip += 1;
+
+            if !is_first_run {
+                break;
+            }
+
+            other.run(self, false);
+            if !self.ops[self.ip].clone().execute(self, other) {
+                break;
+            }
         }
     }
 }
@@ -53,24 +41,62 @@ impl From<&str> for Program {
     #[must_use]
     fn from(raw: &str) -> Self {
         Self {
-            instructions: raw.trim().lines().map(Into::into).collect(),
+            ops: raw.trim().lines().map(Into::into).collect(),
             ..Default::default()
         }
     }
 }
 
 #[derive(Clone, Copy, Debug)]
-enum Instruction {
+enum Opcode {
     Snd(Value),
-    Set(Value, Value),
-    Add(Value, Value),
-    Mul(Value, Value),
-    Mod(Value, Value),
-    Rcv(Value),
+    Set(usize, Value),
+    Add(usize, Value),
+    Mul(usize, Value),
+    Mod(usize, Value),
+    Rcv(usize),
     Jgz(Value, Value),
 }
 
-impl From<&str> for Instruction {
+impl Opcode {
+    fn execute(&self, prog: &mut Program, other: &mut Program) -> bool {
+        prog.ip += 1;
+
+        match *self {
+            Self::Snd(x) => {
+                let val = x.resolve(prog);
+                prog.last_sent = val;
+                other.queue.push_back(val);
+                prog.sent += 1;
+            }
+            Self::Set(x, y) => prog.regs[x] = y.resolve(prog),
+            Self::Add(x, y) => prog.regs[x] += y.resolve(prog),
+            Self::Mul(x, y) => prog.regs[x] *= y.resolve(prog),
+            Self::Mod(x, y) => prog.regs[x] %= y.resolve(prog),
+            Self::Rcv(x) => {
+                if prog.first_rcv == 0 && prog.regs[x] != 0 {
+                    prog.first_rcv = prog.last_sent;
+                }
+
+                if let Some(v) = prog.queue.pop_front() {
+                    prog.regs[x] = v;
+                } else {
+                    prog.ip -= 1;
+                    return false;
+                }
+            }
+            Self::Jgz(x, y) => {
+                if x.resolve(prog) > 0 {
+                    prog.ip = (prog.ip as i64 + y.resolve(prog) - 1) as usize;
+                }
+            }
+        }
+
+        true
+    }
+}
+
+impl From<&str> for Opcode {
     #[must_use]
     fn from(raw: &str) -> Self {
         let mut it = raw.trim().split_whitespace();
@@ -78,11 +104,11 @@ impl From<&str> for Instruction {
         let args = it.map(Into::into).collect::<Vec<_>>();
         match op {
             "snd" => Self::Snd(args[0]),
-            "set" => Self::Set(args[0], args[1]),
-            "add" => Self::Add(args[0], args[1]),
-            "mul" => Self::Mul(args[0], args[1]),
-            "mod" => Self::Mod(args[0], args[1]),
-            "rcv" => Self::Rcv(args[0]),
+            "set" => Self::Set(args[0].reg(), args[1]),
+            "add" => Self::Add(args[0].reg(), args[1]),
+            "mul" => Self::Mul(args[0].reg(), args[1]),
+            "mod" => Self::Mod(args[0].reg(), args[1]),
+            "rcv" => Self::Rcv(args[0].reg()),
             "jgz" => Self::Jgz(args[0], args[1]),
             _ => unreachable!(),
         }
@@ -91,15 +117,23 @@ impl From<&str> for Instruction {
 
 #[derive(Clone, Copy, Debug)]
 enum Value {
-    Number(i64),
-    Register(char),
+    Const(i64),
+    Register(usize),
 }
 
 impl Value {
     #[must_use]
-    fn reg(&self) -> char {
-        match self {
-            Self::Register(x) => *x,
+    fn resolve(&self, prog: &Program) -> i64 {
+        match *self {
+            Self::Const(x) => x,
+            Self::Register(r) => prog.regs[r],
+        }
+    }
+
+    #[must_use]
+    fn reg(&self) -> usize {
+        match *self {
+            Self::Register(r) => r,
             _ => panic!(),
         }
     }
@@ -108,20 +142,28 @@ impl Value {
 impl From<&str> for Value {
     #[must_use]
     fn from(raw: &str) -> Self {
-        if let Some(num) = raw.parse().ok() {
-            Self::Number(num)
+        if let Ok(num) = raw.parse() {
+            Self::Const(num)
         } else {
-            Self::Register(raw.chars().next().unwrap())
+            let reg = (raw.bytes().next().unwrap() - b'a') as usize;
+            Self::Register(reg)
         }
     }
 }
 
+fn main(input: &str) -> (i64, usize) {
+    let mut prog0 = Program::from(input);
+    let mut prog1 = prog0.clone().with_id(1);
+    prog0.run(&mut prog1, true);
+    (prog0.first_rcv, prog1.sent)
+}
+
 fn p1(input: &str) -> i64 {
-    Program::from(input).run()
+    main(input).0
 }
 
 fn p2(input: &str) -> usize {
-    0
+    main(input).1
 }
 
 pub fn solve(input: &str) {
@@ -161,6 +203,6 @@ rcv b
 rcv c
 rcv d
 ";
-        assert_eq!(p2(input), 4);
+        assert_eq!(p2(input), 3);
     }
 }
