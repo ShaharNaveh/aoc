@@ -44,7 +44,7 @@ impl Grid {
     }
 
     #[must_use]
-    fn iter_possible_variations(&self) -> impl Iterator<Item = Self> + '_ {
+    fn iter_possible_variations(&self) -> impl Iterator<Item = Self> {
         let mut grid = self.clone();
         std::iter::once(grid.clone()).chain((0..7).map(move |i| {
             if i == 3 {
@@ -57,7 +57,7 @@ impl Grid {
     }
 
     #[must_use]
-    fn iter_subgrids(&self) -> impl Iterator<Item = Self> + '_ {
+    fn iter_subgrids(&self) -> impl Iterator<Item = Self> {
         let len = self.size();
         let n = if len % 2 == 0 { 2 } else { 3 };
         let subgrid_size = len / n;
