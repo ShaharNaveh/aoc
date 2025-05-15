@@ -38,6 +38,15 @@ impl IVec2 {
 
     #[inline]
     #[must_use]
+    pub fn rotate(self, rhs: Self) -> Self {
+        Self {
+            x: self.x * rhs.x - self.y * rhs.y,
+            y: self.y * rhs.x + self.x * rhs.y,
+        }
+    }
+
+    #[inline]
+    #[must_use]
     pub fn hex_manhattan_distance(self) -> u32 {
         ((self.abs().element_sum() + self.element_sum().abs()) / 2) as u32
     }
@@ -52,24 +61,7 @@ pub enum Offset {
 }
 
 impl Offset {
-    pub const NEIGHBORS_4: [Self; 4] = Self::neighbors_4();
-
-    #[inline]
-    #[must_use]
-    pub const fn value(&self) -> IVec2 {
-        match self {
-            Self::East => IVec2 { x: 1, y: 0 },
-            Self::North => IVec2 { x: 0, y: -1 },
-            Self::South => IVec2 { x: 0, y: 1 },
-            Self::West => IVec2 { x: -1, y: 0 },
-        }
-    }
-
-    #[inline]
-    #[must_use]
-    pub const fn neighbors_4() -> [Self; 4] {
-        [Self::East, Self::North, Self::South, Self::West]
-    }
+    pub const NEIGHBORS_4: [Self; 4] = [Self::East, Self::North, Self::South, Self::West];
 }
 
 /// This hex offset is like:
@@ -107,21 +99,6 @@ pub enum HexOffset {
     SouthWest,
 }
 
-impl HexOffset {
-    #[inline]
-    #[must_use]
-    pub const fn value(&self) -> IVec2 {
-        match self {
-            Self::North => IVec2 { x: 0, y: 1 },
-            Self::NorthEast => IVec2 { x: 1, y: 0 },
-            Self::NorthWest => IVec2 { x: -1, y: 1 },
-            Self::South => IVec2 { x: 0, y: -1 },
-            Self::SouthEast => IVec2 { x: 1, y: -1 },
-            Self::SouthWest => IVec2 { x: -1, y: 0 },
-        }
-    }
-}
-
 impl From<&str> for HexOffset {
     #[inline]
     #[must_use]
@@ -134,6 +111,34 @@ impl From<&str> for HexOffset {
             "se" => Self::SouthEast,
             "sw" => Self::SouthWest,
             _ => unreachable!(),
+        }
+    }
+}
+
+impl From<HexOffset> for IVec2 {
+    #[inline]
+    #[must_use]
+    fn from(hex_offset: HexOffset) -> Self {
+        match hex_offset {
+            HexOffset::North => IVec2 { x: 0, y: 1 },
+            HexOffset::NorthEast => IVec2 { x: 1, y: 0 },
+            HexOffset::NorthWest => IVec2 { x: -1, y: 1 },
+            HexOffset::South => IVec2 { x: 0, y: -1 },
+            HexOffset::SouthEast => IVec2 { x: 1, y: -1 },
+            HexOffset::SouthWest => IVec2 { x: -1, y: 0 },
+        }
+    }
+}
+
+impl From<Offset> for IVec2 {
+    #[inline]
+    #[must_use]
+    fn from(offset: Offset) -> Self {
+        match offset {
+            Offset::East => IVec2 { x: 1, y: 0 },
+            Offset::North => IVec2 { x: 0, y: -1 },
+            Offset::South => IVec2 { x: 0, y: 1 },
+            Offset::West => IVec2 { x: -1, y: 0 },
         }
     }
 }
@@ -157,13 +162,15 @@ impl Add<Offset> for IVec2 {
     #[inline]
     #[must_use]
     fn add(self, rhs: Offset) -> Self {
-        self + rhs.value()
+        self + IVec2::from(rhs)
     }
 }
 
 impl Neg for IVec2 {
     type Output = Self;
+
     #[inline]
+    #[must_use]
     fn neg(self) -> Self {
         Self {
             x: self.x.neg(),
@@ -174,7 +181,9 @@ impl Neg for IVec2 {
 
 impl Neg for Offset {
     type Output = Self;
+
     #[inline]
+    #[must_use]
     fn neg(self) -> Self {
         match self {
             Self::South => Self::North,
@@ -198,7 +207,7 @@ impl AddAssign<Offset> for IVec2 {
     #[inline]
     #[must_use]
     fn add_assign(&mut self, rhs: Offset) {
-        *self += rhs.value()
+        *self += IVec2::from(rhs)
     }
 }
 
@@ -208,6 +217,6 @@ impl Add<HexOffset> for IVec2 {
     #[inline]
     #[must_use]
     fn add(self, rhs: HexOffset) -> Self {
-        self + rhs.value()
+        self + IVec2::from(rhs)
     }
 }
