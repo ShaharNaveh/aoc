@@ -1,4 +1,4 @@
-use crate::utils::{IVec2, Offset};
+use crate::utils::IVec2;
 use std::collections::HashMap;
 
 struct TubeNetwork(HashMap<IVec2, char>);
@@ -13,7 +13,7 @@ impl TubeNetwork {
     #[must_use]
     fn walk(&self) -> (String, usize) {
         let mut pos = self.start_pos();
-        let mut offset = Offset::South;
+        let mut offset = IVec2::Y;
         let mut buf = vec![];
         let mut steps = 0;
 
@@ -23,7 +23,7 @@ impl TubeNetwork {
             if tile.is_uppercase() {
                 buf.push(tile);
             } else if tile == '+' {
-                offset = Offset::NEIGHBORS_4
+                offset = IVec2::NEIGHBORS_4
                     .into_iter()
                     .filter(|&noffset| noffset != -offset)
                     .find(|&noffset| self.0.contains_key(&(pos + noffset)))
