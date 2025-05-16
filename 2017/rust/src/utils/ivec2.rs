@@ -1,18 +1,26 @@
-use std::ops::{Add, AddAssign, Neg};
+use std::ops::{Add, AddAssign, Div, Neg, Sub};
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 pub struct IVec2 {
     pub x: i32,
     pub y: i32,
 }
 
 impl IVec2 {
-    pub const ZERO: Self = Self { x: 0, y: 0 };
+    pub const ZERO: Self = Self::splat(0);
+    //pub const MIN: Self = Self::splat(i32::MIN);
+    //pub const MAX: Self = Self::splat(i32::MAX);
 
     #[inline]
     #[must_use]
     pub const fn new(x: i32, y: i32) -> Self {
         Self { x, y }
+    }
+
+    #[inline]
+    #[must_use]
+    pub const fn splat(v: i32) -> Self {
+        Self { x: v, y: v }
     }
 
     #[inline]
@@ -36,15 +44,38 @@ impl IVec2 {
         }
     }
 
+    /*
     #[inline]
     #[must_use]
-    pub fn rotate(self, rhs: Self) -> Self {
+    pub fn min(self, rhs: Self) -> Self {
         Self {
-            x: self.x * rhs.x - self.y * rhs.y,
-            y: self.y * rhs.x + self.x * rhs.y,
+            x: self.x.min(rhs.x),
+            y: self.y.min(rhs.y),
+        }
+    }
+    */
+
+    #[inline]
+    #[must_use]
+    pub fn max(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.max(rhs.x),
+            y: self.y.max(rhs.y),
         }
     }
 
+    #[inline]
+    #[must_use]
+    pub fn rotate<T>(self, rhs: T) -> Self
+    where
+        T: Into<Self>,
+    {
+        let v = rhs.into();
+        Self {
+            x: self.x * v.x - self.y * v.y,
+            y: self.y * v.x + self.x * v.y,
+        }
+    }
     #[inline]
     #[must_use]
     pub fn hex_manhattan_distance(self) -> u32 {
@@ -101,7 +132,6 @@ pub enum HexOffset {
 
 impl From<&str> for HexOffset {
     #[inline]
-    #[must_use]
     fn from(raw: &str) -> Self {
         match raw {
             "n" => Self::North,
@@ -117,7 +147,6 @@ impl From<&str> for HexOffset {
 
 impl From<HexOffset> for IVec2 {
     #[inline]
-    #[must_use]
     fn from(hex_offset: HexOffset) -> Self {
         match hex_offset {
             HexOffset::North => IVec2 { x: 0, y: 1 },
@@ -132,7 +161,6 @@ impl From<HexOffset> for IVec2 {
 
 impl From<Offset> for IVec2 {
     #[inline]
-    #[must_use]
     fn from(offset: Offset) -> Self {
         match offset {
             Offset::East => IVec2 { x: 1, y: 0 },
@@ -143,11 +171,34 @@ impl From<Offset> for IVec2 {
     }
 }
 
+impl Div<IVec2> for IVec2 {
+    type Output = Self;
+
+    #[inline]
+    fn div(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.div(rhs.x),
+            y: self.y.div(rhs.y),
+        }
+    }
+}
+
+impl Div<i32> for IVec2 {
+    type Output = Self;
+
+    #[inline]
+    fn div(self, rhs: i32) -> Self {
+        Self {
+            x: self.x.div(rhs),
+            y: self.y.div(rhs),
+        }
+    }
+}
+
 impl Add<IVec2> for IVec2 {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn add(self, rhs: Self) -> Self {
         Self {
             x: self.x.add(rhs.x),
@@ -160,9 +211,19 @@ impl Add<Offset> for IVec2 {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn add(self, rhs: Offset) -> Self {
         self + IVec2::from(rhs)
+    }
+}
+impl Sub<IVec2> for IVec2 {
+    type Output = Self;
+
+    #[inline]
+    fn sub(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.sub(rhs.x),
+            y: self.y.sub(rhs.y),
+        }
     }
 }
 
@@ -170,7 +231,6 @@ impl Neg for IVec2 {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn neg(self) -> Self {
         Self {
             x: self.x.neg(),
@@ -183,7 +243,6 @@ impl Neg for Offset {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn neg(self) -> Self {
         match self {
             Self::South => Self::North,
@@ -196,7 +255,6 @@ impl Neg for Offset {
 
 impl AddAssign<IVec2> for IVec2 {
     #[inline]
-    #[must_use]
     fn add_assign(&mut self, rhs: Self) {
         self.x.add_assign(rhs.x);
         self.y.add_assign(rhs.y);
@@ -205,7 +263,6 @@ impl AddAssign<IVec2> for IVec2 {
 
 impl AddAssign<Offset> for IVec2 {
     #[inline]
-    #[must_use]
     fn add_assign(&mut self, rhs: Offset) {
         *self += IVec2::from(rhs)
     }
@@ -215,7 +272,6 @@ impl Add<HexOffset> for IVec2 {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn add(self, rhs: HexOffset) -> Self {
         self + IVec2::from(rhs)
     }
