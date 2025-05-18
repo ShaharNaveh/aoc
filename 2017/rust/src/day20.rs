@@ -45,7 +45,6 @@ impl Particles {
 }
 
 impl From<&str> for Particles {
-    #[must_use]
     fn from(raw: &str) -> Self {
         let mut map = HashMap::new();
         raw.trim()
@@ -86,7 +85,6 @@ impl Particle {
 }
 
 impl From<&str> for Particle {
-    #[must_use]
     fn from(raw: &str) -> Self {
         let buf = raw
             .trim()

@@ -33,7 +33,6 @@ impl IVec3 {
 
 impl From<&str> for IVec3 {
     #[inline]
-    #[must_use]
     fn from(raw: &str) -> Self {
         let buf = raw
             .trim()
@@ -48,7 +47,6 @@ impl Add<IVec3> for IVec3 {
     type Output = Self;
 
     #[inline]
-    #[must_use]
     fn add(self, rhs: Self) -> Self {
         Self {
             x: self.x.add(rhs.x),
@@ -60,6 +58,7 @@ impl Add<IVec3> for IVec3 {
 
 impl Mul<isize> for IVec3 {
     type Output = Self;
+
     #[inline]
     fn mul(self, rhs: isize) -> Self {
         Self {

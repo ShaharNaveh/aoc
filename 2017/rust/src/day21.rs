@@ -84,7 +84,6 @@ impl Grid {
 }
 
 impl FromIterator<Grid> for Grid {
-    #[must_use]
     fn from_iter<T>(iter: T) -> Self
     where
         T: IntoIterator<Item = Self>,
@@ -125,14 +124,12 @@ impl IndexMut<usize> for Grid {
 
 impl Default for Grid {
     #[inline]
-    #[must_use]
     fn default() -> Self {
         Self::from(".#./..#/###")
     }
 }
 
 impl From<&str> for Grid {
-    #[must_use]
     fn from(raw: &str) -> Self {
         Self(
             raw.trim()
@@ -153,7 +150,6 @@ impl Rules {
 }
 
 impl From<&str> for Rules {
-    #[must_use]
     fn from(raw: &str) -> Self {
         Self(
             raw.trim()

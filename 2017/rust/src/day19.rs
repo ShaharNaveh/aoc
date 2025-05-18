@@ -38,7 +38,6 @@ impl TubeNetwork {
 }
 
 impl From<&str> for TubeNetwork {
-    #[must_use]
     fn from(raw: &str) -> Self {
         let mut grid = HashMap::new();
         for (y, line) in raw

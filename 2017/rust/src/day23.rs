@@ -52,7 +52,6 @@ impl Program {
 }
 
 impl From<&str> for Program {
-    #[must_use]
     fn from(raw: &str) -> Self {
         Self {
             ops: raw.trim().lines().map(Into::into).collect(),
@@ -79,7 +78,6 @@ impl Value {
 }
 
 impl From<&str> for Value {
-    #[must_use]
     fn from(raw: &str) -> Self {
         if let Ok(num) = raw.parse() {
             Self::Const(num)
@@ -100,7 +98,6 @@ enum Opcode {
 }
 
 impl From<&str> for Opcode {
-    #[must_use]
     fn from(raw: &str) -> Self {
         let mut it = raw.trim().split_whitespace();
         let op = it.next().unwrap();
