@@ -8,6 +8,7 @@ pub struct IVec3 {
 }
 
 impl IVec3 {
+    #[inline(always)]
     #[must_use]
     pub const fn new(x: isize, y: isize, z: isize) -> Self {
         Self { x, y, z }
@@ -70,7 +71,6 @@ impl Mul<isize> for IVec3 {
 
 impl Div<isize> for IVec3 {
     type Output = Self;
-
     #[inline]
     fn div(self, rhs: isize) -> Self {
         Self {

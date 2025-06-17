@@ -1,5 +1,5 @@
+use crate::utils::IVec2;
 use std::ops::Add;
-use utils::IVec2;
 
 /// This hex offset is for hex layout that looks like:
 ///     2

@@ -1,6 +1,5 @@
-use crate::day10::TieKnot;
+use crate::{day10::TieKnot, utils::IVec2};
 use std::collections::HashSet;
-use utils::IVec2;
 
 #[derive(Clone, Debug)]
 struct Tiles(HashSet<IVec2>);
