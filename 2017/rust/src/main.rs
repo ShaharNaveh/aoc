@@ -1,7 +1,5 @@
 use std::{env, fs};
 
-mod utils;
-
 mod day01;
 mod day02;
 mod day03;

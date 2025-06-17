@@ -20,19 +20,16 @@ impl IVec2 {
 
     pub const NEIGHBORS_4: [Self; 4] = [Self::X, Self::Y, Self::NEG_X, Self::NEG_Y];
 
-    #[inline]
     #[must_use]
     pub const fn new(x: i32, y: i32) -> Self {
         Self { x, y }
     }
 
-    #[inline]
     #[must_use]
     pub const fn splat(v: i32) -> Self {
         Self { x: v, y: v }
     }
 
-    #[inline]
     #[must_use]
     pub fn neighbors_4(&self) -> [Self; 4] {
         Self::NEIGHBORS_4.map(|offset| *self + offset)

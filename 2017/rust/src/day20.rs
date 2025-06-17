@@ -1,5 +1,5 @@
-use crate::utils::IVec3;
 use std::collections::{HashMap, HashSet};
+use utils::IVec3;
 
 #[derive(Clone, Debug)]
 struct Particles(HashMap<u16, Particle>);

@@ -1,5 +1,5 @@
-use crate::utils::IVec2;
 use std::collections::HashMap;
+use utils::IVec2;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 enum NodeState {

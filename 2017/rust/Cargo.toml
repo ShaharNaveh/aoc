@@ -3,6 +3,9 @@ name = "aoc-2017"
 version = "0.1.0"
 edition = "2024"
 
+[dependencies]
+utils = { path = "../../utils/rust/utils/" }
+
 [profile.release]
 codegen-units = 1
 lto = "fat"
