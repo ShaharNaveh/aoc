@@ -5,7 +5,6 @@ import itertools
 import operator
 import pathlib
 
-
 type Units = tuple["Unit", ...]
 type Walkable = frozenset["Pos"]
 

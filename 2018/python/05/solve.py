@@ -2,7 +2,6 @@ import pathlib
 import re
 import string
 
-
 PATTERN = re.compile(
     "|".join(
         f"{char}{char.upper()}|{char.upper()}{char}" for char in string.ascii_lowercase

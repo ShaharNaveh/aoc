@@ -1,9 +1,13 @@
+import pathlib
 from operator import (
     and_ as AND,
+)
+from operator import (
     or_ as OR,
+)
+from operator import (
     xor as XOR,
 )
-import pathlib
 
 OPS = {"AND": AND, "OR": OR, "XOR": XOR}
 

@@ -2,7 +2,6 @@ import enum
 import pathlib
 import typing
 
-
 DIRECTIONS = {i: offset for i, offset in enumerate((-1j, 1j, -1, 1), 1)}
 
 

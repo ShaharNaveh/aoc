@@ -2,7 +2,6 @@ import heapq
 import pathlib
 import typing
 
-
 CHARS = "ABCD"
 ROOMS = {char: i * 2 for i, char in enumerate(CHARS, 1)}
 COSTS = {char: 10**i for i, char in enumerate(CHARS)}

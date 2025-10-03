@@ -5,7 +5,6 @@ import pathlib
 import re
 import typing
 
-
 type Registers = dict[int, int]
 
 PATTERN = re.compile(r"\d+", re.MULTILINE)

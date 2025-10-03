@@ -4,7 +4,6 @@ import itertools
 import pathlib
 import re
 
-
 type Groups = list["Group"]
 
 

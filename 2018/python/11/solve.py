@@ -2,7 +2,6 @@ import functools
 import itertools
 import pathlib
 
-
 MIN_GRID_SIZE, MAX_GRID_SIZE = 1, 300
 type PrefixSum = collections.defaultdict[complex, int]
 

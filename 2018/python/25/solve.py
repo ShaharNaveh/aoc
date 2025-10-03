@@ -1,7 +1,6 @@
 import itertools
 import pathlib
 
-
 type Point = tuple[int, int, int, int]
 
 
