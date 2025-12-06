@@ -1,12 +1,12 @@
 use std::{env, fs};
 
-// mod utils;
+mod utils;
 
 mod day01;
 mod day02;
 mod day03;
-/*
 mod day04;
+/*
 mod day05;
 mod day06;
 mod day07;
@@ -26,8 +26,8 @@ fn main() {
         "01" => day01::solve(&input),
         "02" => day02::solve(&input),
         "03" => day03::solve(&input),
-        /*
         "04" => day04::solve(&input),
+        /*
         "05" => day05::solve(&input),
         "06" => day06::solve(&input),
         "07" => day07::solve(&input),
