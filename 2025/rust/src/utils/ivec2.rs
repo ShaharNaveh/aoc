@@ -2,11 +2,13 @@ use std::ops::Add;
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 pub struct IVec2 {
-    x: i32,
-    y: i32,
+    pub x: i32,
+    pub y: i32,
 }
 
 impl IVec2 {
+    pub const ZERO: Self = Self::splat(0);
+
     pub const X: Self = Self::new(1, 0);
     pub const Y: Self = Self::new(0, 1);
     pub const NEG_X: Self = Self::new(-1, 0);
@@ -33,8 +35,21 @@ impl IVec2 {
     }
 
     #[must_use]
+    pub const fn splat(v: i32) -> Self {
+        Self { x: v, y: v }
+    }
+
+    #[must_use]
     pub fn neighbors_8(self) -> [Self; 8] {
         Self::NEIGHBORS_8.map(|offset| self + offset)
+    }
+
+    #[must_use]
+    pub fn max(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.max(rhs.x),
+            y: self.y.max(rhs.y),
+        }
     }
 }
 
