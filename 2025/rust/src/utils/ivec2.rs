@@ -1,13 +1,14 @@
-use std::ops::Add;
+use std::ops::{Add, Sub};
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 pub struct IVec2 {
-    pub x: i32,
-    pub y: i32,
+    pub x: isize,
+    pub y: isize,
 }
 
 impl IVec2 {
     pub const ZERO: Self = Self::splat(0);
+    pub const ONE: Self = Self::splat(1);
 
     pub const X: Self = Self::new(1, 0);
     pub const Y: Self = Self::new(0, 1);
@@ -30,18 +31,31 @@ impl IVec2 {
     ];
 
     #[must_use]
-    pub const fn new(x: i32, y: i32) -> Self {
+    pub const fn new(x: isize, y: isize) -> Self {
         Self { x, y }
     }
 
     #[must_use]
-    pub const fn splat(v: i32) -> Self {
+    pub const fn splat(v: isize) -> Self {
         Self { x: v, y: v }
     }
 
     #[must_use]
     pub fn neighbors_8(self) -> [Self; 8] {
         Self::NEIGHBORS_8.map(|offset| self + offset)
+    }
+
+    #[must_use]
+    pub const fn element_product(self) -> isize {
+        self.x * self.y
+    }
+
+    #[must_use]
+    pub const fn abs(self) -> Self {
+        Self {
+            x: self.x.abs(),
+            y: self.y.abs(),
+        }
     }
 
     #[must_use]
@@ -60,6 +74,17 @@ impl Add<IVec2> for IVec2 {
         Self {
             x: self.x.add(rhs.x),
             y: self.y.add(rhs.y),
+        }
+    }
+}
+
+impl Sub for IVec2 {
+    type Output = Self;
+
+    fn sub(self, rhs: Self) -> Self {
+        Self {
+            x: self.x.sub(rhs.x),
+            y: self.y.sub(rhs.y),
         }
     }
 }

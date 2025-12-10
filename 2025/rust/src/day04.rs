@@ -33,7 +33,7 @@ impl From<&str> for Rolls {
                     line.chars()
                         .enumerate()
                         .filter(|(_, c)| *c == '@')
-                        .map(move |(x, _)| IVec2::new(x as i32, y as i32))
+                        .map(move |(x, _)| IVec2::new(x as isize, y as isize))
                 })
                 .flatten()
                 .collect(),

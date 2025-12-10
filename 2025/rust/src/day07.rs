@@ -44,7 +44,7 @@ impl From<&str> for Tachyon {
 
         for (y, line) in value.trim().lines().enumerate() {
             for (x, ch) in line.chars().enumerate() {
-                let pos = IVec2::new(x as i32, y as i32);
+                let pos = IVec2::new(x as isize, y as isize);
                 match ch {
                     'S' => beams.hit(pos, 1),
                     '^' => {
