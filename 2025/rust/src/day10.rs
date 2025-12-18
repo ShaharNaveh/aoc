@@ -176,8 +176,8 @@ impl Machine {
 
     #[must_use]
     fn configure_joltage(&self) -> usize {
-        Self::configure_joltage_impl(&self.joltage, (1 << self.buttons.len()) - 1, &self.buttons)
-        // .expect("Could not find joltage configuration")
+        let buttons_mask = (1 << self.buttons.len()) - 1;
+        Self::configure_joltage_impl(&self.joltage, buttons_mask, &self.buttons)
     }
 
     #[must_use]
