@@ -1,6 +1,6 @@
 use crate::utils::IVec2;
 
-use std::ops::Deref;
+use std::{collections::HashSet, ops::Deref};
 
 pub fn solve(input: &str) {
     println!("{}", p1(&input));
@@ -57,8 +57,29 @@ fn p1(input: &str) -> i32 {
     pos.abs().element_sum()
 }
 
-fn p2(input: &str) -> usize {
-    0
+fn p2(input: &str) -> i32 {
+    let steps = Steps::from(input);
+    let mut dir = IVec2::Y;
+    let mut pos = IVec2::ZERO;
+
+    let mut visited = HashSet::new();
+    for step in steps.iter() {
+        dir = dir.rotate(step.turn);
+        let target = pos + (dir * IVec2::splat(step.count.try_into().unwrap()));
+
+        let diff = (target - pos).signum();
+        let dist = (target.x - pos.x).abs().max((target.y - pos.y).abs());
+
+        for _ in 0..dist {
+            pos += diff;
+
+            if !visited.insert(pos) {
+                return pos.abs().element_sum();
+            }
+        }
+    }
+
+    panic!("could not find a position that got visited twice");
 }
 
 #[cfg(test)]
@@ -78,5 +99,10 @@ mod tests {
     #[test]
     fn p1e3() {
         assert_eq!(p1("R5, L5, R5, R3"), 12);
+    }
+
+    #[test]
+    fn p2e1() {
+        assert_eq!(p2("R8, R4, R4, R8"), 4);
     }
 }

@@ -55,6 +55,12 @@ impl IVec2 {
         }
     }
 
+    #[inline]
+    #[must_use]
+    pub const fn signum(self) -> Self {
+        Self::new(self.x.signum(), self.y.signum())
+    }
+
     /*
     #[inline]
     #[must_use]
