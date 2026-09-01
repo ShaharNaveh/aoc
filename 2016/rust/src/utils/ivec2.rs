@@ -13,7 +13,7 @@ impl IVec2 {
     pub const Y: Self = Self::new(0, 1);
     pub const NEG_X: Self = Self::new(-1, 0);
     pub const NEG_Y: Self = Self::new(0, -1);
-    pub const XY: Self = Self::new(1, 1);
+    // pub const XY: Self = Self::new(1, 1);
     // pub const NEG_XY: Self = Self::new(-1, 1);
     // pub const X_NEG_Y: Self = Self::new(1, -1);
     // pub const NEG_X_NEG_Y: Self = Self::new(-1, -1);
