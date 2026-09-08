@@ -26,7 +26,13 @@ enum Equipment<'a> {
 
 impl<'a> From<&'a str> for Equipment<'a> {
     fn from(raw: &'a str) -> Self {
-        let (name, typ) = raw.split_once(' ').unwrap();
+        let (name, typ) = raw
+            .trim_start_matches("An ")
+            .trim_start_matches("A ")
+            .trim_end_matches('.')
+            .trim()
+            .split_once(' ')
+            .unwrap();
         match typ {
             "generator" => Self::Rtg(name.into()),
             "microchip" => {
@@ -315,7 +321,17 @@ fn p1(input: &str) -> usize {
 }
 
 fn p2(input: &str) -> usize {
-    0
+    let mut facility = Facility::from(input);
+    for raw in [
+        "An elerium generator.",
+        "An elerium-compatible microchip.",
+        "A dilithium generator.",
+        "A dilithium-compatible microchip.",
+    ] {
+        facility.floors[Floor::First].insert(raw.into());
+    }
+
+    Facility::solve(facility)
 }
 
 #[cfg(test)]
