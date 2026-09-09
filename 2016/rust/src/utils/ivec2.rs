@@ -18,7 +18,7 @@ impl IVec2 {
     // pub const X_NEG_Y: Self = Self::new(1, -1);
     // pub const NEG_X_NEG_Y: Self = Self::new(-1, -1);
 
-    // pub const NEIGHBORS_4: [Self; 4] = [Self::X, Self::Y, Self::NEG_X, Self::NEG_Y];
+    pub const NEIGHBORS_4: [Self; 4] = [Self::X, Self::Y, Self::NEG_X, Self::NEG_Y];
 
     #[inline]
     #[must_use]
