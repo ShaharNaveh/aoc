@@ -102,8 +102,7 @@ impl From<&str> for Instruction {
 struct Instructions(Box<[Instruction]>);
 
 impl Instructions {
-    fn solve(&self) -> isize {
-        let mut registers = Registers::default();
+    fn solve(&self, mut registers: Registers) -> isize {
         let mut ip = 0;
 
         while let Some(&instruction) = self.get(ip) {
@@ -196,11 +195,13 @@ impl IndexMut<&Register> for Registers {
 }
 
 fn p1(input: &str) -> isize {
-    Instructions::from(input).solve()
+    Instructions::from(input).solve(Registers::default())
 }
 
 fn p2(input: &str) -> isize {
-    0
+    let mut registers = Registers::default();
+    registers[Register('c')] = 1;
+    Instructions::from(input).solve(registers)
 }
 
 #[cfg(test)]
