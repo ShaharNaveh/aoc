@@ -19,17 +19,7 @@ struct Traps {
 impl Traps {
     fn is_trap(&self, pos: IVec2) -> bool {
         let left = self.contains(&(pos + IVec2::NEG_X_NEG_Y));
-        // let center = self.contains(&(pos + IVec2::NEG_Y));
         let right = self.contains(&(pos + IVec2::X_NEG_Y));
-
-        /*
-        if center {
-            left != right
-        } else {
-        }
-
-        false
-        */
 
         left != right
     }
