@@ -23,8 +23,8 @@ mod day18;
 mod day19;
 mod day20;
 mod day21;
-/*
 mod day22;
+/*
 mod day23;
 mod day24;
 mod day25;
@@ -57,8 +57,8 @@ fn main() {
         "19" => day19::solve(&input),
         "20" => day20::solve(&input),
         "21" => day21::solve(&input),
-        /*
         "22" => day22::solve(&input),
+        /*
         "23" => day23::solve(&input),
         "24" => day24::solve(&input),
         "25" => day25::solve(&input),

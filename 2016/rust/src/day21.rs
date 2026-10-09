@@ -273,7 +273,7 @@ mod tests {
             ("rotate based on position of letter d", "decab"),
         ] {
             password.execute(instruction.into());
-            assert_eq!(String::from(password), expected, "{instruction}");
+            assert_eq!(String::from(password.clone()), expected, "{instruction}");
         }
     }
 }

@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub};
+use std::ops::{Add, AddAssign, Div, Mul, Neg, Sub, SubAssign};
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq)]
 pub struct IVec2 {
@@ -32,13 +32,18 @@ impl IVec2 {
         Self { x: v, y: v }
     }
 
-    /*
+    #[inline]
+    #[must_use]
+    pub fn with_y(mut self, y: i32) -> Self {
+        self.y = y;
+        self
+    }
+
     #[inline]
     #[must_use]
     pub fn neighbors_4(&self) -> [Self; 4] {
         Self::NEIGHBORS_4.map(|offset| *self + offset)
     }
-    */
 
     #[inline]
     #[must_use]
@@ -61,7 +66,6 @@ impl IVec2 {
         Self::new(self.x.signum(), self.y.signum())
     }
 
-    /*
     #[inline]
     #[must_use]
     pub fn max(self, rhs: Self) -> Self {
@@ -70,7 +74,6 @@ impl IVec2 {
             y: self.y.max(rhs.y),
         }
     }
-    */
 
     #[inline]
     #[must_use]
@@ -159,5 +162,13 @@ impl Sub<IVec2> for IVec2 {
             x: self.x.sub(rhs.x),
             y: self.y.sub(rhs.y),
         }
+    }
+}
+
+impl SubAssign<IVec2> for IVec2 {
+    #[inline]
+    fn sub_assign(&mut self, rhs: Self) {
+        self.x.sub_assign(rhs.x);
+        self.y.sub_assign(rhs.y);
     }
 }
