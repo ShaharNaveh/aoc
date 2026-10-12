@@ -42,14 +42,14 @@ impl Day for Day01 {
         input.iter().sum()
     }
 
-    fn part2(input: &Self::Parsed) -> Option<usize> {
+    fn part2(input: &Self::Parsed) -> usize {
         let mut floor = 0i32;
 
         for (idx, offset) in input.iter().enumerate() {
             floor += offset;
 
             if floor.is_negative() {
-                return Some(idx + 1);
+                return idx + 1;
             }
         }
 
@@ -64,7 +64,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn p1e1() {
+    fn part1() {
         for (input, expected) in [
             ("(())", 0),
             ("()()", 0),
@@ -82,10 +82,10 @@ mod tests {
     }
 
     #[test]
-    fn p2e1() {
+    fn part2() {
         for (input, expected) in [(")", 1), ("()())", 5)] {
             let parsed = Day01::parse(input);
-            assert_eq!(Day01::part2(&parsed).unwrap(), expected, "{input}");
+            assert_eq!(Day01::part2(&parsed), expected, "{input}");
         }
     }
 }
