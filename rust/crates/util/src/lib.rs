@@ -1,4 +1,33 @@
-use std::fmt;
+pub mod ivec2;
+
+pub use ivec2::IVec2;
+
+pub trait Answer {
+    /// [`None`] means it's not implemented yet/NA.
+    fn try_get(&self) -> Option<String>;
+}
+
+macro_rules! impl_answer {
+    ($($t:ty),* $(,)?) => {
+        $(
+            impl Answer for $t {
+                fn try_get(&self) -> Option<String> {
+                    Some(self.to_string())
+                }
+            }
+        )*
+    };
+}
+
+impl_answer!(
+    u8, u16, u32, u64, u128, usize, i8, i16, i32, i64, i128, isize, f32, f64, String, &str,
+);
+
+impl<T: Answer> Answer for Option<T> {
+    fn try_get(&self) -> Option<String> {
+        self.as_ref().and_then(Answer::try_get)
+    }
+}
 
 pub trait Day {
     /// Result of parsing, shared by both parts.
@@ -6,10 +35,9 @@ pub trait Day {
 
     fn parse(input: &str) -> Self::Parsed;
 
-    fn part1(input: &Self::Parsed) -> impl fmt::Display;
+    fn part1(input: &Self::Parsed) -> impl Answer;
 
-    /// Optional, the default means that it's not implemented yet.
-    fn part2(_input: &Self::Parsed) -> Option<impl fmt::Display> {
+    fn part2(_input: &Self::Parsed) -> impl Answer {
         None::<&str>
     }
 }
@@ -24,9 +52,11 @@ pub fn read_input(default_path: &str) -> String {
 pub fn run<D: Day>(input: &str) {
     let parsed = D::parse(input.trim_end());
 
-    println!("{}", D::part1(&parsed));
+    if let Some(answer) = D::part1(&parsed).try_get() {
+        println!("{answer}");
+    }
 
-    if let Some(answer) = D::part2(&parsed) {
+    if let Some(answer) = D::part2(&parsed).try_get() {
         println!("{answer}");
     }
 }
