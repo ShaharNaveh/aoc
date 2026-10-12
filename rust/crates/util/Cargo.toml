@@ -1,0 +1,12 @@
+[package]
+name = "util"
+version = { workspace = true }
+edition = { workspace = true }
+
+[dependencies]
+
+[lib]
+doctest = false
+
+[lints]
+workspace = true
