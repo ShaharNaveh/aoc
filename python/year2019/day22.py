@@ -1,5 +1,6 @@
 import enum
 import re
+import unittest
 
 from utils import Day, main
 
@@ -30,6 +31,21 @@ def iter_puzzle(puzzle):
         yield technique, amount
 
 
+def find_position(instructions, cards: int = 10_007, card: int = 2019) -> int:
+    """Position of `card` after a single shuffle."""
+    pos = card
+    for technique, amount in instructions:
+        match technique:
+            case Technique.DealIntoNewStack:
+                pos = -pos - 1
+            case Technique.Cut:
+                pos -= amount
+            case Technique.DealWithIncrement:
+                pos *= amount
+        pos %= cards
+    return pos
+
+
 def solve(instructions, cards: int = 10_007, repeats: int = 1, idx: int = 2019):
     mul, diff = 1, 0
     for technique, amount in instructions:
@@ -53,10 +69,54 @@ class Day22(Day):
         return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
-        return solve(parsed)
+        return find_position(parsed)
 
     def part2(self, parsed):
         return solve(parsed, 119_315_717_514_047, 101_741_582_076_661, 2020)
+
+
+EXAMPLE_1 = """\
+deal with increment 7
+deal into new stack
+deal into new stack"""
+
+EXAMPLE_2 = """\
+cut 6
+deal with increment 7
+deal into new stack"""
+
+EXAMPLE_3 = """\
+deal with increment 7
+deal with increment 9
+cut -2"""
+
+EXAMPLE_4 = """\
+deal into new stack
+cut -2
+deal with increment 7
+cut 8
+cut -4
+deal with increment 7
+cut 3
+deal with increment 9
+deal with increment 3
+cut -1"""
+
+
+class Tests(unittest.TestCase):
+    def test_find_position(self):
+        # The puzzle gives each example's result as the final order of a 10 card deck.
+        for example, deck in [
+            (EXAMPLE_1, "0 3 6 9 2 5 8 1 4 7"),
+            (EXAMPLE_2, "3 0 7 4 1 8 5 2 9 6"),
+            (EXAMPLE_3, "6 3 0 7 4 1 8 5 2 9"),
+            (EXAMPLE_4, "9 2 5 8 1 4 7 0 3 6"),
+        ]:
+            parsed = Day22().parse(example)
+            deck = list(map(int, deck.split()))
+            with self.subTest(example=example):
+                for card in range(10):
+                    self.assertEqual(deck[find_position(parsed, 10, card)], card)
 
 
 if __name__ == "__main__":

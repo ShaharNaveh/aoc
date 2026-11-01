@@ -50,19 +50,30 @@ class Day01(Day):
         return sum(solve_p2(words))
 
 
+EXAMPLE_P1 = """\
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet"""
+
+EXAMPLE_P2 = """\
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen"""
+
+
 class Tests(unittest.TestCase):
     def test_part1(self):
         d = Day01()
-        example = "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet"
-        self.assertEqual(d.part1(d.parse(example)), 142)
+        self.assertEqual(d.part1(d.parse(EXAMPLE_P1)), 142)
 
     def test_part2(self):
         d = Day01()
-        example = (
-            "two1nine\neightwothree\nabcone2threexyz\nxtwone3four\n"
-            "4nineeightseven2\nzoneight234\n7pqrstsixteen"
-        )
-        self.assertEqual(d.part2(d.parse(example)), 281)
+        self.assertEqual(d.part2(d.parse(EXAMPLE_P2)), 281)
 
 
 if __name__ == "__main__":
