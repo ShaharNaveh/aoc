@@ -12,3 +12,38 @@ version = "0.1.0"
 dependencies = [
  "util",
 ]
+
+[[package]]
+name = "year2016"
+version = "0.1.0"
+dependencies = [
+ "util",
+]
+
+[[package]]
+name = "year2017"
+version = "0.1.0"
+dependencies = [
+ "util",
+]
+
+[[package]]
+name = "year2018"
+version = "0.1.0"
+dependencies = [
+ "util",
+]
+
+[[package]]
+name = "year2021"
+version = "0.1.0"
+dependencies = [
+ "util",
+]
+
+[[package]]
+name = "year2025"
+version = "0.1.0"
+dependencies = [
+ "util",
+]
