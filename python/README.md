@@ -52,7 +52,7 @@ if __name__ == "__main__":
     aoc_main(Day01)
 ```
 
-- `parse` runs once; each part receives its own deep copy of the result, so parts may
-  mutate it freely.
+- The runner calls `parse` separately for each part, so parts may mutate what they
+  receive.
 - Mark slow tests with `@utils.slow` (the equivalent of `#[ignore]`).
 - Helpers shared by several days of a year go in `yearYYYY/__init__.py` or a sibling module.

@@ -1,5 +1,4 @@
 import abc
-import copy
 import os
 import pathlib
 import sys
@@ -42,13 +41,13 @@ def read_input(default_path: pathlib.Path) -> str:
 
 def run(day: type[Day], input: str) -> None:
     solver = day()
-    parsed = solver.parse(input.rstrip())
+    input = input.rstrip()
 
-    # Each part gets its own copy, so parts are free to mutate it.
-    if (answer := solver.part1(copy.deepcopy(parsed))) is not None:
+    # Each part gets a freshly parsed value, so parts are free to mutate it.
+    if (answer := solver.part1(solver.parse(input))) is not None:
         print(answer)
 
-    if (answer := solver.part2(copy.deepcopy(parsed))) is not None:
+    if (answer := solver.part2(solver.parse(input))) is not None:
         print(answer)
 
 
