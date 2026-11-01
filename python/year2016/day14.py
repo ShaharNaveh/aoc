@@ -1,13 +1,11 @@
-#!/usr/bin/env python
 import functools
 import hashlib
 import itertools
-import pathlib
 import re
-from typing import TYPE_CHECKING
+import unittest
+from collections.abc import Iterable
 
-if TYPE_CHECKING:
-    from collections.abc import Iterable
+from utils import Day, aoc_main, slow
 
 PATTERN = re.compile(r"(.)\1\1")
 
@@ -47,23 +45,28 @@ def iter_keys(salt: str, f=build_hash):
         yield index
 
 
-def parse_puzzle(puzzle_file):
-    return puzzle_file.read_text().strip()
+class Day14(Day[str]):
+    def parse(self, input: str) -> str:
+        return input.strip()
+
+    def part1(self, parsed: str) -> int:
+        return next(itertools.islice(iter_keys(parsed), 64 - 1, None))
+
+    def part2(self, parsed: str) -> int:
+        f = functools.partial(build_hash, iterations=2016 + 1)
+        return next(itertools.islice(iter_keys(parsed, f), 64 - 1, None))
 
 
-def p1(puzzle_file):
-    salt = parse_puzzle(puzzle_file)
-    return next(itertools.islice(iter_keys(salt), 64 - 1, None))
+class Tests(unittest.TestCase):
+    def test_part1(self):
+        d = Day14()
+        self.assertEqual(d.part1(d.parse("abc")), 22728)
+
+    @slow
+    def test_part2(self):
+        d = Day14()
+        self.assertEqual(d.part2(d.parse("abc")), 22551)
 
 
-def p2(puzzle_file):
-    salt = parse_puzzle(puzzle_file)
-    f = functools.partial(build_hash, iterations=2016 + 1)
-    return next(itertools.islice(iter_keys(salt, f), 64 - 1, None))
-
-
-puzzle_file = pathlib.Path(__file__).parent / "puzzle.txt"
-# puzzle_file = puzzle_file.with_stem("test_puzzle")
-
-print(p1(puzzle_file))
-print(p2(puzzle_file))
+if __name__ == "__main__":
+    aoc_main(Day14)
