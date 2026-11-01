@@ -108,18 +108,17 @@ class Day16(Day):
         return Packet(parsed).val
 
 
-TEST_PUZZLE = """\
-D2FE28"""
+TEST_PUZZLE = "D2FE28"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day16()
+
     def test_part1_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 6)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 6)
 
     def test_part2_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 2021)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 2021)
 
 
 if __name__ == "__main__":

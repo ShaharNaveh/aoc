@@ -56,18 +56,17 @@ class Day23(Day):
         return next(it) * next(it)
 
 
-TEST_PUZZLE = """\
-389125467"""
+TEST_PUZZLE = "389125467"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day23()
+
     def test_part1_test_puzzle(self):
-        d = Day23()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), "67384529")
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), "67384529")
 
     def test_part2_test_puzzle(self):
-        d = Day23()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 149245887792)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 149245887792)
 
 
 if __name__ == "__main__":

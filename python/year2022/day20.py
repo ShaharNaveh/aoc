@@ -54,13 +54,13 @@ TEST_PUZZLE = """\
 
 
 class Tests(unittest.TestCase):
+    DAY = Day20()
+
     def test_part1_test_puzzle(self):
-        d = Day20()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 3)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 3)
 
     def test_part2_test_puzzle(self):
-        d = Day20()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 1623178306)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 1623178306)
 
 
 if __name__ == "__main__":

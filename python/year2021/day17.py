@@ -48,18 +48,17 @@ class Day17(Day):
         return sum(1 for _ in iter_pos(*parsed))
 
 
-TEST_PUZZLE = """\
-target area: x=20..30, y=-10..-5"""
+TEST_PUZZLE = "target area: x=20..30, y=-10..-5"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day17()
+
     def test_part1_test_puzzle(self):
-        d = Day17()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 45)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 45)
 
     def test_part2_test_puzzle(self):
-        d = Day17()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 112)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 112)
 
 
 if __name__ == "__main__":

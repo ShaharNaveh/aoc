@@ -67,13 +67,13 @@ zoneight234
 
 
 class Tests(unittest.TestCase):
+    DAY = Day01()
+
     def test_part1(self):
-        d = Day01()
-        self.assertEqual(d.part1(d.parse(EXAMPLE_P1)), 142)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(EXAMPLE_P1)), 142)
 
     def test_part2(self):
-        d = Day01()
-        self.assertEqual(d.part2(d.parse(EXAMPLE_P2)), 281)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(EXAMPLE_P2)), 281)
 
 
 if __name__ == "__main__":

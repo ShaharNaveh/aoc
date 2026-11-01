@@ -77,11 +77,12 @@ class Day11(Day):
         return ",".join(map(str, map(int, (pos.real, pos.imag, grid_size))))
 
 
-TEST_PUZZLE = """\
-42"""
+TEST_PUZZLE = "42"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day11()
+
     def test_power_level(self):
         for pos, serial_number, expected in [
             (3 + 5j, 8, 4),
@@ -93,16 +94,13 @@ class Tests(unittest.TestCase):
                 self.assertEqual(find_power_level(pos, serial_number), expected)
 
     def test_part1_test_puzzle(self):
-        d = Day11()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), "21,61")
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), "21,61")
 
     def test_part1_serial_18(self):
-        d = Day11()
-        self.assertEqual(d.part1(d.parse("18")), "33,45")
+        self.assertEqual(self.DAY.part1(self.DAY.parse("18")), "33,45")
 
     def test_part2_test_puzzle(self):
-        d = Day11()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), "232,251,12")
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), "232,251,12")
 
 
 if __name__ == "__main__":

@@ -124,9 +124,10 @@ seti 9 0 5"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day19()
+
     def test_part1_test_puzzle(self):
-        d = Day19()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 6)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 6)
 
 
 if __name__ == "__main__":

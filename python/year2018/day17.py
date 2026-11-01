@@ -121,9 +121,10 @@ y=13, x=498..504"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day17()
+
     def test_part2_test_puzzle(self):
-        d = Day17()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 29)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 29)
 
 
 if __name__ == "__main__":

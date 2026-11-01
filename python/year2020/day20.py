@@ -337,13 +337,13 @@ Tile 3079:
 
 
 class Tests(unittest.TestCase):
+    DAY = Day20()
+
     def test_part1_test_puzzle(self):
-        d = Day20()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 20899048083289)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 20899048083289)
 
     def test_part2_test_puzzle(self):
-        d = Day20()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 273)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 273)
 
 
 if __name__ == "__main__":

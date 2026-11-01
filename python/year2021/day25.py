@@ -60,9 +60,10 @@ v.v..>>v.v
 
 
 class Tests(unittest.TestCase):
+    DAY = Day25()
+
     def test_part1_test_puzzle(self):
-        d = Day25()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 58)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 58)
 
 
 if __name__ == "__main__":

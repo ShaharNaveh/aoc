@@ -124,13 +124,13 @@ Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsid
 
 
 class Tests(unittest.TestCase):
+    DAY = Day19()
+
     def test_part1_test_puzzle(self):
-        d = Day19()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 33)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 33)
 
     def test_part2_test_puzzle(self):
-        d = Day19()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 3472)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 3472)
 
 
 if __name__ == "__main__":

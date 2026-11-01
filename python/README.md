@@ -50,9 +50,10 @@ class Day01(Day):
 
 
 class Tests(unittest.TestCase):
+    DAY = Day01()
+
     def test_part1(self):
-        d = Day01()
-        self.assertEqual(d.part1(d.parse("(()(()(")), 3)
+        self.assertEqual(self.DAY.part1(self.DAY.parse("(()(()(")), 3)
 
 
 if __name__ == "__main__":

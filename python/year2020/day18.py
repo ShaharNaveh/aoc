@@ -45,18 +45,17 @@ class Day18(Day):
         return sum(solve(line, trans, transformers) for line in parsed)
 
 
-TEST_PUZZLE = """\
-((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"""
+TEST_PUZZLE = "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day18()
+
     def test_part1_test_puzzle(self):
-        d = Day18()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 13632)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 13632)
 
     def test_part2_test_puzzle(self):
-        d = Day18()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 23340)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 23340)
 
 
 if __name__ == "__main__":

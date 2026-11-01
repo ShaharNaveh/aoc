@@ -104,13 +104,13 @@ Valve JJ has flow rate=21; tunnel leads to valve II"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day16()
+
     def test_part1_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 1651)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 1651)
 
     def test_part2_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 1707)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 1707)
 
 
 if __name__ == "__main__":

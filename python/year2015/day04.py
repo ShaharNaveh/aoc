@@ -24,11 +24,12 @@ class Day04(Day):
 
 
 class Tests(unittest.TestCase):
+    DAY = Day04()
+
     def test_part1(self):
-        d = Day04()
         for inp, expected in [("abcdef", 609043), ("pqrstuv", 1048970)]:
             with self.subTest(inp=inp):
-                self.assertEqual(d.part1(d.parse(inp)), expected)
+                self.assertEqual(self.DAY.part1(self.DAY.parse(inp)), expected)
 
 
 if __name__ == "__main__":

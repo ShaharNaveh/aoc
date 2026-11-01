@@ -92,25 +92,25 @@ class Day17(Day):
 
 
 class Tests(unittest.TestCase):
+    DAY = Day17()
+
     def test_part1(self):
-        d = Day17()
         for inp, expected in [
             ("ihgpwlah", "DDRRRD"),
             ("kglvqrro", "DDUDRLRRUDRD"),
             ("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR"),
         ]:
             with self.subTest(inp=inp):
-                self.assertEqual(d.part1(d.parse(inp)), expected)
+                self.assertEqual(self.DAY.part1(self.DAY.parse(inp)), expected)
 
     def test_part2(self):
-        d = Day17()
         for inp, expected in [
             ("ihgpwlah", 370),
             ("kglvqrro", 492),
             ("ulqzkmiv", 830),
         ]:
             with self.subTest(inp=inp):
-                self.assertEqual(d.part2(d.parse(inp)), expected)
+                self.assertEqual(self.DAY.part2(self.DAY.parse(inp)), expected)
 
 
 if __name__ == "__main__":

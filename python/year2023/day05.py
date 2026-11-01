@@ -101,13 +101,13 @@ humidity-to-location map:
 
 
 class Tests(unittest.TestCase):
+    DAY = Day05()
+
     def test_part1(self):
-        d = Day05()
-        self.assertEqual(d.part1(d.parse(TEST_INPUT)), 35)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_INPUT)), 35)
 
     def test_part2(self):
-        d = Day05()
-        self.assertEqual(d.part2(d.parse(TEST_INPUT)), 46)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_INPUT)), 46)
 
 
 if __name__ == "__main__":

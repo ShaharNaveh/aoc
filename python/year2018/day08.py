@@ -49,18 +49,17 @@ class Day08(Day):
         return tree.value
 
 
-TEST_PUZZLE = """\
-2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"""
+TEST_PUZZLE = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day08()
+
     def test_part1_test_puzzle(self):
-        d = Day08()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 138)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 138)
 
     def test_part2_test_puzzle(self):
-        d = Day08()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 66)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 66)
 
 
 if __name__ == "__main__":

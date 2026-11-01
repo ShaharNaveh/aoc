@@ -71,9 +71,10 @@ Step F must be finished before step E can begin."""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day07()
+
     def test_part1_test_puzzle(self):
-        d = Day07()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), "CABDFE")
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), "CABDFE")
 
 
 if __name__ == "__main__":

@@ -182,9 +182,10 @@ noop"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day10()
+
     def test_part1_test_puzzle(self):
-        d = Day10()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 13140)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 13140)
 
 
 if __name__ == "__main__":

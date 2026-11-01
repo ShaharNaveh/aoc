@@ -104,6 +104,8 @@ cut -1"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day22()
+
     def test_find_position(self):
         # The puzzle gives each example's result as the final order of a 10 card deck.
         for example, deck in [
@@ -112,7 +114,7 @@ class Tests(unittest.TestCase):
             (EXAMPLE_3, "6 3 0 7 4 1 8 5 2 9"),
             (EXAMPLE_4, "9 2 5 8 1 4 7 0 3 6"),
         ]:
-            parsed = Day22().parse(example)
+            parsed = self.DAY.parse(example)
             deck = list(map(int, deck.split()))
             with self.subTest(example=example):
                 for card in range(10):

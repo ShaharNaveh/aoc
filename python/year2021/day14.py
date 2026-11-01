@@ -64,13 +64,13 @@ CN -> C"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day14()
+
     def test_part1_test_puzzle(self):
-        d = Day14()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 1588)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 1588)
 
     def test_part2_test_puzzle(self):
-        d = Day14()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 2188189693529)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 2188189693529)
 
 
 if __name__ == "__main__":

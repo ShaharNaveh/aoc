@@ -32,14 +32,14 @@ class Day09(Day):
         return play(max_players, last_marble * 100)
 
 
-TEST_PUZZLE = """\
-30 players; last marble is worth 5807 points"""
+TEST_PUZZLE = "30 players; last marble is worth 5807 points"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day09()
+
     def test_part1_test_puzzle(self):
-        d = Day09()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 37305)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 37305)
 
 
 if __name__ == "__main__":

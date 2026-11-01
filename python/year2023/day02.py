@@ -67,13 +67,13 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day02()
+
     def test_part1(self):
-        d = Day02()
-        self.assertEqual(d.part1(d.parse(EXAMPLE)), 8)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(EXAMPLE)), 8)
 
     def test_part2(self):
-        d = Day02()
-        self.assertEqual(d.part2(d.parse(EXAMPLE)), 2286)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(EXAMPLE)), 2286)
 
 
 if __name__ == "__main__":

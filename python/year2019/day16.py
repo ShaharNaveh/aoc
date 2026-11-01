@@ -59,14 +59,14 @@ class Day16(Day):
         return "".join(map(str, itertools.islice(reversed(signal), 0, 8)))
 
 
-TEST_PUZZLE = """\
-80871224585914546619083218645595"""
+TEST_PUZZLE = "80871224585914546619083218645595"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day16()
+
     def test_part1_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), "24176176")
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), "24176176")
 
 
 if __name__ == "__main__":

@@ -109,9 +109,10 @@ nearby tickets:
 
 
 class Tests(unittest.TestCase):
+    DAY = Day16()
+
     def test_part1_test_puzzle(self):
-        d = Day16()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 71)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 71)
 
 
 if __name__ == "__main__":

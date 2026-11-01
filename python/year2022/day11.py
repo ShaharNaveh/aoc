@@ -123,13 +123,13 @@ Monkey 3:
 
 
 class Tests(unittest.TestCase):
+    DAY = Day11()
+
     def test_part1_test_puzzle(self):
-        d = Day11()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 10605)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 10605)
 
     def test_part2_test_puzzle(self):
-        d = Day11()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 2713310158)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 2713310158)
 
 
 if __name__ == "__main__":

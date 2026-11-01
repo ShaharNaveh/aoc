@@ -44,13 +44,13 @@ EXAMPLE = """\
 
 
 class Tests(unittest.TestCase):
+    DAY = Day01()
+
     def test_part1(self):
-        d = Day01()
-        self.assertEqual(d.part1(d.parse(EXAMPLE)), 11)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(EXAMPLE)), 11)
 
     def test_part2(self):
-        d = Day01()
-        self.assertEqual(d.part2(d.parse(EXAMPLE)), 31)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(EXAMPLE)), 31)
 
 
 if __name__ == "__main__":

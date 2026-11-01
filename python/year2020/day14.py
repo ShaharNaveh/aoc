@@ -71,9 +71,10 @@ mem[26] = 1"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day14()
+
     def test_part2_test_puzzle(self):
-        d = Day14()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 208)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 208)
 
 
 if __name__ == "__main__":

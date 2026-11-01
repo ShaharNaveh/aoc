@@ -104,13 +104,13 @@ TEST_INPUT = """\
 
 
 class Tests(unittest.TestCase):
+    DAY = Day05()
+
     def test_part1_test_input(self):
-        d = Day05()
-        self.assertEqual(d.part1(d.parse(TEST_INPUT)), 143)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_INPUT)), 143)
 
     def test_part2_test_input(self):
-        d = Day05()
-        self.assertEqual(d.part2(d.parse(TEST_INPUT)), 123)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_INPUT)), 123)
 
 
 if __name__ == "__main__":

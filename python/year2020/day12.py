@@ -87,13 +87,13 @@ F11"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day12()
+
     def test_part1_test_puzzle(self):
-        d = Day12()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 25)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 25)
 
     def test_part2_test_puzzle(self):
-        d = Day12()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 286)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 286)
 
 
 if __name__ == "__main__":

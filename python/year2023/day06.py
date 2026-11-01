@@ -47,13 +47,13 @@ Distance:  9  40  200"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day06()
+
     def test_part1(self):
-        d = Day06()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 288)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 288)
 
     def test_part2(self):
-        d = Day06()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 71503)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 71503)
 
 
 if __name__ == "__main__":

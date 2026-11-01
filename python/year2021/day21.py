@@ -69,13 +69,13 @@ Player 2 starting position: 8"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day21()
+
     def test_part1_test_puzzle(self):
-        d = Day21()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 739785)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 739785)
 
     def test_part2_test_puzzle(self):
-        d = Day21()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 444356092776315)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 444356092776315)
 
 
 if __name__ == "__main__":

@@ -65,13 +65,13 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day04()
+
     def test_part1(self):
-        d = Day04()
-        self.assertEqual(d.part1(d.parse(EXAMPLE)), 13)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(EXAMPLE)), 13)
 
     def test_part2(self):
-        d = Day04()
-        self.assertEqual(d.part2(d.parse(EXAMPLE)), 30)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(EXAMPLE)), 30)
 
 
 if __name__ == "__main__":

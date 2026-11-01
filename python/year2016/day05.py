@@ -47,13 +47,13 @@ class Day05(Day):
 
 
 class Tests(unittest.TestCase):
+    DAY = Day05()
+
     def test_part1(self):
-        d = Day05()
-        self.assertEqual(d.part1(d.parse("abc")), "18f47a30")
+        self.assertEqual(self.DAY.part1(self.DAY.parse("abc")), "18f47a30")
 
     def test_part2(self):
-        d = Day05()
-        self.assertEqual(d.part2(d.parse("abc")), "05ace8e3")
+        self.assertEqual(self.DAY.part2(self.DAY.parse("abc")), "05ace8e3")
 
 
 if __name__ == "__main__":

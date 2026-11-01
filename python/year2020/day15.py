@@ -24,18 +24,17 @@ class Day15(Day):
         return simulate(parsed, 30_000_000)
 
 
-TEST_PUZZLE = """\
-0,3,6"""
+TEST_PUZZLE = "0,3,6"
 
 
 class Tests(unittest.TestCase):
+    DAY = Day15()
+
     def test_part1_test_puzzle(self):
-        d = Day15()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 436)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 436)
 
     def test_part2_test_puzzle(self):
-        d = Day15()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 175594)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 175594)
 
 
 if __name__ == "__main__":

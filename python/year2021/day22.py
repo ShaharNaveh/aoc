@@ -201,25 +201,24 @@ off x=-93533..-4276,y=-16170..68771,z=-104985..-24507"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day22()
+
     def test_part1_small(self):
-        d = Day22()
-        self.assertEqual(d.part1(d.parse(SMALL)), 39)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(SMALL)), 39)
 
     def test_part2_small(self):
-        d = Day22()
-        self.assertEqual(d.part2(d.parse(SMALL)), 39)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(SMALL)), 39)
 
     def test_part1_test_puzzle(self):
-        d = Day22()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 590784)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 590784)
 
     def test_part1_test_puzzle_p2(self):
-        d = Day22()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE_P2)), 474140)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE_P2)), 474140)
 
     def test_part2_test_puzzle_p2(self):
-        d = Day22()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE_P2)), 2758514936282235)
+        self.assertEqual(
+            self.DAY.part2(self.DAY.parse(TEST_PUZZLE_P2)), 2758514936282235
+        )
 
 
 if __name__ == "__main__":

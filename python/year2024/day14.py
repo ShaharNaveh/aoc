@@ -100,9 +100,10 @@ p=9,5 v=-3,-3"""
 
 
 class Tests(unittest.TestCase):
+    DAY = Day14(bounds=11 + 7j)
+
     def test_part1(self):
-        d = Day14(bounds=11 + 7j)
-        self.assertEqual(d.part1(d.parse(EXAMPLE)), 12)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(EXAMPLE)), 12)
 
 
 if __name__ == "__main__":

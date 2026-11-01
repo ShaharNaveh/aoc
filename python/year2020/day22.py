@@ -79,13 +79,13 @@ Player 2:
 
 
 class Tests(unittest.TestCase):
+    DAY = Day22()
+
     def test_part1_test_puzzle(self):
-        d = Day22()
-        self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 306)
+        self.assertEqual(self.DAY.part1(self.DAY.parse(TEST_PUZZLE)), 306)
 
     def test_part2_test_puzzle(self):
-        d = Day22()
-        self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 291)
+        self.assertEqual(self.DAY.part2(self.DAY.parse(TEST_PUZZLE)), 291)
 
 
 if __name__ == "__main__":
