@@ -139,29 +139,29 @@ mod tests {
             (
                 r#""""#,
                 Spec {
-                    chars: 6,
-                    memory: 0,
+                    chars: 2,
+                    memory: 6,
                 },
             ),
             (
                 r#""abc""#,
                 Spec {
-                    chars: 9,
-                    memory: 3,
+                    chars: 5,
+                    memory: 9,
                 },
             ),
             (
                 r#""aaa\"aaa""#,
                 Spec {
-                    chars: 16,
-                    memory: 7,
+                    chars: 10,
+                    memory: 16,
                 },
             ),
             (
                 r#""\x27""#,
                 Spec {
-                    chars: 11,
-                    memory: 1,
+                    chars: 6,
+                    memory: 11,
                 },
             ),
         ] {
