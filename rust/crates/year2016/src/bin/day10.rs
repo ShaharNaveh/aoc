@@ -431,7 +431,6 @@ value 2 goes to bot 2
 "
         .trim();
         let mut factory = Factory::from(instr);
-        dbg!(&factory);
-        assert_eq!(factory.responsible(5, 2), 3.into());
+        assert_eq!(factory.responsible(5, 2), 2.into());
     }
 }
