@@ -75,18 +75,20 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./${{ inputs.year }}/${{ inputs.language }}/${{ inputs.day }}
+        working-directory: ./${{ inputs.language }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           sparse-checkout: |
-            ${{ inputs.year }}/${{ inputs.language }}/${{ inputs.day }}
+            ${{ inputs.language }}
+            inputs
           persist-credentials: false
-          
+
+      # ubuntu-latest ships Python 3.12, which is all the python/ package needs.
       - name: Solve (python)
-        run: python -OOO ./solve.py
+        run: python -OO -m year${{ inputs.year }}.day${{ inputs.day }}
         if: ${{ inputs.language == 'python' }}
 
       - name: Solve (rust)
-        run: cargo run --quiet --release
+        run: cargo run --quiet --release -p year${{ inputs.year }} --bin day${{ inputs.day }}
         if: ${{ inputs.language == 'rust' }}
