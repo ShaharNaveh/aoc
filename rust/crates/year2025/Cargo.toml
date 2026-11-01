@@ -1,0 +1,11 @@
+[package]
+name = "year2025"
+default-run = "day12"
+version = { workspace = true }
+edition = { workspace = true }
+
+[dependencies]
+util = { workspace = true }
+
+[lints]
+workspace = true

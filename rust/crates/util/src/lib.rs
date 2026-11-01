@@ -6,9 +6,16 @@ pub fn calculate_hash<T: Hash>(t: &T) -> u64 {
     s.finish()
 }
 
-pub mod ivec2;
+pub mod num;
+pub mod vec2;
+pub mod vec3;
 
-pub use ivec2::IVec2;
+pub use num::Num;
+pub use vec2::Vec2;
+pub use vec3::Vec3;
+
+pub type IVec2 = Vec2<i32>;
+pub type IVec3 = Vec3<i32>;
 
 pub trait Answer {
     /// [`None`] means it's not implemented yet/NA.
