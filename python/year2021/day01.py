@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def sliding_window(iterable, n: int = 2):
@@ -18,8 +18,8 @@ def iter_puzzle(puzzle):
 
 
 class Day01(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(r > l for l, r in sliding_window(parsed))
@@ -29,4 +29,4 @@ class Day01(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day01)
+    run(Day01)

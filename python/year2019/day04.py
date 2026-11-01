@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def is_valid_password(num: int, *, is_p2: bool = False) -> bool:
@@ -23,8 +23,8 @@ def is_valid_password(num: int, *, is_p2: bool = False) -> bool:
 
 
 class Day04(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         start, stop = map(int, inp.split("-"))
         return range(start, stop + 1)
 
@@ -36,4 +36,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

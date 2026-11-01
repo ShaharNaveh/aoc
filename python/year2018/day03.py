@@ -3,7 +3,7 @@ import itertools
 import re
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Claim(typing.NamedTuple):
@@ -48,8 +48,8 @@ def iter_puzzle(puzzle):
 
 
 class Day03(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(len(claims) >= 2 for claims in find_overlaps(parsed).values())
@@ -65,4 +65,4 @@ class Day03(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

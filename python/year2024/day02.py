@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def is_safe(level):
@@ -27,9 +27,9 @@ def iter_dampened_safe(levels):
                 break
 
 
-class Day02(Day[list[list[int]]]):
-    def parse(self, input: str) -> list[list[int]]:
-        return [list(map(int, line.split(" "))) for line in input.splitlines()]
+class Day02(Day):
+    def parse(self, inp: str) -> list[list[int]]:
+        return [list(map(int, line.split(" "))) for line in inp.splitlines()]
 
     def part1(self, levels: list[list[int]]) -> int:
         return sum(map(is_safe, levels))
@@ -58,4 +58,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day02)
+    run(Day02)

@@ -3,7 +3,7 @@ import math
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 FUNCS = {0: sum, 1: math.prod, 2: min, 3: max}
 COMPS = {5: operator.gt, 6: operator.lt, 7: operator.eq}
@@ -97,8 +97,8 @@ def hex_to_bits(h: str) -> str:
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return hex_to_bits(inp)
 
     def part1(self, parsed):
@@ -123,4 +123,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

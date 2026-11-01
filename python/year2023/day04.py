@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def parse_line(line):
@@ -45,8 +45,8 @@ def solve_p1(cards):
 
 
 class Day04(Day):
-    def parse(self, input: str):
-        return list(map(parse_line, input.splitlines()))
+    def parse(self, inp: str):
+        return list(map(parse_line, inp.splitlines()))
 
     def part1(self, cards) -> int:
         return sum(solve_p1(cards))
@@ -75,4 +75,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

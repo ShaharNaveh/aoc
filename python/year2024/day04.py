@@ -2,7 +2,7 @@ import enum
 import unittest
 from typing import NamedTuple
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Cord(NamedTuple):
@@ -80,9 +80,9 @@ def is_xmas(
     return True
 
 
-class Day04(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day04(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         inp = puzzle.strip().lower()
@@ -174,4 +174,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 NUMPAD = {
     "0": 1 + 3j,
@@ -55,8 +55,8 @@ def best_robot(path, robots):
 
 
 class Day21(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         for code in inp.splitlines():
             yield code, int(code.removesuffix("A"))
 
@@ -78,4 +78,4 @@ class Day21(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day21)
+    run(Day21)

@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def parse_board(raw: str) -> frozenset[frozenset[int]]:
@@ -26,8 +26,8 @@ def simulate(nums, boards):
 
 
 class Day04(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_nums, *raw_boards = inp.split("\n" * 2)
 
         nums = tuple(map(int, raw_nums.split(",")))
@@ -44,4 +44,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

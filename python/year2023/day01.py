@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def solve_p1(lst):
@@ -39,9 +39,9 @@ def solve_p2(lst):
         yield int(res)
 
 
-class Day01(Day[list[str]]):
-    def parse(self, input: str) -> list[str]:
-        return list(map(str.strip, input.splitlines()))
+class Day01(Day):
+    def parse(self, inp: str) -> list[str]:
+        return list(map(str.strip, inp.splitlines()))
 
     def part1(self, words: list[str]) -> int:
         return sum(solve_p1(words))
@@ -66,4 +66,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day01)
+    run(Day01)

@@ -4,7 +4,7 @@ import itertools
 import operator
 import random
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
@@ -70,8 +70,8 @@ def iter_puzzle(puzzle):
 
 
 class Day24(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         BOUNDS_MIN = 200_000_000_000_000
@@ -140,4 +140,4 @@ class Day24(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day24)
+    run(Day24)

@@ -1,7 +1,7 @@
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Node(typing.NamedTuple):
@@ -36,8 +36,8 @@ class Node(typing.NamedTuple):
 
 
 class Day08(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return list(map(int, inp.split()))
 
     def part1(self, parsed):
@@ -64,4 +64,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day08)
+    run(Day08)

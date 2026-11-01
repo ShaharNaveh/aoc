@@ -1,7 +1,7 @@
 import itertools
 import math
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def steps_to_reach(instructions, nodes, start_nodes, end_nodes):
@@ -15,8 +15,8 @@ def steps_to_reach(instructions, nodes, start_nodes, end_nodes):
 
 
 class Day08(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         instructions_block, nodes_block = inp.split("\n" * 2)
 
         instructions_block = instructions_block.replace("L", "0").replace("R", "1")
@@ -51,4 +51,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day08)
+    run(Day08)

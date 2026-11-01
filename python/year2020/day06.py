@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_puzzle(puzzle):
@@ -12,8 +12,8 @@ def iter_puzzle(puzzle):
 
 
 class Day06(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(len(functools.reduce(frozenset.union, group)) for group in parsed)
@@ -25,4 +25,4 @@ class Day06(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day06)
+    run(Day06)

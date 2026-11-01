@@ -1,7 +1,7 @@
 import collections
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def hash_str(s: str) -> int:
@@ -21,8 +21,8 @@ def iter_puzzle(puzzle):
 
 
 class Day15(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(map(hash_str, parsed))
@@ -59,4 +59,4 @@ class Day15(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

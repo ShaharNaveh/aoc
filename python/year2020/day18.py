@@ -1,7 +1,7 @@
 import ast
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Sub2Mult(ast.NodeTransformer):
@@ -31,8 +31,8 @@ def iter_puzzle(puzzle):
 
 
 class Day18(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         trans = str.maketrans({"*": "-"})
@@ -60,4 +60,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day18)
+    run(Day18)

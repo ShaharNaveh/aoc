@@ -1,7 +1,7 @@
 import enum
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -49,8 +49,8 @@ def solve(instructions, cards: int = 10_007, repeats: int = 1, idx: int = 2019):
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return solve(parsed)
@@ -60,4 +60,4 @@ class Day22(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

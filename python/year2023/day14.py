@@ -1,4 +1,4 @@
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def tilt_cycle(grid: tuple[str, ...]) -> tuple[str, ...]:
@@ -28,8 +28,8 @@ def calc_load(grid: tuple[str, ...]) -> int:
 
 
 class Day14(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return tuple(inp.splitlines())
 
     def part1(self, grid):
@@ -53,4 +53,4 @@ class Day14(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day14)
+    run(Day14)

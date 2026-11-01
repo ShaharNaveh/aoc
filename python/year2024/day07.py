@@ -2,7 +2,7 @@ import functools
 import itertools
 import operator
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_puzzle(puzzle):
@@ -21,8 +21,8 @@ def is_possible(nums: list[int], val: int, allowed_ops: list[callable]) -> bool:
 
 
 class Day07(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         allowed_ops = [operator.add, operator.mul]
@@ -44,4 +44,4 @@ class Day07(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day07)
+    run(Day07)

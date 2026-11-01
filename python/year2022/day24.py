@@ -3,7 +3,7 @@ import heapq
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Blizzard(typing.NamedTuple):
@@ -75,8 +75,8 @@ def walk(
 
 
 class Day24(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         lines = inp.splitlines()
         max_x, max_y = len(lines[0]) - 1, len(lines) - 1
 
@@ -135,4 +135,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day24)
+    run(Day24)

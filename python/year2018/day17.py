@@ -2,7 +2,7 @@ import collections
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Grid = collections.defaultdict[complex, str]
 
@@ -80,8 +80,8 @@ def find_bounds(grid: Grid) -> tuple[int, int, int, int]:
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         grid = collections.defaultdict(lambda: ".")
         for line in inp.splitlines():
             axis = line[0]
@@ -127,4 +127,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

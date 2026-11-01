@@ -2,7 +2,7 @@ import enum
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -97,8 +97,8 @@ def execute(
 
 
 class Day19(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_ip, *raw_instructions = inp.splitlines()
         ip = int(raw_ip.split()[-1])
         instructions = tuple(map(Instruction.from_str, raw_instructions))
@@ -130,4 +130,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

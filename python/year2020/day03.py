@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def slide(trees: frozenset[complex], bounds: complex, slope: complex = 3 + 1j) -> int:
@@ -14,8 +14,8 @@ def slide(trees: frozenset[complex], bounds: complex, slope: complex = 3 + 1j) -
 
 
 class Day03(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         lines = inp.splitlines()
         bounds = complex(*map(len, (lines[0], lines)))
         trees = frozenset(
@@ -62,4 +62,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

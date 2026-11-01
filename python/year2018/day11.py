@@ -2,7 +2,7 @@ import functools
 import itertools
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 MIN_GRID_SIZE, MAX_GRID_SIZE = 1, 300
 type PrefixSum = collections.defaultdict[complex, int]
@@ -40,8 +40,8 @@ def find_grid_power_level(pos: complex, grid_size: int, serial_number: int) -> i
 
 
 class Day11(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return int(inp)
 
     def part1(self, serial_number):
@@ -79,11 +79,10 @@ TEST_PUZZLE = """\
 
 
 class Tests(unittest.TestCase):
-    @slow
     def test_part2_test_puzzle(self):
         d = Day11()
         self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), "232,251,12")
 
 
 if __name__ == "__main__":
-    aoc_main(Day11)
+    run(Day11)

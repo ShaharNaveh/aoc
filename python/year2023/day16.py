@@ -1,6 +1,6 @@
 import enum
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -74,8 +74,8 @@ def count_energized(
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): tile
             for y, line in enumerate(inp.splitlines())
@@ -102,4 +102,4 @@ class Day16(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

@@ -3,7 +3,7 @@ import enum
 import itertools
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -122,8 +122,8 @@ def run(program: list[int], inputs: list[int]):
 
 
 class Day07(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return list(map(int, inp.split(",")))
 
     def part1(self, program):
@@ -157,4 +157,4 @@ class Day07(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day07)
+    run(Day07)

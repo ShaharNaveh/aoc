@@ -1,4 +1,4 @@
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def overlap(s1: set[int], s2: set[int], *, is_p2: bool = False):
@@ -19,8 +19,8 @@ def iter_puzzle(puzzle):
 
 
 class Day04(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(overlap(*pair) for pair in parsed)
@@ -30,4 +30,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

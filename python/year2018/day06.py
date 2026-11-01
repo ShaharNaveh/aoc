@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def manhattan(a: complex, b: complex) -> int:
@@ -68,8 +68,8 @@ def find_safe(coords: frozenset[complex]) -> int:
 
 
 class Day06(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return frozenset(
             complex(*map(int, line.split(","))) for line in inp.splitlines()
         )
@@ -82,4 +82,4 @@ class Day06(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day06)
+    run(Day06)

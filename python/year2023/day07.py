@@ -2,7 +2,7 @@ import collections
 import functools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 BASE_REPLACE = {
     "A": "Z",
@@ -51,9 +51,9 @@ def solve(txt: str, cmp_func: callable):
     return sum(int(bid) * rank for rank, (_, bid) in enumerate(hands_s, start=1))
 
 
-class Day07(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day07(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         inp = puzzle.strip()
@@ -92,4 +92,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day07)
+    run(Day07)

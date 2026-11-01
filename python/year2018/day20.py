@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 OFFSETS = {"N": -1j, "W": -1, "S": 1j, "E": 1}
 
@@ -28,8 +28,8 @@ def find_distances(instructions: str) -> tuple[int, ...]:
 
 
 class Day20(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return inp[1:-1]
 
     def part1(self, parsed):
@@ -54,4 +54,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day20)
+    run(Day20)

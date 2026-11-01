@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_pattern(r: int):
@@ -36,9 +36,9 @@ def parse_puzzle(puzzle, *, is_p2: bool = False):
     return tuple(map(int, inp))
 
 
-class Day16(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day16(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         return "".join(
@@ -70,4 +70,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

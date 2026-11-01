@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 T = "({})"
 
@@ -33,8 +33,8 @@ def build_pattern(
 
 
 class Day19(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_rules, raw_messages = inp.split("\n" * 2)
 
         rules = {
@@ -81,4 +81,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

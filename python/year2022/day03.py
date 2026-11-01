@@ -2,7 +2,7 @@ import functools
 import itertools
 import string
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def split_str(s: str) -> tuple[set[str], set[str]]:
@@ -19,9 +19,9 @@ def iter_puzzle(puzzle, *, is_p2: bool = False):
     yield from itertools.batched(inp.splitlines(), 3 if is_p2 else 1)
 
 
-class Day03(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day03(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         return sum(
@@ -41,4 +41,4 @@ class Day03(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

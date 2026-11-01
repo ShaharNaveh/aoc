@@ -4,7 +4,7 @@ import itertools
 import re
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Registers = dict[int, int]
 
@@ -124,8 +124,8 @@ def find_opcodes(samples: tuple[Sample, ...]) -> dict[int, Opcode]:
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_samples, raw_test_program = inp.split("\n" * 4)
         samples = tuple(map(Sample.from_str, raw_samples.split("\n" * 2)))
         test_program = [
@@ -149,4 +149,4 @@ class Day16(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_gear_ratios(grid):
@@ -40,9 +40,9 @@ def iter_gear_ratios(grid):
             yield buf[0] * buf[1]
 
 
-class Day03(Day[list[str]]):
-    def parse(self, input: str) -> list[str]:
-        return input.splitlines()
+class Day03(Day):
+    def parse(self, inp: str) -> list[str]:
+        return inp.splitlines()
 
     def part1(self, grid: list[str]) -> int:
         digits_pos = set()  # stores the pos of digits next to symbols
@@ -107,4 +107,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

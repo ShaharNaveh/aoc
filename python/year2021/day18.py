@@ -4,7 +4,7 @@ import json
 import math
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def add_left(sf: list | int, n: int | None):
@@ -87,8 +87,8 @@ def iter_puzzle(puzzle):
 
 
 class Day18(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return magnitude(functools.reduce(add, parsed))
@@ -126,4 +126,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day18)
+    run(Day18)

@@ -1,7 +1,7 @@
 import functools
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def manhattan(a: complex, b: complex) -> int:
@@ -34,8 +34,8 @@ def iter_galaxies(universe: list[list[str]]):
 
 
 class Day11(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         universe = [list(row) for row in inp.splitlines()]
         return universe
 
@@ -62,4 +62,4 @@ class Day11(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day11)
+    run(Day11)

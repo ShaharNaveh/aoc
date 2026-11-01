@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @functools.cache
@@ -30,8 +30,8 @@ def iter_puzzle(puzzle):
 
 
 class Day12(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(recurse(*entry) for entry in parsed)
@@ -43,4 +43,4 @@ class Day12(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day12)
+    run(Day12)

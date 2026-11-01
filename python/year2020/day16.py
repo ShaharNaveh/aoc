@@ -3,7 +3,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Field(typing.NamedTuple):
@@ -56,8 +56,8 @@ def build_fields_index(
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_fields, raw_my_ticket, raw_nearby_tickets = inp.split("\n" * 2)
 
         fields = frozenset(map(Field.from_str, raw_fields.splitlines()))
@@ -115,4 +115,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

@@ -8,7 +8,7 @@ from operator import (
     xor as XOR,
 )
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 OPS = {"AND": AND, "OR": OR, "XOR": XOR}
 
@@ -28,8 +28,8 @@ def resolve_gate(gate: str, wires: dict, gates: dict):
 
 
 class Day24(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         wires_block, gates_block = inp.split("\n" * 2)
         wires = {
             wire: int(val)
@@ -83,4 +83,4 @@ class Day24(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day24)
+    run(Day24)

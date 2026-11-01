@@ -5,7 +5,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Vec3(typing.NamedTuple):
@@ -80,8 +80,8 @@ def iter_puzzle(puzzle):
 
 
 class Day19(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         beacons, _ = solve(parsed)
@@ -242,4 +242,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

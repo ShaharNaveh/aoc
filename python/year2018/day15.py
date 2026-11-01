@@ -5,7 +5,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Units = tuple["Unit", ...]
 type Walkable = frozenset["Pos"]
@@ -150,8 +150,8 @@ def simulate(units: Units, walkable: Walkable) -> tuple[int, Units]:
 
 
 class Day15(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
 
         units, walkable = [], set()
         for y, row in enumerate(inp.splitlines()):
@@ -205,4 +205,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

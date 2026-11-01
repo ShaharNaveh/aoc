@@ -1,6 +1,6 @@
 import math
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 OFFSETS = (1, -1, 1j, -1j)
 
@@ -47,8 +47,8 @@ def is_tree_visible(pos: complex, grid: dict[complex, int], bounds: complex) -> 
 
 
 class Day08(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): int(tree)
             for y, line in enumerate(inp.splitlines())
@@ -65,4 +65,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day08)
+    run(Day08)

@@ -1,4 +1,4 @@
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def is_valid(line: str, *, is_p2: bool = False) -> bool:
@@ -18,8 +18,8 @@ def iter_puzzle(puzzle):
 
 
 class Day02(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(map(is_valid, parsed))
@@ -29,4 +29,4 @@ class Day02(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day02)
+    run(Day02)

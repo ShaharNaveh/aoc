@@ -1,12 +1,12 @@
 import collections
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Day04(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
 
         guards = collections.defaultdict(set)
         times = collections.defaultdict(int)
@@ -45,4 +45,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

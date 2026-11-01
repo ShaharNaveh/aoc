@@ -6,7 +6,7 @@ import operator
 import re
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
@@ -105,8 +105,8 @@ def iter_puzzle(puzzle):
 
 
 class Day19(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(mine(blueprint) * blueprint._id for blueprint in parsed)
@@ -124,16 +124,14 @@ Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsid
 
 
 class Tests(unittest.TestCase):
-    @slow
     def test_part1_test_puzzle(self):
         d = Day19()
         self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 33)
 
-    @slow
     def test_part2_test_puzzle(self):
         d = Day19()
         self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 3472)
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

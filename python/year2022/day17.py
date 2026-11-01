@@ -3,7 +3,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -94,8 +94,8 @@ def simulate(jets, count: int = 2022) -> int:
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         dct = {"<": operator.lshift, ">": operator.rshift}
         return tuple(itertools.starmap(Jet, enumerate(map(dct.get, inp))))
 
@@ -121,4 +121,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

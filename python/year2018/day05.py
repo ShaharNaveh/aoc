@@ -1,7 +1,7 @@
 import re
 import string
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 PATTERN = re.compile(
     "|".join(
@@ -17,8 +17,8 @@ def react(polymer: str) -> int:
 
 
 class Day05(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return inp
 
     def part1(self, parsed):
@@ -32,4 +32,4 @@ class Day05(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day05)
+    run(Day05)

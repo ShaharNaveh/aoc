@@ -2,7 +2,7 @@ import dataclasses
 import heapq
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
@@ -61,9 +61,9 @@ def parse_puzzle(puzzle):
     )
 
 
-class Day21(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day21(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         start_pos, plots = parse_puzzle(puzzle)
@@ -98,4 +98,4 @@ class Day21(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day21)
+    run(Day21)

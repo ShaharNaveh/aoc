@@ -3,7 +3,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Vec3(typing.NamedTuple):
@@ -32,8 +32,8 @@ class Nanobot(typing.NamedTuple):
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return frozenset(map(Nanobot.from_str, inp.splitlines()))
 
     def part1(self, nanobots):
@@ -77,4 +77,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

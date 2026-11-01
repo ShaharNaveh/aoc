@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 DIRECTIONS = {0 + 1j, 1, 0 - 1j, -1}
 
@@ -60,8 +60,8 @@ def calc_cost(puzzle, *, is_p2: bool = False) -> int:
 
 
 class Day12(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         puzzle = {}
         for row_idx, row in enumerate(inp.splitlines()):
             for col_idx, plant in enumerate(row):
@@ -78,4 +78,4 @@ class Day12(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day12)
+    run(Day12)

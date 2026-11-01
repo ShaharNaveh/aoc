@@ -1,7 +1,7 @@
 import enum
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 DIRECTIONS = {i: offset for i, offset in enumerate((-1j, 1j, -1, 1), 1)}
 
@@ -180,8 +180,8 @@ def scan_area(memory: dict[int, int]) -> tuple[dict, complex, int]:
 
 
 class Day15(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return dict(enumerate(map(int, inp.split(","))))
 
     def part1(self, parsed):
@@ -208,4 +208,4 @@ class Day15(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

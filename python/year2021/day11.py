@@ -1,7 +1,7 @@
 import functools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @functools.cache
@@ -38,8 +38,8 @@ def simulate(grid):
 
 
 class Day11(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): int(val)
             for y, row in enumerate(inp.splitlines())
@@ -86,4 +86,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day11)
+    run(Day11)

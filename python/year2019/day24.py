@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Bug = complex
 type DepthBug = tuple[int, Bug]
@@ -86,8 +86,8 @@ def rinfest(bugs: DepthBugs) -> DepthBugs:
 
 
 class Day24(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return frozenset(
             complex(x, y)
             for y, row in enumerate(inp.splitlines())
@@ -128,4 +128,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day24)
+    run(Day24)

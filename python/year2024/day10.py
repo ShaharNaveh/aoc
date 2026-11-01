@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def available_trails(puzzle):
@@ -22,8 +22,8 @@ def available_trails(puzzle):
 
 
 class Day10(Day):
-    def parse(self, input: str):
-        inp = input.strip().replace(".", "0")
+    def parse(self, inp: str):
+        inp = inp.strip().replace(".", "0")
         puzzle = {}
         for row_idx, row in enumerate(inp.splitlines()):
             for col_idx, num in enumerate(row):
@@ -63,4 +63,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day10)
+    run(Day10)

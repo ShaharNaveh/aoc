@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 CUBE_LIMIT = {
     "red": 12,
@@ -48,8 +48,8 @@ def solve_p2(games):
 
 
 class Day02(Day):
-    def parse(self, input: str):
-        return list(map(parse_game_line, map(str.strip, input.splitlines())))
+    def parse(self, inp: str):
+        return list(map(parse_game_line, map(str.strip, inp.splitlines())))
 
     def part1(self, games) -> int:
         return sum(solve_p1(games))
@@ -77,4 +77,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day02)
+    run(Day02)

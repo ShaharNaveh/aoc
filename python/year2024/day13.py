@@ -1,6 +1,6 @@
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_puzzle(puzzle):
@@ -33,8 +33,8 @@ def play_machine(a: complex, b: complex, prize: complex, *, offset: int = 0):
 
 
 class Day13(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         res = sum(play_machine(**machine) for machine in parsed)
@@ -47,4 +47,4 @@ class Day13(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day13)
+    run(Day13)

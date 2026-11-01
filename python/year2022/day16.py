@@ -6,7 +6,7 @@ import operator
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 global dists  # Instead of writing a custom cache decorator
 
@@ -70,8 +70,8 @@ def iter_puzzle(puzzle):
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         global dists
@@ -114,4 +114,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

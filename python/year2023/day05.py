@@ -1,11 +1,11 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
-class Day05(Day[str]):
-    def parse(self, input: str) -> str:
-        return input.strip()
+class Day05(Day):
+    def parse(self, inp: str) -> str:
+        return inp.strip()
 
     def part1(self, puzzle: str) -> int:
         seeds, *blocks = puzzle.split("\n" * 2)
@@ -111,4 +111,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day05)
+    run(Day05)

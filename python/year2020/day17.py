@@ -3,7 +3,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def find_neighs(cube: tuple[int, ...]):
@@ -37,9 +37,9 @@ def parse_puzzle(puzzle, dims: int = 3):
     }
 
 
-class Day17(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day17(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         return simulate(parse_puzzle(puzzle))
@@ -65,4 +65,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

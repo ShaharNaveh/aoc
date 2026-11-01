@@ -1,6 +1,6 @@
 import heapq
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def min_heat_loss(
@@ -37,8 +37,8 @@ def min_heat_loss(
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): heat_loss
             for y, line in enumerate(inp.splitlines())
@@ -53,4 +53,4 @@ class Day17(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

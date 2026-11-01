@@ -2,7 +2,7 @@ import collections
 import dataclasses
 import heapq
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 OFFSETS = {"<": -1, ">": 1, "^": -1j, "v": 1j}
 
@@ -111,8 +111,8 @@ def walk(grid, start, end):
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): tile
             for y, line in enumerate(inp.splitlines())
@@ -132,4 +132,4 @@ class Day23(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

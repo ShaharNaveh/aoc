@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def non_overlapping_pairs(locks, keys):
@@ -15,8 +15,8 @@ def is_overlap(lock, key):
 
 
 class Day25(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         locks = set()
         keys = set()
         for block in inp.split("\n" * 2):
@@ -36,4 +36,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day25)
+    run(Day25)

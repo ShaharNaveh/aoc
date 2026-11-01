@@ -1,10 +1,9 @@
-import itertools
 import math
 import re
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Point(typing.NamedTuple):
@@ -82,8 +81,8 @@ def iter_puzzle(puzzle):
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         init_region = Cuboid(Point(-50, -50, -50), Point(51, 51, 51))
@@ -224,4 +223,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

@@ -1,7 +1,7 @@
 import dataclasses
 import heapq
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @dataclasses.dataclass(order=True, frozen=True, slots=True)
@@ -34,7 +34,7 @@ def dijkstra(graph, start=complex(0, 0), end=complex(70, 70)):
 
 
 class Day18(Day):
-    def parse(self, input: str):
+    def parse(self, inp: str):
         graph = {complex(x, y): set() for x in range(71) for y in range(71)}
         for pos in graph:
             direction = -1
@@ -44,7 +44,7 @@ class Day18(Day):
                     graph[pos].add(npos)
                 direction *= -1j
 
-        inp = input.strip()
+        inp = inp.strip()
         bits = [tuple(map(int, line.split(","))) for line in inp.splitlines()]
         return graph, bits
 
@@ -73,4 +73,4 @@ class Day18(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day18)
+    run(Day18)

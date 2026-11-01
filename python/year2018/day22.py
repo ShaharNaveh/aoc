@@ -7,7 +7,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -111,8 +111,8 @@ def rescue(target: complex, depth: int) -> int:
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         depth, x, y = map(int, re.findall(r"\d+", inp))
         return complex(x, y), depth
 
@@ -146,4 +146,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

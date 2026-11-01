@@ -3,7 +3,7 @@ import dataclasses
 import heapq
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 INF = float("inf")
 
@@ -89,8 +89,8 @@ def grid_to_graph(grid):
 
 
 class Day16(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         grid = {
             x + (y * 1j): char
             for y, row in enumerate(inp.splitlines())
@@ -109,4 +109,4 @@ class Day16(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day16)
+    run(Day16)

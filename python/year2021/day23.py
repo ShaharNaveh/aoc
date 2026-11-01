@@ -2,7 +2,7 @@ import heapq
 import typing
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 CHARS = "ABCD"
 ROOMS = {char: i * 2 for i, char in enumerate(CHARS, 1)}
@@ -120,8 +120,8 @@ def organize(start: tuple[tuple[str | None, ...], ...]) -> int:
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return tuple(
             room
             for room in tuple(
@@ -153,11 +153,10 @@ class Tests(unittest.TestCase):
         d = Day23()
         self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 12521)
 
-    @slow
     def test_part2_test_puzzle(self):
         d = Day23()
         self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 44169)
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

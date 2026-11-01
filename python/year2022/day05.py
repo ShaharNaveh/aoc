@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def simulate(stacks, instructions, *, is_p2: bool = False):
@@ -18,8 +18,8 @@ def top_crates(stacks):
 
 
 class Day05(Day):
-    def parse(self, input: str):
-        inp = input.rstrip()
+    def parse(self, inp: str):
+        inp = inp.rstrip()
         stacks_block, instructions_block = inp.split("\n" * 2)
 
         *raw_stacks, _ = stacks_block.splitlines()
@@ -51,4 +51,4 @@ class Day05(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day05)
+    run(Day05)

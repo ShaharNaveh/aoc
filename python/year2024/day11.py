@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @functools.cache
@@ -21,8 +21,8 @@ def blink(stone: int, count: int):
 
 
 class Day11(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         puzzle = list(map(int, inp.split()))
         return puzzle
 
@@ -40,4 +40,4 @@ class Day11(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day11)
+    run(Day11)

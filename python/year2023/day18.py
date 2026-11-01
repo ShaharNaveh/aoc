@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def dig(steps):
@@ -37,9 +37,9 @@ def iter_puzzle(puzzle, *, is_p2: bool = False):
             yield directions[direction] * distance
 
 
-class Day18(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day18(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         steps = iter_puzzle(puzzle)
@@ -51,4 +51,4 @@ class Day18(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day18)
+    run(Day18)

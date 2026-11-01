@@ -2,7 +2,7 @@ import enum
 import itertools
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -164,8 +164,8 @@ def paint(program: dict[int, int], start_panel: int = 0) -> dict[int, int]:
 
 
 class Day11(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return dict(enumerate(map(int, inp.split(","))))
 
     def part1(self, parsed):
@@ -190,4 +190,4 @@ class Day11(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day11)
+    run(Day11)

@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def calc_distance(lst1, lst2):
@@ -14,12 +14,12 @@ def calc_similarity(lst1, lst2):
         yield num * count
 
 
-class Day01(Day[tuple[list[int], list[int]]]):
-    def parse(self, input: str) -> tuple[list[int], list[int]]:
+class Day01(Day):
+    def parse(self, inp: str) -> tuple[list[int], list[int]]:
         l_lst = []
         r_lst = []
 
-        for line in input.splitlines():
+        for line in inp.splitlines():
             line = line.strip()
             l_item, r_item = line.split(" " * 3)
             l_lst.append(l_item)
@@ -54,4 +54,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day01)
+    run(Day01)

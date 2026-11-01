@@ -2,7 +2,7 @@ import collections
 import functools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def parse_rules(rule_block: str) -> dict[int, set[int]]:
@@ -38,9 +38,9 @@ def middle_page(update: list[int]) -> int:
     return update[idx]
 
 
-class Day05(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day05(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         inp = puzzle.strip()
@@ -114,4 +114,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day05)
+    run(Day05)

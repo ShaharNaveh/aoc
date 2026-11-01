@@ -2,7 +2,7 @@ import collections
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Plants = frozenset[int]
 type Notes = frozenset[tuple[tuple[bool, ...], bool]]
@@ -40,8 +40,8 @@ def simulate(plants: Plants, notes: Notes):
 
 
 class Day12(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_state, raw_notes = inp.split("\n" * 2)
         state = {idx for idx, char in enumerate(raw_state.split()[-1]) if char == "#"}
         notes = frozenset(
@@ -102,4 +102,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day12)
+    run(Day12)

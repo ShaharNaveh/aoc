@@ -2,7 +2,7 @@ import hashlib
 import itertools
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 
 def find(door_id: str):
@@ -12,9 +12,9 @@ def find(door_id: str):
             yield s[5], s[6]
 
 
-class Day05(Day[str]):
-    def parse(self, input: str) -> str:
-        return input.strip()
+class Day05(Day):
+    def parse(self, inp: str) -> str:
+        return inp.strip()
 
     def part1(self, parsed: str) -> str:
         return "".join(
@@ -46,7 +46,6 @@ class Day05(Day[str]):
         return "".join(buf)
 
 
-@slow
 class Tests(unittest.TestCase):
     def test_part1(self):
         d = Day05()
@@ -58,4 +57,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day05)
+    run(Day05)

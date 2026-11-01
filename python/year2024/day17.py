@@ -1,6 +1,6 @@
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def run(instructions: list[int], a: int, b: int = 0, c: int = 0) -> list[int]:
@@ -43,8 +43,8 @@ def find_a(ins, b, c):
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         a, b, c, *ins = map(int, re.findall(r"-?\d+", inp))
         return a, b, c, ins
 
@@ -59,4 +59,4 @@ class Day17(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

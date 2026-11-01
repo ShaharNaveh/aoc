@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def solve(template: str, rules: dict[tuple[str, str], str], steps: int = 10) -> int:
@@ -26,8 +26,8 @@ def solve(template: str, rules: dict[tuple[str, str], str], steps: int = 10) -> 
 
 
 class Day14(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         template, raw_rules = inp.split("\n" * 2)
         rules = {
             tuple(k): v
@@ -74,4 +74,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day14)
+    run(Day14)

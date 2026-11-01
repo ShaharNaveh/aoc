@@ -2,7 +2,7 @@ import collections
 import enum
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -73,8 +73,8 @@ def calc_empty(elfs: set[complex]) -> int:
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y)
             for y, row in enumerate(inp.splitlines())
@@ -117,4 +117,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

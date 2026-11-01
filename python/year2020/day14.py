@@ -3,7 +3,7 @@ import itertools
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @functools.cache
@@ -53,8 +53,8 @@ def iter_puzzle(puzzle):
 
 
 class Day14(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return simulate(parsed)
@@ -77,4 +77,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day14)
+    run(Day14)

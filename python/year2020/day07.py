@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 BAG = "shiny gold"
 
@@ -23,8 +23,8 @@ def hold_count(bag: str, bags: dict[str, dict[int, str]]) -> int:
 
 
 class Day07(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
 
         return {
             bag: {
@@ -65,4 +65,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day07)
+    run(Day07)

@@ -3,7 +3,7 @@ import hashlib
 import heapq
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 OK = "bcdef"
 
@@ -36,8 +36,8 @@ class State:
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        return input.strip()
+    def parse(self, inp: str):
+        return inp.strip()
 
     def part1(self, base):
         pq = [State()]
@@ -94,24 +94,24 @@ class Day17(Day):
 class Tests(unittest.TestCase):
     def test_part1(self):
         d = Day17()
-        for input, expected in [
+        for inp, expected in [
             ("ihgpwlah", "DDRRRD"),
             ("kglvqrro", "DDUDRLRRUDRD"),
             ("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR"),
         ]:
-            with self.subTest(input=input):
-                self.assertEqual(d.part1(d.parse(input)), expected)
+            with self.subTest(inp=inp):
+                self.assertEqual(d.part1(d.parse(inp)), expected)
 
     def test_part2(self):
         d = Day17()
-        for input, expected in [
+        for inp, expected in [
             ("ihgpwlah", 370),
             ("kglvqrro", 492),
             ("ulqzkmiv", 830),
         ]:
-            with self.subTest(input=input):
-                self.assertEqual(d.part2(d.parse(input)), expected)
+            with self.subTest(inp=inp):
+                self.assertEqual(d.part2(d.parse(inp)), expected)
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

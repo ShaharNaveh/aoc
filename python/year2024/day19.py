@@ -1,7 +1,7 @@
 import collections
 import functools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Node:
@@ -28,8 +28,8 @@ def towels_req(tree, design):
 
 
 class Day19(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         towels, patterns = inp.split("\n" * 2)
 
         tree = Node()
@@ -53,4 +53,4 @@ class Day19(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

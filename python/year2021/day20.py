@@ -1,7 +1,7 @@
 import functools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @functools.cache
@@ -42,8 +42,8 @@ def enhance(algo: frozenset[int], image: dict[complex, bool], times: int = 2) ->
 
 
 class Day20(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_algo, raw_image = inp.split("\n" * 2)
 
         algo = frozenset(idx for idx, char in enumerate(raw_algo) if char == "#")
@@ -82,4 +82,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day20)
+    run(Day20)

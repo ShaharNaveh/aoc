@@ -1,11 +1,11 @@
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
-class Day03(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day03(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, text):
         pattern = re.compile(r"mul\(\d{1,3},\d{1,3}\)", re.MULTILINE)
@@ -33,4 +33,4 @@ class Day03(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

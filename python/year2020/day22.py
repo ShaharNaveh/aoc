@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def play_combat(deck1: list[int], deck2: list[int]) -> tuple[list[int], list[int]]:
@@ -52,8 +52,8 @@ def find_deck_score(decks) -> int:
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return find_deck_score(play_combat(*parsed))
@@ -89,4 +89,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

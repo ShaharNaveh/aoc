@@ -1,6 +1,6 @@
 import enum
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -106,9 +106,9 @@ def parse_puzzle(puzzle, *, is_p2: bool = False):
     return grid, moves
 
 
-class Day15(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day15(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         grid, moves = parse_puzzle(puzzle)
@@ -124,4 +124,4 @@ class Day15(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

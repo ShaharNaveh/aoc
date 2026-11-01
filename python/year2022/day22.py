@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def calc_next_pos_dir(
@@ -115,8 +115,8 @@ def calc_password(pos: complex, direction: complex) -> int:
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        inp = input.rstrip()
+    def parse(self, inp: str):
+        inp = inp.rstrip()
         raw_grid, raw_instructions = inp.split("\n" * 2)
 
         start_pos = raw_grid.index(".")
@@ -167,4 +167,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

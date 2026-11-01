@@ -2,7 +2,7 @@ import itertools
 import re
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Point(typing.NamedTuple):
@@ -37,8 +37,8 @@ def format_points(points: frozenset[Point]) -> str:
 
 
 class Day10(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return frozenset(map(Point.from_str, inp.splitlines()))
 
     def part1(self, points):
@@ -57,4 +57,4 @@ class Day10(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day10)
+    run(Day10)

@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def run(program: list[int]) -> int:
@@ -19,8 +19,8 @@ def run(program: list[int]) -> int:
 
 
 class Day02(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return list(map(int, inp.split(",")))
 
     def part1(self, program):
@@ -36,4 +36,4 @@ class Day02(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day02)
+    run(Day02)

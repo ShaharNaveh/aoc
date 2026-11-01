@@ -2,7 +2,7 @@ import itertools
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def triangular(n: int) -> int:
@@ -36,8 +36,8 @@ def iter_pos(x_bounds: tuple[int, int], y_bounds: tuple[int, int]):
 
 
 class Day17(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return tuple(tuple(map(int, t)) for t in re.findall(r"(-?\d+)..(-?\d+)", inp))
 
     def part1(self, parsed):
@@ -63,4 +63,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day17)
+    run(Day17)

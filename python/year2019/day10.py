@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def manhattan(a: complex, b: complex) -> int:
@@ -48,8 +48,8 @@ def find_best_location(astroids: frozenset[complex]) -> tuple[complex, int]:
 
 
 class Day10(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return frozenset(
             complex(x, y)
             for y, row in enumerate(inp.splitlines())
@@ -102,4 +102,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day10)
+    run(Day10)

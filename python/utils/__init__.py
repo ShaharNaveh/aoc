@@ -1,58 +1,68 @@
+"""Shared helpers for the Advent of Code solutions."""
+
 import abc
-import os
+import argparse
 import pathlib
 import sys
-import unittest
 
-from .vec2 import Vec2
-from .vec3 import Vec3
+from .vec import Vec2, Vec3
 
-__all__ = ["Answer", "Day", "Vec2", "Vec3", "aoc_main", "read_input", "run", "slow"]
+__all__ = ["Day", "Vec2", "Vec3", "run"]
 
 INPUTS_DIR = pathlib.Path(__file__).resolve().parents[2] / "inputs"
 
-# Like Rust's `#[ignore]`: only run when `AOC_SLOW` is set.
-slow = unittest.skipUnless(os.environ.get("AOC_SLOW"), "slow (set AOC_SLOW=1 to run)")
 
-# `None` means it's not implemented yet/NA.
-type Answer = int | str | float | None
+class Day(abc.ABC):
+    """Base class for a day's solution.
 
-
-class Day[P](abc.ABC):
-    """Result of `parse` (`P`) is shared by both parts."""
+    ``parse`` turns the raw puzzle text into whatever both parts work on. It is called
+    once per part, so a part may freely mutate what it receives.
+    """
 
     @abc.abstractmethod
-    def parse(self, input: str) -> P: ...
+    def parse(self, inp: str): ...
 
     @abc.abstractmethod
-    def part1(self, parsed: P) -> Answer: ...
+    def part1(self, data): ...
 
-    def part2(self, parsed: P) -> Answer:
-        return None
+    def part2(self, data):
+        raise NotImplementedError
 
 
-def read_input(default_path: pathlib.Path) -> str:
-    path = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else default_path
+def module_file(day: type[Day]) -> pathlib.Path:
+    return pathlib.Path(sys.modules[day.__module__].__file__)
+
+
+def default_input_path(day: type[Day]) -> pathlib.Path:
+    """``python/year2015/day04.py`` -> ``inputs/year2015/day04.txt``."""
+    path = module_file(day)
+    return INPUTS_DIR / path.parent.name / f"{path.stem}.txt"
+
+
+def run(day: type[Day], argv: list[str] | None = None) -> None:
+    """Command line entry point, meant for ``python -m yearYYYY.dayDD``."""
+    path = module_file(day)
+    parser = argparse.ArgumentParser(prog=f"python -m {path.parent.name}.{path.stem}")
+    parser.add_argument(
+        "input",
+        nargs="?",
+        type=pathlib.Path,
+        default=default_input_path(day),
+        help="puzzle input file (default: %(default)s)",
+    )
+    args = parser.parse_args(argv)
+
     try:
-        return path.read_text()
+        inp = args.input.read_text().rstrip()
     except OSError as e:
-        sys.exit(f"failed to read {path}: {e}")
+        parser.exit(1, f"failed to read {args.input}: {e}\n")
 
+    solution = day()
+    for part in (solution.part1, solution.part2):
+        try:
+            answer = part(solution.parse(inp))
+        except NotImplementedError:
+            continue
 
-def run(day: type[Day], input: str) -> None:
-    solver = day()
-    input = input.rstrip()
-
-    # Each part gets a freshly parsed value, so parts are free to mutate it.
-    if (answer := solver.part1(solver.parse(input))) is not None:
-        print(answer)
-
-    if (answer := solver.part2(solver.parse(input))) is not None:
-        print(answer)
-
-
-def aoc_main(day: type[Day]) -> None:
-    module_path = pathlib.Path(sys.modules[day.__module__].__file__)
-    default_input = INPUTS_DIR / module_path.parent.name / f"{module_path.stem}.txt"
-
-    run(day, read_input(default_input))
+        if answer is not None:
+            print(answer)

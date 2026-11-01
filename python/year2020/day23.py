@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 
 def play(cups: list[int], steps: int = 100, pad: int | None = None):
@@ -44,8 +44,8 @@ def play(cups: list[int], steps: int = 100, pad: int | None = None):
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return list(map(int, inp))
 
     def part1(self, parsed):
@@ -65,11 +65,10 @@ class Tests(unittest.TestCase):
         d = Day23()
         self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), "67384529")
 
-    @slow
     def test_part2_test_puzzle(self):
         d = Day23()
         self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 149245887792)
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

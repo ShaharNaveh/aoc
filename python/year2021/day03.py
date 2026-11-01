@@ -1,6 +1,6 @@
 import collections
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 INV = {"0": "1", "1": "0"}
 
@@ -38,8 +38,8 @@ def solve_p2(nums: tuple[str, ...], inv: bool = False, idx: int = 0):
 
 
 class Day03(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return inp.splitlines()
 
     def part1(self, parsed):
@@ -51,4 +51,4 @@ class Day03(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day03)
+    run(Day03)

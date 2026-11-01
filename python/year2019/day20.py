@@ -1,10 +1,9 @@
-import collections
 import enum
 import heapq
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Portals = dict[complex, tuple[str, "PortalType"]]
 
@@ -130,8 +129,8 @@ def walk(
 
 
 class Day20(Day):
-    def parse(self, input: str):
-        inp = input.rstrip()
+    def parse(self, inp: str):
+        inp = inp.rstrip()
         return {
             complex(x, y): tile
             for y, row in enumerate(inp.splitlines())
@@ -193,4 +192,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day20)
+    run(Day20)

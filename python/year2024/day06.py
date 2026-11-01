@@ -3,7 +3,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -41,8 +41,8 @@ def walked_cords(
 
 
 class Day06(Day):
-    def parse(self, input: str):
-        inp = input.strip().lower()
+    def parse(self, inp: str):
+        inp = inp.strip().lower()
         grid = [list(line) for line in inp.splitlines()]
 
         cords = {}
@@ -87,4 +87,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day06)
+    run(Day06)

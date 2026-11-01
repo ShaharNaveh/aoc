@@ -1,7 +1,7 @@
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Food(typing.NamedTuple):
@@ -60,8 +60,8 @@ def iter_puzzle(puzzle) -> typing.Iterator[Food]:
 
 
 class Day21(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return solve(frozenset(parsed))[0]
@@ -88,4 +88,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day21)
+    run(Day21)

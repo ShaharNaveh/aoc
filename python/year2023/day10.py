@@ -1,8 +1,7 @@
 import collections
 import enum
-import operator
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -70,10 +69,10 @@ def find_main_loop(grid):
 
 
 class Day10(Day):
-    def parse(self, input: str):
+    def parse(self, inp: str):
         return {
             x + (y * 1j): tile
-            for y, line in enumerate(input.strip().splitlines())
+            for y, line in enumerate(inp.strip().splitlines())
             for x, tile in enumerate(line)
         }
 
@@ -94,4 +93,4 @@ class Day10(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day10)
+    run(Day10)

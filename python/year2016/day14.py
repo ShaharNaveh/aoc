@@ -5,7 +5,7 @@ import re
 import unittest
 from collections.abc import Iterable
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 PATTERN = re.compile(r"(.)\1\1")
 
@@ -45,9 +45,9 @@ def iter_keys(salt: str, f=build_hash):
         yield index
 
 
-class Day14(Day[str]):
-    def parse(self, input: str) -> str:
-        return input.strip()
+class Day14(Day):
+    def parse(self, inp: str) -> str:
+        return inp.strip()
 
     def part1(self, parsed: str) -> int:
         return next(itertools.islice(iter_keys(parsed), 64 - 1, None))
@@ -62,11 +62,10 @@ class Tests(unittest.TestCase):
         d = Day14()
         self.assertEqual(d.part1(d.parse("abc")), 22728)
 
-    @slow
     def test_part2(self):
         d = Day14()
         self.assertEqual(d.part2(d.parse("abc")), 22551)
 
 
 if __name__ == "__main__":
-    aoc_main(Day14)
+    run(Day14)

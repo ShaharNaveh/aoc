@@ -2,7 +2,7 @@ import collections
 import itertools
 import math
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def iter_puzzle(puzzle):
@@ -11,8 +11,8 @@ def iter_puzzle(puzzle):
 
 
 class Day02(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return math.prod(
@@ -33,4 +33,4 @@ class Day02(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day02)
+    run(Day02)

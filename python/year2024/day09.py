@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def defrag(lst):
@@ -57,9 +57,9 @@ def parse_puzzle(puzzle):
     return parsed
 
 
-class Day09(Day[list[int]]):
-    def parse(self, input: str) -> list[int]:
-        inp = input.strip()
+class Day09(Day):
+    def parse(self, inp: str) -> list[int]:
+        inp = inp.strip()
         return list(map(int, list(inp)))
 
     def part1(self, puzzle: list[int]) -> int:
@@ -84,4 +84,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day09)
+    run(Day09)

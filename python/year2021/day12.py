@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def walk(caves, *, is_p2: bool = False) -> int:
@@ -31,8 +31,8 @@ def walk(caves, *, is_p2: bool = False) -> int:
 
 
 class Day12(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         caves = collections.defaultdict(set)
         for line in inp.splitlines():
             l, r = line.split("-")
@@ -79,4 +79,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day12)
+    run(Day12)

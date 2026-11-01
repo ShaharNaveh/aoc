@@ -1,12 +1,12 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Day08(Day):
-    def parse(self, input: str):
-        inp = input.strip().replace("#", ".")
+    def parse(self, inp: str):
+        inp = inp.strip().replace("#", ".")
         puzzle = collections.defaultdict(set)
         for row_idx, row in enumerate(inp.splitlines()):
             for col_idx, char in enumerate(row):
@@ -44,4 +44,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day08)
+    run(Day08)

@@ -4,7 +4,7 @@ import itertools
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Branch(typing.NamedTuple):
@@ -67,8 +67,8 @@ def walk(grid):
 
 
 class Day15(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {
             complex(x, y): int(val)
             for y, row in enumerate(inp.splitlines())
@@ -106,4 +106,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

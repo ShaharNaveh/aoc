@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def do_fold(coords: set[complex], fold: complex) -> set[complex]:
@@ -18,8 +18,8 @@ def do_fold(coords: set[complex], fold: complex) -> set[complex]:
 
 
 class Day13(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         raw_coords, raw_folds = inp.split("\n" * 2)
         coords = {
             complex(*map(int, line.split(","))) for line in raw_coords.splitlines()
@@ -86,4 +86,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day13)
+    run(Day13)

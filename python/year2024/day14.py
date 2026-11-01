@@ -1,11 +1,10 @@
 import collections
 import functools
-import itertools
 import math
 import operator
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def move(pos: complex, v: complex, bounds: complex):
@@ -62,12 +61,12 @@ def calc_entropy(positions):
     return entropy
 
 
-class Day14(Day[list[dict[str, complex]]]):
+class Day14(Day):
     def __init__(self, bounds: complex = 101 + 103j):
         self.bounds = bounds
 
-    def parse(self, input: str) -> list[dict[str, complex]]:
-        return list(parse_puzzle(input.strip()))
+    def parse(self, inp: str) -> list[dict[str, complex]]:
+        return list(parse_puzzle(inp.strip()))
 
     def part1(self, robots: list[dict[str, complex]]) -> int:
         simulated = simulate(robots, seconds=100, bounds=self.bounds)
@@ -107,4 +106,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day14)
+    run(Day14)

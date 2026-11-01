@@ -4,7 +4,7 @@ import json
 import math
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def compare_pair(left, right) -> bool:
@@ -39,8 +39,8 @@ def iter_puzzle(puzzle):
 
 
 class Day13(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(idx for idx, pair in enumerate(parsed, 1) if compare_pair(*pair))
@@ -101,4 +101,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day13)
+    run(Day13)

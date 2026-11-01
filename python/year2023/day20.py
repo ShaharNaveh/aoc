@@ -4,7 +4,7 @@ import enum
 import itertools
 import math
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -111,9 +111,9 @@ def parse_line(line: str) -> tuple[BaseModule | None, str, tuple[str, ...]]:
     return module_type, source, targets
 
 
-class Day20(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day20(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         computer = Computer(puzzle)
@@ -152,4 +152,4 @@ class Day20(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day20)
+    run(Day20)

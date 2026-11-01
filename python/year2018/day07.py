@@ -3,12 +3,12 @@ import itertools
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class Day07(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         steps = collections.defaultdict(set)
         for dependency, step in re.findall(
             r"^Step (\w) must be finished before step (\w) can begin\.$",
@@ -77,4 +77,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day07)
+    run(Day07)

@@ -4,7 +4,7 @@ import itertools
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Groups = list["Group"]
 
@@ -131,8 +131,8 @@ def total_alive_units(groups: Groups) -> int:
 
 
 class Day24(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         immune_system, infection = inp.split("\n" * 2)
         return [
             Group.from_str(team, line)
@@ -180,4 +180,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day24)
+    run(Day24)

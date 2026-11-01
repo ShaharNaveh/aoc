@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def build_graph(pcs):
@@ -18,8 +18,8 @@ def iter_puzzle(puzzle):
 
 
 class Day23(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, pcs):
         graph = build_graph(pcs)
@@ -48,4 +48,4 @@ class Day23(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day23)
+    run(Day23)

@@ -1,6 +1,6 @@
 import collections
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def generate(num: int, count: int = 2000):
@@ -17,8 +17,8 @@ def iter_puzzle(puzzle):
 
 
 class Day22(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         return sum(collections.deque(generate(num), maxlen=1)[0] for num in parsed)
@@ -45,4 +45,4 @@ class Day22(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day22)
+    run(Day22)

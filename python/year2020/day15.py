@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main, slow
+from utils import Day, run
 
 
 def simulate(nums: tuple[int, ...], steps: int = 2020) -> int:
@@ -13,8 +13,8 @@ def simulate(nums: tuple[int, ...], steps: int = 2020) -> int:
 
 
 class Day15(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return tuple(map(int, inp.split(",")))
 
     def part1(self, parsed):
@@ -33,11 +33,10 @@ class Tests(unittest.TestCase):
         d = Day15()
         self.assertEqual(d.part1(d.parse(TEST_PUZZLE)), 436)
 
-    @slow
     def test_part2_test_puzzle(self):
         d = Day15()
         self.assertEqual(d.part2(d.parse(TEST_PUZZLE)), 175594)
 
 
 if __name__ == "__main__":
-    aoc_main(Day15)
+    run(Day15)

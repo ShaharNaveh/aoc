@@ -2,7 +2,7 @@ import math
 import operator
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def calc_accepted_parts(
@@ -108,9 +108,9 @@ def parse_puzzle(puzzle, *, is_p2: bool = False):
     return workflows, parts
 
 
-class Day19(Day[str]):
-    def parse(self, input: str) -> str:
-        return input
+class Day19(Day):
+    def parse(self, inp: str) -> str:
+        return inp
 
     def part1(self, puzzle):
         workflows, parts = parse_puzzle(puzzle)
@@ -128,4 +128,4 @@ class Day19(Day[str]):
 
 
 if __name__ == "__main__":
-    aoc_main(Day19)
+    run(Day19)

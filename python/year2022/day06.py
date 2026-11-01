@@ -1,6 +1,5 @@
-import collections
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def get_marker(signal: str, window_size: int = 4) -> int:
@@ -11,8 +10,8 @@ def get_marker(signal: str, window_size: int = 4) -> int:
 
 
 class Day06(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return inp
 
     def part1(self, signal):
@@ -23,4 +22,4 @@ class Day06(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day06)
+    run(Day06)

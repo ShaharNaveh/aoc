@@ -5,7 +5,7 @@ import queue
 import re
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 @enum.unique
@@ -269,8 +269,8 @@ def solve(
 
 
 class Day25(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return collections.defaultdict(int, enumerate(map(int, inp.split(","))))
 
     def part1(self, memory):
@@ -278,4 +278,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day25)
+    run(Day25)

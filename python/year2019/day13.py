@@ -2,7 +2,7 @@ import enum
 import itertools
 import typing
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def cmp(a: int, b: int) -> int:
@@ -162,8 +162,8 @@ def run(program: dict[int, int], default_value: int | None = None):
 
 
 class Day13(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return dict(enumerate(map(int, inp.split(","))))
 
     def part1(self, parsed):
@@ -199,4 +199,4 @@ class Day13(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day13)
+    run(Day13)

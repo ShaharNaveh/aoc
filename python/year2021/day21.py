@@ -3,7 +3,7 @@ import itertools
 import typing
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 class State(typing.NamedTuple):
@@ -52,8 +52,8 @@ def play_p2(a: State, b: State) -> tuple[int, int]:
 
 
 class Day21(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return tuple(map(lambda l: State(int(l[-1])), inp.splitlines()))
 
     def part1(self, parsed):
@@ -79,4 +79,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day21)
+    run(Day21)

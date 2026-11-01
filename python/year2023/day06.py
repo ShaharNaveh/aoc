@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def possible_race_ways(race: complex):
@@ -17,9 +17,9 @@ def possible_race_ways(race: complex):
         prev_distance = distance
 
 
-class Day06(Day[tuple[str, str]]):
-    def parse(self, input: str) -> tuple[str, str]:
-        time_line, distance_line = input.strip().splitlines()
+class Day06(Day):
+    def parse(self, inp: str) -> tuple[str, str]:
+        time_line, distance_line = inp.strip().splitlines()
         return time_line, distance_line
 
     def part1(self, parsed: tuple[str, str]) -> int:
@@ -57,4 +57,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day06)
+    run(Day06)

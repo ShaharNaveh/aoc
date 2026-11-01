@@ -2,7 +2,7 @@ import collections
 import re
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def play(max_players: int, last_marble: int) -> int:
@@ -20,8 +20,8 @@ def play(max_players: int, last_marble: int) -> int:
 
 
 class Day09(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return map(int, re.findall(r"(\d+)", inp))
 
     def part1(self, parsed):
@@ -43,4 +43,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day09)
+    run(Day09)

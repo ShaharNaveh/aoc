@@ -2,7 +2,7 @@ import hashlib
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def find(skey: str, prefix: str):
@@ -12,9 +12,9 @@ def find(skey: str, prefix: str):
             yield index
 
 
-class Day04(Day[str]):
-    def parse(self, input: str) -> str:
-        return input.strip()
+class Day04(Day):
+    def parse(self, inp: str) -> str:
+        return inp.strip()
 
     def part1(self, parsed: str) -> int:
         return next(find(parsed, "0" * 5))
@@ -26,10 +26,10 @@ class Day04(Day[str]):
 class Tests(unittest.TestCase):
     def test_part1(self):
         d = Day04()
-        for input, expected in [("abcdef", 609043), ("pqrstuv", 1048970)]:
-            with self.subTest(input=input):
-                self.assertEqual(d.part1(d.parse(input)), expected)
+        for inp, expected in [("abcdef", 609043), ("pqrstuv", 1048970)]:
+            with self.subTest(inp=inp):
+                self.assertEqual(d.part1(d.parse(inp)), expected)
 
 
 if __name__ == "__main__":
-    aoc_main(Day04)
+    run(Day04)

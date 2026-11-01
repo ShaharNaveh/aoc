@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 type Point = tuple[int, int, int, int]
 
@@ -18,8 +18,8 @@ def find_constellations(constellations, point: Point):
 
 
 class Day25(Day):
-    def parse(self, input: str):
-        inp = input.strip()
+    def parse(self, inp: str):
+        inp = inp.strip()
         return {tuple(map(int, line.split(","))) for line in inp.splitlines()}
 
     def part1(self, points):
@@ -62,4 +62,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    aoc_main(Day25)
+    run(Day25)

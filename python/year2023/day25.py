@@ -3,7 +3,7 @@ import itertools
 import random
 import re
 
-from utils import Day, aoc_main
+from utils import Day, run
 
 
 def split_graph(connections) -> tuple[set[str], set[str]]:
@@ -52,8 +52,8 @@ def iter_puzzle(puzzle):
 
 
 class Day25(Day):
-    def parse(self, input: str):
-        return tuple(iter_puzzle(input))
+    def parse(self, inp: str):
+        return tuple(iter_puzzle(inp))
 
     def part1(self, parsed):
         connections = tuple(parsed)
@@ -61,4 +61,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    aoc_main(Day25)
+    run(Day25)
