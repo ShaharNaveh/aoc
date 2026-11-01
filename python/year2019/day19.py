@@ -1,0 +1,177 @@
+import collections
+import enum
+import itertools
+import typing
+
+from utils import Day, aoc_main
+
+
+@enum.unique
+class OpcodeType(enum.IntEnum):
+    Addition = 1
+    Multiplication = 2
+    Input = 3
+    Output = 4
+    Jmp = 5
+    Jne = 6
+    Lt = 7
+    Eq = 8
+    Base = 9
+    Halt = 99
+
+    @property
+    def parameter_count(self) -> int:
+        match self:
+            case OpcodeType.Halt:
+                return 0
+            case OpcodeType.Input | OpcodeType.Output | OpcodeType.Base:
+                return 1
+            case OpcodeType.Jmp | OpcodeType.Jne:
+                return 2
+            case (
+                OpcodeType.Addition
+                | OpcodeType.Multiplication
+                | OpcodeType.Lt
+                | OpcodeType.Eq
+            ):
+                return 3
+
+    @property
+    def is_writer(self) -> bool:
+        return self in (
+            OpcodeType.Addition,
+            OpcodeType.Multiplication,
+            OpcodeType.Input,
+            OpcodeType.Lt,
+            OpcodeType.Eq,
+        )
+
+    @classmethod
+    def from_int(cls, raw: int) -> typing.Self:
+        return cls(raw % 100)
+
+
+@enum.unique
+class InstructionMode(enum.IntEnum):
+    Position = 0
+    Immediate = 1
+    Relative = 2
+
+    @classmethod
+    def from_int(cls, raw: int) -> tuple[typing.Self, ...]:
+        parameter_count = OpcodeType.from_int(raw).parameter_count
+        return tuple(cls((raw // (10**i)) % 10) for i in range(2, parameter_count + 2))
+
+
+class Instruction(typing.NamedTuple):
+    parameter: int
+    mode: InstructionMode
+
+    def get_value(
+        self,
+        memory: dict[int, int],
+        base: int,
+        is_writer: bool = False,
+        default_value: int | None = None,
+    ) -> int:
+        if is_writer:
+            if self.mode == InstructionMode.Relative:
+                return base + self.parameter
+            return self.parameter
+
+        match self.mode:
+            case InstructionMode.Position:
+                return memory.get(self.parameter, default_value)
+            case InstructionMode.Immediate:
+                return self.parameter
+            case InstructionMode.Relative:
+                return memory[base + self.parameter]
+
+
+def run(
+    memory: dict[int, int], inputs=None, ip: int = 0, default_value: int | None = None
+):
+    memory = memory.copy()
+    inputs = iter(inputs)
+    base = 0
+    while True:
+        val = memory[ip]
+        opcode = OpcodeType.from_int(val)
+        modes = InstructionMode.from_int(val)
+
+        instructions = [
+            Instruction(param, mode)
+            for param, mode in zip(
+                (memory[i] for i in range(ip + 1, ip + opcode.parameter_count + 1)),
+                modes,
+            )
+        ]
+
+        parameters = tuple(
+            instruction.get_value(
+                memory,
+                base,
+                is_writer=(i == len(instructions)) and opcode.is_writer,
+                default_value=default_value,
+            )
+            for i, instruction in enumerate(instructions, 1)
+        )
+        match opcode:
+            case OpcodeType.Halt:
+                break
+            case OpcodeType.Addition:
+                a, b, dest = parameters
+                memory[dest] = a + b
+            case OpcodeType.Multiplication:
+                a, b, dest = parameters
+                memory[dest] = a * b
+            case OpcodeType.Input:
+                dest = parameters[0]
+                memory[dest] = next(inputs)
+            case OpcodeType.Output:
+                yield from parameters
+            case OpcodeType.Jmp:
+                a, b = parameters
+                if a != 0:
+                    ip = b
+                    continue
+            case OpcodeType.Jne:
+                a, b = parameters
+                if a == 0:
+                    ip = b
+                    continue
+            case OpcodeType.Lt:
+                a, b, dest = parameters
+                memory[dest] = int(a < b)
+            case OpcodeType.Eq:
+                a, b, dest = parameters
+                memory[dest] = int(a == b)
+            case OpcodeType.Base:
+                base += parameters[0]
+
+        ip += opcode.parameter_count + 1
+
+
+class Day19(Day):
+    def parse(self, input: str):
+        inp = input.strip()
+        return collections.defaultdict(int, enumerate(map(int, inp.split(","))))
+
+    def part1(self, memory):
+        return sum(
+            next(run(memory, inputs))
+            for inputs in itertools.product(range(50), repeat=2)
+        )
+
+    def part2(self, memory):
+        x = y = 0
+        while not next(run(memory, (x + 99, y))):
+            y += 1
+            while not next(run(memory, (x, y + 99))):
+                x += 1
+
+        return x * 10_000 + y
+
+
+if __name__ == "__main__":
+    aoc_main(Day19)
