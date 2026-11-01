@@ -5,7 +5,7 @@ import re
 import unittest
 from collections.abc import Iterable
 
-from utils import Day, run
+from utils import Day, main
 
 PATTERN = re.compile(r"(.)\1\1")
 
@@ -68,4 +68,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day14)
+    main(Day14)

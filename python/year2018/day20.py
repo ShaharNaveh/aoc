@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 OFFSETS = {"N": -1j, "W": -1, "S": 1j, "E": 1}
 
@@ -54,4 +54,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day20)
+    main(Day20)

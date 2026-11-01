@@ -1,6 +1,6 @@
 import re
 
-from utils import Day, run
+from utils import Day, main
 
 
 def run(instructions: list[int], a: int, b: int = 0, c: int = 0) -> list[int]:
@@ -59,4 +59,4 @@ class Day17(Day):
 
 
 if __name__ == "__main__":
-    run(Day17)
+    main(Day17)

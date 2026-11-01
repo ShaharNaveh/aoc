@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 CUBE_LIMIT = {
     "red": 12,
@@ -77,4 +77,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day02)
+    main(Day02)

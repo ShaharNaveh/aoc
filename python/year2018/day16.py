@@ -4,7 +4,7 @@ import itertools
 import re
 import typing
 
-from utils import Day, run
+from utils import Day, main
 
 type Registers = dict[int, int]
 
@@ -149,4 +149,4 @@ class Day16(Day):
 
 
 if __name__ == "__main__":
-    run(Day16)
+    main(Day16)

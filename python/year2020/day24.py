@@ -3,7 +3,7 @@ import functools
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 """
 NOTE:
@@ -117,4 +117,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

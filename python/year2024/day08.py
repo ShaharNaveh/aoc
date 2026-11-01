@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Day08(Day):
@@ -44,4 +44,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    run(Day08)
+    main(Day08)

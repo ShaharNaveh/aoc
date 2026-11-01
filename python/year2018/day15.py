@@ -5,7 +5,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Units = tuple["Unit", ...]
 type Walkable = frozenset["Pos"]
@@ -205,4 +205,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day15)
+    main(Day15)

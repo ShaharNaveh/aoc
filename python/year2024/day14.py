@@ -4,7 +4,7 @@ import math
 import operator
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def move(pos: complex, v: complex, bounds: complex):
@@ -106,4 +106,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day14)
+    main(Day14)

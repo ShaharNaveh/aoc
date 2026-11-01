@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def calc_fuel(mass: int) -> int:
@@ -25,4 +25,4 @@ class Day01(Day):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

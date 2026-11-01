@@ -4,7 +4,7 @@ Standard library only (no third-party packages), Python 3.12+.
 
 ```
 python/
-  utils/          # shared code: `Day` base class, `run` entry point, Vec2/Vec3
+  utils/          # shared code: `Day` base class, `main` entry point, Vec2/Vec3
   yearYYYY/
     dayDD.py      # one module per day, tests included
 ```
@@ -36,7 +36,7 @@ Some tests (e.g. MD5 brute force in 2016) take a while; run them selectively.
 ```python
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Day01(Day):
@@ -46,7 +46,7 @@ class Day01(Day):
     def part1(self, data):
         return sum(data)
 
-    # `part2` is optional; the base class raises NotImplementedError and `run` skips it.
+    # `part2` is optional; the base class raises NotImplementedError and `main` skips it.
 
 
 class Tests(unittest.TestCase):
@@ -56,9 +56,9 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)
 ```
 
-- `run` calls `parse` once per part, so a part may mutate the data it receives.
+- `main` calls `parse` once per part, so a part may mutate the data it receives.
 - Code shared by several days of a year goes in `yearYYYY/__init__.py` or a sibling
   module.

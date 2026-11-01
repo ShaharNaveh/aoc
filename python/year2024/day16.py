@@ -3,7 +3,7 @@ import dataclasses
 import heapq
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 INF = float("inf")
 
@@ -109,4 +109,4 @@ class Day16(Day):
 
 
 if __name__ == "__main__":
-    run(Day16)
+    main(Day16)

@@ -1,6 +1,6 @@
 import math
 
-from utils import Day, run
+from utils import Day, main
 
 
 def basin_from_low_point(low_pos: complex, grid: dict[complex, int]) -> int:
@@ -58,4 +58,4 @@ class Day09(Day):
 
 
 if __name__ == "__main__":
-    run(Day09)
+    main(Day09)

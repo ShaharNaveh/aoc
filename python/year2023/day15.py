@@ -1,7 +1,7 @@
 import collections
 import functools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def hash_str(s: str) -> int:
@@ -59,4 +59,4 @@ class Day15(Day):
 
 
 if __name__ == "__main__":
-    run(Day15)
+    main(Day15)

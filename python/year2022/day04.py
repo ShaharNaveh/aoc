@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def overlap(s1: set[int], s2: set[int], *, is_p2: bool = False):
@@ -30,4 +30,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    run(Day04)
+    main(Day04)

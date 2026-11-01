@@ -1,7 +1,7 @@
 import collections
 import functools
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Node:
@@ -53,4 +53,4 @@ class Day19(Day):
 
 
 if __name__ == "__main__":
-    run(Day19)
+    main(Day19)

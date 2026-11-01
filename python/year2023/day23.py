@@ -2,7 +2,7 @@ import collections
 import dataclasses
 import heapq
 
-from utils import Day, run
+from utils import Day, main
 
 OFFSETS = {"<": -1, ">": 1, "^": -1j, "v": 1j}
 
@@ -132,4 +132,4 @@ class Day23(Day):
 
 
 if __name__ == "__main__":
-    run(Day23)
+    main(Day23)

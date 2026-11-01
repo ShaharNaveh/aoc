@@ -3,7 +3,7 @@ import functools
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 @functools.cache
@@ -88,4 +88,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day10)
+    main(Day10)

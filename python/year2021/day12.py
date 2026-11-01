@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def walk(caves, *, is_p2: bool = False) -> int:
@@ -79,4 +79,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day12)
+    main(Day12)

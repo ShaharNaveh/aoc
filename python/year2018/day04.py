@@ -1,7 +1,7 @@
 import collections
 import re
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Day04(Day):
@@ -45,4 +45,4 @@ class Day04(Day):
 
 
 if __name__ == "__main__":
-    run(Day04)
+    main(Day04)

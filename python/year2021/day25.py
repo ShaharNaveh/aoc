@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def step(f: callable, typ: str, grid: dict[complex, str]) -> dict[complex, str]:
@@ -66,4 +66,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day25)
+    main(Day25)

@@ -2,7 +2,7 @@ import collections
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Plants = frozenset[int]
 type Notes = frozenset[tuple[tuple[bool, ...], bool]]
@@ -102,4 +102,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day12)
+    main(Day12)

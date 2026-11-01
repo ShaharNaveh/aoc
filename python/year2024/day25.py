@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def non_overlapping_pairs(locks, keys):
@@ -36,4 +36,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    run(Day25)
+    main(Day25)

@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def build_graph(pcs):
@@ -48,4 +48,4 @@ class Day23(Day):
 
 
 if __name__ == "__main__":
-    run(Day23)
+    main(Day23)

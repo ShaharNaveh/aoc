@@ -4,7 +4,7 @@ import itertools
 import operator
 import random
 
-from utils import Day, run
+from utils import Day, main
 
 
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
@@ -140,4 +140,4 @@ class Day24(Day):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

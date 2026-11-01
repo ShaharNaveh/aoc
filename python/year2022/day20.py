@@ -1,7 +1,7 @@
 import collections
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def mix(lst: list[int], multiplier: int = 1, times: int = 1) -> int:
@@ -64,4 +64,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day20)
+    main(Day20)

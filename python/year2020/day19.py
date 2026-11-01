@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 T = "({})"
 
@@ -81,4 +81,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day19)
+    main(Day19)

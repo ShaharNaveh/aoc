@@ -1,7 +1,7 @@
 import ast
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Sub2Mult(ast.NodeTransformer):
@@ -60,4 +60,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day18)
+    main(Day18)

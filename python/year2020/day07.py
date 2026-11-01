@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 BAG = "shiny gold"
 
@@ -65,4 +65,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day07)
+    main(Day07)

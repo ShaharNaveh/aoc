@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 DIRECTIONS = {0 + 1j, 1, 0 - 1j, -1}
 
@@ -78,4 +78,4 @@ class Day12(Day):
 
 
 if __name__ == "__main__":
-    run(Day12)
+    main(Day12)

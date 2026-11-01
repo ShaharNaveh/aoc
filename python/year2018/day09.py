@@ -2,7 +2,7 @@ import collections
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def play(max_players: int, last_marble: int) -> int:
@@ -43,4 +43,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day09)
+    main(Day09)

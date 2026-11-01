@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def defrag(lst):
@@ -84,4 +84,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day09)
+    main(Day09)

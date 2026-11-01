@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def possible_race_ways(race: complex):
@@ -57,4 +57,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day06)
+    main(Day06)

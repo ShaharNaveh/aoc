@@ -3,7 +3,7 @@ import enum
 import itertools
 import typing
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -174,4 +174,4 @@ class Day19(Day):
 
 
 if __name__ == "__main__":
-    run(Day19)
+    main(Day19)

@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def slide(trees: frozenset[complex], bounds: complex, slope: complex = 3 + 1j) -> int:
@@ -62,4 +62,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day03)
+    main(Day03)

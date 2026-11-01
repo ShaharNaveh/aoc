@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def iter_pattern(r: int):
@@ -70,4 +70,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day16)
+    main(Day16)

@@ -1,7 +1,7 @@
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Bug = complex
 type DepthBug = tuple[int, Bug]
@@ -128,4 +128,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

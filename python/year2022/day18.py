@@ -5,7 +5,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 @dataclasses.dataclass(frozen=True, order=True, slots=True)
@@ -119,4 +119,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day18)
+    main(Day18)

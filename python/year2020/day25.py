@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def iter_loop_sizes():
@@ -43,4 +43,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day25)
+    main(Day25)

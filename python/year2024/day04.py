@@ -2,7 +2,7 @@ import enum
 import unittest
 from typing import NamedTuple
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Cord(NamedTuple):
@@ -174,4 +174,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day04)
+    main(Day04)

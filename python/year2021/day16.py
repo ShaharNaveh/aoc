@@ -3,7 +3,7 @@ import math
 import operator
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 FUNCS = {0: sum, 1: math.prod, 2: min, 3: max}
 COMPS = {5: operator.gt, 6: operator.lt, 7: operator.eq}
@@ -123,4 +123,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day16)
+    main(Day16)

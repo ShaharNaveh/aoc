@@ -7,7 +7,7 @@ import sys
 
 from .vec import Vec2, Vec3
 
-__all__ = ["Day", "Vec2", "Vec3", "run"]
+__all__ = ["Day", "Vec2", "Vec3", "main"]
 
 INPUTS_DIR = pathlib.Path(__file__).resolve().parents[2] / "inputs"
 
@@ -39,7 +39,7 @@ def default_input_path(day: type[Day]) -> pathlib.Path:
     return INPUTS_DIR / path.parent.name / f"{path.stem}.txt"
 
 
-def run(day: type[Day], argv: list[str] | None = None) -> None:
+def main(day: type[Day], argv: list[str] | None = None) -> None:
     """Command line entry point, meant for ``python -m yearYYYY.dayDD``."""
     path = module_file(day)
     parser = argparse.ArgumentParser(prog=f"python -m {path.parent.name}.{path.stem}")

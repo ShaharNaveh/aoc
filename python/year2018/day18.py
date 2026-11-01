@@ -4,7 +4,7 @@ import functools
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Grid = dict[complex, "Acre"]
 
@@ -98,4 +98,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day18)
+    main(Day18)

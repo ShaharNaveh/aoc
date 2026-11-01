@@ -3,7 +3,7 @@ import itertools
 import random
 import re
 
-from utils import Day, run
+from utils import Day, main
 
 
 def split_graph(connections) -> tuple[set[str], set[str]]:
@@ -61,4 +61,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    run(Day25)
+    main(Day25)

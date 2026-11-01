@@ -2,7 +2,7 @@ import collections
 import functools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def parse_rules(rule_block: str) -> dict[int, set[int]]:
@@ -114,4 +114,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day05)
+    main(Day05)

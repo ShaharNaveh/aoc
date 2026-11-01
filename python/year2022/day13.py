@@ -4,7 +4,7 @@ import json
 import math
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def compare_pair(left, right) -> bool:
@@ -101,4 +101,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day13)
+    main(Day13)

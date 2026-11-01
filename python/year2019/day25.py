@@ -5,7 +5,7 @@ import queue
 import re
 import typing
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -278,4 +278,4 @@ class Day25(Day):
 
 
 if __name__ == "__main__":
-    run(Day25)
+    main(Day25)

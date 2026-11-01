@@ -3,7 +3,7 @@ import heapq
 import typing
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Blizzard(typing.NamedTuple):
@@ -135,4 +135,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

@@ -1,7 +1,7 @@
 import functools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 @functools.cache
@@ -82,4 +82,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day20)
+    main(Day20)

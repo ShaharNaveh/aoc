@@ -3,7 +3,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 DIRECTIONS = list("ESWN")
 ROTATIONS = {"L": operator.sub, "R": operator.add}
@@ -97,4 +97,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day12)
+    main(Day12)

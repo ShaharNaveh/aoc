@@ -1,6 +1,6 @@
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def dig(steps):
@@ -51,4 +51,4 @@ class Day18(Day):
 
 
 if __name__ == "__main__":
-    run(Day18)
+    main(Day18)

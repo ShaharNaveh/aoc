@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Day05(Day):
@@ -111,4 +111,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day05)
+    main(Day05)

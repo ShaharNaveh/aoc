@@ -2,7 +2,7 @@ import hashlib
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def find(skey: str, prefix: str):
@@ -32,4 +32,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day04)
+    main(Day04)

@@ -1,6 +1,6 @@
 import collections
 
-from utils import Day, run
+from utils import Day, main
 
 INV = {"0": "1", "1": "0"}
 
@@ -51,4 +51,4 @@ class Day03(Day):
 
 
 if __name__ == "__main__":
-    run(Day03)
+    main(Day03)

@@ -2,7 +2,7 @@ import functools
 import itertools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 MIN_GRID_SIZE, MAX_GRID_SIZE = 1, 300
 type PrefixSum = collections.defaultdict[complex, int]
@@ -85,4 +85,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day11)
+    main(Day11)

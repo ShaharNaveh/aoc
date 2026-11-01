@@ -2,7 +2,7 @@ import collections
 import functools
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 BASE_REPLACE = {
     "A": "Z",
@@ -92,4 +92,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day07)
+    main(Day07)

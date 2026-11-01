@@ -2,7 +2,7 @@ import heapq
 import typing
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 CHARS = "ABCD"
 ROOMS = {char: i * 2 for i, char in enumerate(CHARS, 1)}
@@ -159,4 +159,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day23)
+    main(Day23)

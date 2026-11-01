@@ -1,6 +1,6 @@
 import collections
 
-from utils import Day, run
+from utils import Day, main
 
 
 def generate(num: int, count: int = 2000):
@@ -45,4 +45,4 @@ class Day22(Day):
 
 
 if __name__ == "__main__":
-    run(Day22)
+    main(Day22)

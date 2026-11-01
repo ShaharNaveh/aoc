@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def decode(signals: list[str], outputs: list[str]) -> int:
@@ -66,4 +66,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    run(Day08)
+    main(Day08)

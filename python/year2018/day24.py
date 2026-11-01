@@ -4,7 +4,7 @@ import itertools
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Groups = list["Group"]
 
@@ -180,4 +180,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

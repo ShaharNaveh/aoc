@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def sliding_window(iterable, n: int = 2):
@@ -29,4 +29,4 @@ class Day01(Day):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

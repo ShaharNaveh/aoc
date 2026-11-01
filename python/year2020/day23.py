@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def play(cups: list[int], steps: int = 100, pad: int | None = None):
@@ -71,4 +71,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day23)
+    main(Day23)

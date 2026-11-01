@@ -1,6 +1,6 @@
 import heapq
 
-from utils import Day, run
+from utils import Day, main
 
 
 def min_heat_loss(
@@ -53,4 +53,4 @@ class Day17(Day):
 
 
 if __name__ == "__main__":
-    run(Day17)
+    main(Day17)

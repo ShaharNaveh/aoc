@@ -3,7 +3,7 @@ import itertools
 import re
 import typing
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Claim(typing.NamedTuple):
@@ -65,4 +65,4 @@ class Day03(Day):
 
 
 if __name__ == "__main__":
-    run(Day03)
+    main(Day03)

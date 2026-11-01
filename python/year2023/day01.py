@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def solve_p1(lst):
@@ -66,4 +66,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def tilt_cycle(grid: tuple[str, ...]) -> tuple[str, ...]:
@@ -53,4 +53,4 @@ class Day14(Day):
 
 
 if __name__ == "__main__":
-    run(Day14)
+    main(Day14)

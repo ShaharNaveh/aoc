@@ -6,7 +6,7 @@ import re
 import typing
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def cmp(a: int, b: int) -> int:
@@ -110,4 +110,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day12)
+    main(Day12)

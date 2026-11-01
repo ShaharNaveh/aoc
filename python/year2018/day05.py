@@ -1,7 +1,7 @@
 import re
 import string
 
-from utils import Day, run
+from utils import Day, main
 
 PATTERN = re.compile(
     "|".join(
@@ -32,4 +32,4 @@ class Day05(Day):
 
 
 if __name__ == "__main__":
-    run(Day05)
+    main(Day05)

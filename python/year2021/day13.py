@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def do_fold(coords: set[complex], fold: complex) -> set[complex]:
@@ -86,4 +86,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day13)
+    main(Day13)

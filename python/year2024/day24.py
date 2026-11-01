@@ -8,7 +8,7 @@ from operator import (
     xor as XOR,
 )
 
-from utils import Day, run
+from utils import Day, main
 
 OPS = {"AND": AND, "OR": OR, "XOR": XOR}
 
@@ -83,4 +83,4 @@ class Day24(Day):
 
 
 if __name__ == "__main__":
-    run(Day24)
+    main(Day24)

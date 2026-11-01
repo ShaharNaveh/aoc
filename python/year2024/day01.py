@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def calc_distance(lst1, lst2):
@@ -54,4 +54,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

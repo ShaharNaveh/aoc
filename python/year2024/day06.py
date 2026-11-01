@@ -3,7 +3,7 @@ import itertools
 import operator
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -87,4 +87,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day06)
+    main(Day06)

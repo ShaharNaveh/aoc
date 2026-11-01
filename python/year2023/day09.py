@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def gen_seqs(history: tuple[int]):
@@ -46,4 +46,4 @@ class Day09(Day):
 
 
 if __name__ == "__main__":
-    run(Day09)
+    main(Day09)

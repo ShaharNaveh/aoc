@@ -2,7 +2,7 @@ import collections
 import enum
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -117,4 +117,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day23)
+    main(Day23)

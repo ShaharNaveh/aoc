@@ -1,7 +1,7 @@
 import dataclasses
 import heapq
 
-from utils import Day, run
+from utils import Day, main
 
 
 @dataclasses.dataclass(order=True, frozen=True, slots=True)
@@ -73,4 +73,4 @@ class Day18(Day):
 
 
 if __name__ == "__main__":
-    run(Day18)
+    main(Day18)

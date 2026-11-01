@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, run
+from utils import Day, main
 
 NUMPAD = {
     "0": 1 + 3j,
@@ -78,4 +78,4 @@ class Day21(Day):
 
 
 if __name__ == "__main__":
-    run(Day21)
+    main(Day21)

@@ -6,7 +6,7 @@ import operator
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 global dists  # Instead of writing a custom cache decorator
 
@@ -114,4 +114,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day16)
+    main(Day16)

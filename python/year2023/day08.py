@@ -1,7 +1,7 @@
 import itertools
 import math
 
-from utils import Day, run
+from utils import Day, main
 
 
 def steps_to_reach(instructions, nodes, start_nodes, end_nodes):
@@ -51,4 +51,4 @@ class Day08(Day):
 
 
 if __name__ == "__main__":
-    run(Day08)
+    main(Day08)

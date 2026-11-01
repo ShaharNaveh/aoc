@@ -1,7 +1,7 @@
 import collections
 import itertools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def simulate(stacks, instructions, *, is_p2: bool = False):
@@ -51,4 +51,4 @@ class Day05(Day):
 
 
 if __name__ == "__main__":
-    run(Day05)
+    main(Day05)

@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 def play_combat(deck1: list[int], deck2: list[int]) -> tuple[list[int], list[int]]:
@@ -89,4 +89,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day22)
+    main(Day22)

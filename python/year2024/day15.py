@@ -1,6 +1,6 @@
 import enum
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -124,4 +124,4 @@ class Day15(Day):
 
 
 if __name__ == "__main__":
-    run(Day15)
+    main(Day15)

@@ -1,7 +1,7 @@
 import itertools
 import math
 
-from utils import Day, run
+from utils import Day, main
 
 
 def solve(nums, size: int = 2) -> int:
@@ -29,4 +29,4 @@ class Day01(Day):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

@@ -2,7 +2,7 @@ import math
 import operator
 import re
 
-from utils import Day, run
+from utils import Day, main
 
 
 def calc_accepted_parts(
@@ -128,4 +128,4 @@ class Day19(Day):
 
 
 if __name__ == "__main__":
-    run(Day19)
+    main(Day19)

@@ -4,7 +4,7 @@ import heapq
 import itertools
 import typing
 
-from utils import Day, run
+from utils import Day, main
 
 
 @enum.unique
@@ -283,4 +283,4 @@ class Day17(Day):
 
 
 if __name__ == "__main__":
-    run(Day17)
+    main(Day17)

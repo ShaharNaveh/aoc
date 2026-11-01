@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, run
+from utils import Day, main
 
 
 @functools.cache
@@ -40,4 +40,4 @@ class Day11(Day):
 
 
 if __name__ == "__main__":
-    run(Day11)
+    main(Day11)

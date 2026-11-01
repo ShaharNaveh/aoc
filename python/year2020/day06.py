@@ -1,6 +1,6 @@
 import functools
 
-from utils import Day, run
+from utils import Day, main
 
 
 def iter_puzzle(puzzle):
@@ -25,4 +25,4 @@ class Day06(Day):
 
 
 if __name__ == "__main__":
-    run(Day06)
+    main(Day06)

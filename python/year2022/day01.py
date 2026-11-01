@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def iter_puzzle(puzzle):
@@ -7,7 +7,7 @@ def iter_puzzle(puzzle):
     for line in inp.splitlines():
         if line == "":
             yield buf
-            buf.clear()
+            buf = []
         else:
             buf.append(int(line))
     yield buf
@@ -25,4 +25,4 @@ class Day01(Day):
 
 
 if __name__ == "__main__":
-    run(Day01)
+    main(Day01)

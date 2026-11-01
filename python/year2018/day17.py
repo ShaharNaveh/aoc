@@ -2,7 +2,7 @@ import collections
 import re
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 type Grid = collections.defaultdict[complex, str]
 
@@ -127,4 +127,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day17)
+    main(Day17)

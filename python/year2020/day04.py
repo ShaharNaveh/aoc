@@ -2,7 +2,7 @@ import string
 import typing
 import unittest
 
-from utils import Day, run
+from utils import Day, main
 
 
 class Passport(typing.NamedTuple):
@@ -101,4 +101,4 @@ class Tests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    run(Day04)
+    main(Day04)

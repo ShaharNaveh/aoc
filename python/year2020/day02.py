@@ -1,4 +1,4 @@
-from utils import Day, run
+from utils import Day, main
 
 
 def is_valid(line: str, *, is_p2: bool = False) -> bool:
@@ -29,4 +29,4 @@ class Day02(Day):
 
 
 if __name__ == "__main__":
-    run(Day02)
+    main(Day02)
