@@ -313,7 +313,7 @@ Solutions to [Advent of Code](https://adventofcode.com) puzzles.
 
 ## 2015
 
-8/25 days solved.
+12/25 days solved.
 
 | Day | Python | Rust |
 |---:|:---:|:---:|
@@ -325,10 +325,10 @@ Solutions to [Advent of Code](https://adventofcode.com) puzzles.
 | [6](https://adventofcode.com/2015/day/6) |  | [✓](rust/crates/year2015/src/bin/day06.rs) |
 | [7](https://adventofcode.com/2015/day/7) |  | [✓](rust/crates/year2015/src/bin/day07.rs) |
 | [8](https://adventofcode.com/2015/day/8) |  | [✓](rust/crates/year2015/src/bin/day08.rs) |
-| [9](https://adventofcode.com/2015/day/9) |  |  |
-| [10](https://adventofcode.com/2015/day/10) |  |  |
-| [11](https://adventofcode.com/2015/day/11) |  |  |
-| [12](https://adventofcode.com/2015/day/12) |  |  |
+| [9](https://adventofcode.com/2015/day/9) |  | [✓](rust/crates/year2015/src/bin/day09.rs) |
+| [10](https://adventofcode.com/2015/day/10) |  | [✓](rust/crates/year2015/src/bin/day10.rs) |
+| [11](https://adventofcode.com/2015/day/11) |  | [✓](rust/crates/year2015/src/bin/day11.rs) |
+| [12](https://adventofcode.com/2015/day/12) | [✓](python/year2015/day12.py) |  |
 | [13](https://adventofcode.com/2015/day/13) |  |  |
 | [14](https://adventofcode.com/2015/day/14) |  |  |
 | [15](https://adventofcode.com/2015/day/15) |  |  |
