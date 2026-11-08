@@ -1,6 +1,6 @@
 [package]
 name = "year2015"
-default-run = "day17"
+default-run = "day18"
 version = { workspace = true }
 edition = { workspace = true }
 
