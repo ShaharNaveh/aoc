@@ -271,14 +271,18 @@ impl Game {
         loop {
             match turn {
                 EntityType::Boss => {
-                    player.hp = if let Some(nhp) = player.hp.checked_sub(boss_damage) {
+                    player.hp = if let Some(nhp) = player.hp.checked_sub(boss_damage)
+                        && nhp != 0
+                    {
                         nhp
                     } else {
                         return turn;
                     }
                 }
                 EntityType::Player => {
-                    boss.hp = if let Some(nhp) = boss.hp.checked_sub(player_damage) {
+                    boss.hp = if let Some(nhp) = boss.hp.checked_sub(player_damage)
+                        && nhp != 0
+                    {
                         nhp
                     } else {
                         return turn;
